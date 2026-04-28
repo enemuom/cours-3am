@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الشحنة الكهربائية | السنة الرابعة متوسط</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark:    #0a0f1e;
+  --dark2:   #111827;
+  --dark3:   #1a2540;
+  --blue:    #2563eb;
+  --blue2:   #3b82f6;
+  --cyan:    #06b6d4;
+  --gold:    #f59e0b;
+  --gold2:   #fbbf24;
+  --red:     #ef4444;
+  --green:   #22c55e;
+  --text:    #e2e8f0;
+  --muted:   #94a3b8;
+  --border:  rgba(255,255,255,.08);
+  --card:    rgba(255,255,255,.04);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background: var(--dark);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── PARTICLES BG ── */
+.bg-canvas {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(37,99,235,.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(6,182,212,.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(245,158,11,.05) 0%, transparent 60%);
+}
+
+/* ── HEADER ── */
+header {
+  position: relative; z-index: 10;
+  background: rgba(10,15,30,.95);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  padding: 0 32px;
+}
+
+.header-inner {
+  max-width: 1000px; margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 18px 0;
+}
+
+.back-btn {
+  display: flex; align-items: center; gap: 6px;
+  color: var(--muted); font-size: .8rem; font-weight: 600;
+  text-decoration: none; padding: 6px 12px; border-radius: 8px;
+  border: 1px solid var(--border);
+  transition: .2s;
+}
+.back-btn:hover { color: var(--text); border-color: rgba(255,255,255,.2); }
+
+.breadcrumb {
+  display: flex; align-items: center; gap: 8px;
+  font-size: .78rem; color: var(--muted);
+}
+.breadcrumb span { color: var(--blue2); font-weight: 700; }
+.breadcrumb .sep { opacity: .4; }
+
+.lesson-badge {
+  margin-right: auto;
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  color: #fff; font-size: .72rem; font-weight: 700;
+  padding: 4px 14px; border-radius: 20px;
+}
+
+/* ── HERO SECTION ── */
+.lesson-hero {
+  position: relative; z-index: 1;
+  max-width: 1000px; margin: 0 auto;
+  padding: 52px 32px 40px;
+}
+
+.lesson-num {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: .75rem; font-weight: 700; letter-spacing: .1em;
+  color: var(--cyan); margin-bottom: 16px;
+}
+.lesson-num::before {
+  content: ''; width: 24px; height: 2px; background: var(--cyan);
+}
+
+.lesson-hero h1 {
+  font-family: 'Amiri', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: #fff; line-height: 1.2; margin-bottom: 16px;
+}
+
+.lesson-hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--blue2), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.lesson-meta {
+  display: flex; gap: 20px; flex-wrap: wrap;
+  font-size: .8rem; color: var(--muted); margin-bottom: 32px;
+}
+.lesson-meta span {
+  display: flex; align-items: center; gap: 6px;
+}
+
+.objectives-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-right: 3px solid var(--blue2);
+  border-radius: 12px; padding: 20px 24px;
+  margin-bottom: 8px;
+}
+.objectives-box h3 {
+  font-size: .78rem; font-weight: 700; letter-spacing: .08em;
+  color: var(--blue2); margin-bottom: 12px; text-transform: uppercase;
+}
+.objectives-box ul { list-style: none; }
+.objectives-box li {
+  font-size: .88rem; color: var(--text); padding: 5px 0;
+  display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+}
+.objectives-box li::before {
+  content: '✦'; color: var(--cyan); font-size: .65rem; margin-top: 4px; flex-shrink: 0;
+}
+
+/* ── TABS NAV ── */
+.tabs-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(10,15,30,.97);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+}
+.tabs-inner {
+  max-width: 1000px; margin: 0 auto;
+  display: flex; padding: 0 32px; gap: 0; overflow-x: auto;
+}
+.tab-btn {
+  padding: 16px 22px; border: none; background: none; cursor: pointer;
+  font-family: 'Cairo', sans-serif; font-size: .85rem; font-weight: 600;
+  color: var(--muted); border-bottom: 2px solid transparent;
+  transition: .2s; white-space: nowrap;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--blue2); border-bottom-color: var(--blue2); }
+
+/* ── CONTENT ── */
+.content-wrap {
+  position: relative; z-index: 1;
+  max-width: 1000px; margin: 0 auto;
+  padding: 40px 32px 80px;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── SECTION TITLES ── */
+.sec-title {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px; margin-top: 36px;
+}
+.sec-title:first-child { margin-top: 0; }
+.sec-title .icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--blue), var(--blue2));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+}
+.sec-title h2 {
+  font-size: 1.15rem; font-weight: 800; color: #fff;
+}
+.sec-title .line {
+  flex: 1; height: 1px; background: var(--border);
+}
+
+/* ── CONTENT CARDS ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px; padding: 24px;
+  margin-bottom: 16px;
+}
+
+.card h3 {
+  font-size: .95rem; font-weight: 700; color: var(--cyan);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+
+.card p {
+  font-size: .9rem; color: var(--text); line-height: 1.8;
+  margin-bottom: 10px;
+}
+.card p:last-child { margin-bottom: 0; }
+
+/* ── HIGHLIGHT BOX ── */
+.highlight {
+  background: linear-gradient(135deg, rgba(37,99,235,.15), rgba(6,182,212,.10));
+  border: 1px solid rgba(59,130,246,.3);
+  border-radius: 12px; padding: 18px 20px;
+  margin: 16px 0;
+}
+.highlight p { font-size: .9rem; line-height: 1.8; }
+
+.def-box {
+  background: rgba(245,158,11,.08);
+  border: 1px solid rgba(245,158,11,.25);
+  border-radius: 10px; padding: 16px 20px; margin: 12px 0;
+}
+.def-box .def-title {
+  font-size: .72rem; font-weight: 700; letter-spacing: .08em;
+  color: var(--gold2); margin-bottom: 8px; text-transform: uppercase;
+}
+.def-box p { font-size: .88rem; color: var(--text); line-height: 1.7; }
+
+/* ── INTERACTIVE: SIMULATION ── */
+.sim-container {
+  background: var(--dark3);
+  border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden; margin-bottom: 20px;
+}
+
+.sim-header {
+  background: rgba(255,255,255,.04);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.sim-header h3 { font-size: .88rem; font-weight: 700; color: var(--text); }
+.sim-badge {
+  font-size: .65rem; background: rgba(6,182,212,.2); color: var(--cyan);
+  border: 1px solid rgba(6,182,212,.3); padding: 2px 8px; border-radius: 6px;
+  font-weight: 700;
+}
+
+.sim-body { padding: 24px; }
+
+/* CHARGE SIMULATOR */
+.charge-arena {
+  width: 100%; height: 220px;
+  background: rgba(10,15,30,.6);
+  border-radius: 12px; border: 1px solid var(--border);
+  position: relative; overflow: hidden; margin-bottom: 16px;
+  cursor: crosshair;
+}
+.charge-arena .arena-label {
+  position: absolute; top: 10px; right: 12px;
+  font-size: .68rem; color: var(--muted); font-weight: 600;
+}
+
+.charge-obj {
+  position: absolute;
+  width: 60px; height: 60px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; font-weight: 900;
+  cursor: grab; user-select: none;
+  transition: box-shadow .2s;
+  border: 3px solid;
+}
+.charge-obj.positive {
+  background: rgba(239,68,68,.15);
+  border-color: var(--red);
+  color: var(--red);
+  box-shadow: 0 0 20px rgba(239,68,68,.3);
+}
+.charge-obj.negative {
+  background: rgba(37,99,235,.15);
+  border-color: var(--blue2);
+  color: var(--blue2);
+  box-shadow: 0 0 20px rgba(37,99,235,.3);
+}
+
+.force-arrow {
+  position: absolute;
+  pointer-events: none;
+  transform-origin: 0 50%;
+  display: flex; align-items: center;
+}
+
+.sim-controls {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+.sim-btn {
+  padding: 8px 18px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--card); color: var(--text);
+  font-family: 'Cairo', sans-serif; font-size: .8rem; font-weight: 600;
+  cursor: pointer; transition: .2s;
+}
+.sim-btn:hover { border-color: var(--blue2); color: var(--blue2); }
+.sim-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+.result-panel {
+  background: rgba(10,15,30,.6);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px;
+  margin-top: 14px; font-size: .82rem;
+}
+.result-panel .r-title { color: var(--muted); font-size: .72rem; margin-bottom: 6px; font-weight: 600; }
+.result-panel .r-val { color: var(--text); font-weight: 600; }
+.result-panel.attract { border-color: rgba(34,197,94,.3); }
+.result-panel.repel   { border-color: rgba(239,68,68,.3); }
+
+/* ── METHODS TABLE ── */
+.methods-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  margin: 16px 0;
+}
+.method-card {
+  background: var(--dark3);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px 16px; text-align: center;
+  transition: border-color .2s, transform .2s;
+  cursor: default;
+}
+.method-card:hover { border-color: var(--blue2); transform: translateY(-3px); }
+.method-card .m-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
+.method-card .m-name { font-size: .85rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+.method-card .m-desc { font-size: .75rem; color: var(--muted); line-height: 1.5; }
+
+/* ── QUIZ ── */
+.quiz-container { }
+.q-card {
+  background: var(--dark3);
+  border: 1px solid var(--border);
+  border-radius: 14px; padding: 24px;
+  margin-bottom: 16px;
+}
+.q-num {
+  font-size: .7rem; font-weight: 700; letter-spacing: .08em;
+  color: var(--cyan); margin-bottom: 10px; text-transform: uppercase;
+}
+.q-text {
+  font-size: .95rem; color: var(--text); line-height: 1.7;
+  margin-bottom: 18px; font-weight: 600;
+}
+.q-options { display: flex; flex-direction: column; gap: 8px; }
+.q-opt {
+  padding: 12px 16px; border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card); color: var(--text);
+  font-family: 'Cairo', sans-serif; font-size: .88rem;
+  cursor: pointer; text-align: right; transition: .2s;
+  display: flex; align-items: center; gap: 10px;
+}
+.q-opt:hover:not(.answered) { border-color: var(--blue2); }
+.q-opt.correct { border-color: var(--green); background: rgba(34,197,94,.1); color: var(--green); }
+.q-opt.wrong   { border-color: var(--red);   background: rgba(239,68,68,.1);  color: var(--red);   }
+.q-opt .opt-icon { font-size: .9rem; }
+.q-feedback {
+  margin-top: 12px; padding: 12px 16px; border-radius: 8px;
+  font-size: .82rem; line-height: 1.6; display: none;
+}
+.q-feedback.correct { background: rgba(34,197,94,.1); border:1px solid rgba(34,197,94,.3); color: var(--green); }
+.q-feedback.wrong   { background: rgba(239,68,68,.1);  border:1px solid rgba(239,68,68,.3);  color: #f87171; }
+.q-feedback.show { display: block; }
+
+.quiz-score {
+  background: linear-gradient(135deg, rgba(37,99,235,.2), rgba(6,182,212,.15));
+  border: 1px solid rgba(59,130,246,.3);
+  border-radius: 14px; padding: 24px; text-align: center;
+  display: none;
+}
+.quiz-score.show { display: block; }
+.score-num { font-size: 3rem; font-weight: 900; color: var(--gold2); }
+.score-msg { font-size: .9rem; color: var(--text); margin-top: 8px; }
+
+.quiz-submit {
+  width: 100%; padding: 14px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  border: none; color: #fff;
+  font-family: 'Cairo', sans-serif; font-size: .95rem; font-weight: 700;
+  cursor: pointer; margin-top: 8px; transition: opacity .2s;
+}
+.quiz-submit:hover { opacity: .9; }
+
+/* ── SUMMARY ── */
+.summary-card {
+  background: linear-gradient(135deg, rgba(37,99,235,.12), rgba(6,182,212,.08));
+  border: 1px solid rgba(59,130,246,.25);
+  border-radius: 16px; padding: 28px;
+}
+.summary-card h3 {
+  font-family: 'Amiri', serif; font-size: 1.3rem;
+  color: #fff; margin-bottom: 20px;
+  padding-bottom: 14px; border-bottom: 1px solid var(--border);
+}
+.summary-list { list-style: none; }
+.summary-list li {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.05);
+  font-size: .88rem; color: var(--text); line-height: 1.6;
+}
+.summary-list li:last-child { border-bottom: none; }
+.summary-list li .s-icon {
+  width: 28px; height: 28px; border-radius: 7px;
+  background: rgba(37,99,235,.2); border: 1px solid rgba(59,130,246,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .8rem; flex-shrink: 0; margin-top: 1px;
+}
+
+.print-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 20px; padding: 10px 20px; border-radius: 10px;
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--text); font-family: 'Cairo', sans-serif;
+  font-size: .82rem; font-weight: 600; cursor: pointer;
+  transition: .2s; text-decoration: none;
+}
+.print-btn:hover { border-color: var(--blue2); color: var(--blue2); }
+
+/* ── FORMULA ── */
+.formula-box {
+  background: var(--dark3);
+  border: 1px solid rgba(6,182,212,.3);
+  border-radius: 12px; padding: 18px 22px; margin: 14px 0;
+  text-align: center;
+}
+.formula-box .formula {
+  font-size: 1.2rem; font-weight: 700; color: var(--cyan);
+  letter-spacing: .05em; margin-bottom: 8px;
+}
+.formula-box .formula-desc { font-size: .78rem; color: var(--muted); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .lesson-hero, .content-wrap { padding-left: 16px; padding-right: 16px; }
+  .tabs-inner { padding: 0 16px; }
+  .header-inner { padding: 14px 0; }
+  header { padding: 0 16px; }
+  .methods-grid { grid-template-columns: 1fr; }
+  .lesson-meta { gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="back-btn">← الفهرس</a>
+    <div class="breadcrumb">
+      <span>س4م</span>
+      <span class="sep">›</span>
+      المقطع 1 — الظواهر الكهربائية
+      <span class="sep">›</span>
+      الدرس 01
+    </div>
+    <div class="lesson-badge">4ème AM</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="lesson-hero">
+  <div class="lesson-num">الدرس الأول</div>
+  <h1>الشحنة <em>الكهربائية</em></h1>
+  <div class="lesson-meta">
+    <span>⚡ الظواهر الكهربائية</span>
+    <span>📅 المقطع 1 — سبتمبر/أكتوبر</span>
+    <span>⏱ 60 دقيقة</span>
+    <span>📚 منهاج الجيل الثاني 2025/2026</span>
+  </div>
+  <div class="objectives-box">
+    <h3>🎯 الأهداف التعلمية</h3>
+    <ul>
+      <li>تعريف ظاهرة التكهرب وأسبابها</li>
+      <li>التعرف على طرق التكهرب الثلاث (الدلك، اللمس، التأثير)</li>
+      <li>التمييز بين نوعي الشحنات الكهربائية (موجبة وسالبة)</li>
+      <li>وصف الأفعال المتبادلة بين الأجسام المشحونة كهربائياً</li>
+    </ul>
+  </div>
+</div>
+
+<!-- TABS -->
+<nav class="tabs-nav">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="showTab('cours')">📖 الدرس</button>
+    <button class="tab-btn" onclick="showTab('simulation')">⚡ تجربة تفاعلية</button>
+    <button class="tab-btn" onclick="showTab('exercices')">✏️ تمارين</button>
+    <button class="tab-btn" onclick="showTab('resume')">📋 ملخص الكراس</button>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<div class="content-wrap">
+
+  <!-- ════════ COURS ════════ -->
+  <div class="tab-panel active" id="tab-cours">
+
+    <!-- I: ظاهرة التكهرب -->
+    <div class="sec-title">
+      <div class="icon">⚡</div>
+      <h2>I. ظاهرة التكهرب</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="card">
+      <h3>🔬 الملاحظة التجريبية</h3>
+      <p>عند دلك قضيب من البلاستيك أو الزجاج بقطعة من الصوف أو الحرير، يكتسب القضيب خاصية <strong>جذب الأجسام الخفيفة</strong> كقصاصات الورق وقطع الفلين. هذه الظاهرة تسمى <strong>ظاهرة التكهرب</strong>.</p>
+      <div class="def-box">
+        <div class="def-title">📌 تعريف</div>
+        <p><strong>التكهرب</strong> هو اكتساب جسم ما لشحنات كهربائية، مما يجعله قادراً على التأثير على الأجسام المجاورة له.</p>
+      </div>
+      <p>الجسم الذي يكتسب شحنات كهربائية يسمى <strong>جسماً مكهرباً أو مشحوناً</strong>.</p>
+    </div>
+
+    <!-- II: طرق التكهرب -->
+    <div class="sec-title">
+      <div class="icon">🔧</div>
+      <h2>II. طرق التكهرب</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="methods-grid">
+      <div class="method-card">
+        <span class="m-icon">🤝</span>
+        <div class="m-name">التكهرب بالدلك</div>
+        <div class="m-desc">دلك جسم عازل بجسم آخر مما يؤدي إلى انتقال إلكترونات من جسم إلى آخر</div>
+      </div>
+      <div class="method-card">
+        <span class="m-icon">👆</span>
+        <div class="m-name">التكهرب باللمس</div>
+        <div class="m-desc">تلامس جسم مشحون مع جسم محايد فينتقل جزء من الشحنات إلى الجسم المحايد</div>
+      </div>
+      <div class="method-card">
+        <span class="m-icon">✨</span>
+        <div class="m-name">التكهرب بالتأثير</div>
+        <div class="m-desc">اقتراب جسم مشحون من جسم محايد دون تلامس يؤدي إلى توزيع غير متساوٍ للشحنات</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📝 التكهرب بالدلك — تفاصيل</h3>
+      <p>عند دلك قضيب بلاستيكي بقطعة صوف:</p>
+      <div class="highlight">
+        <p>⚡ تنتقل الإلكترونات من الصوف إلى البلاستيك ← يصبح البلاستيك <strong style="color:var(--blue2)">مشحوناً سالباً</strong></p>
+        <p>⚡ يفقد الصوف إلكترونات ← يصبح الصوف <strong style="color:var(--red)">مشحوناً موجباً</strong></p>
+      </div>
+      <p>عند دلك قضيب زجاجي بقطعة حرير:</p>
+      <div class="highlight">
+        <p>⚡ تنتقل الإلكترونات من الزجاج إلى الحرير ← يصبح الزجاج <strong style="color:var(--red)">مشحوناً موجباً</strong></p>
+        <p>⚡ يكتسب الحرير إلكترونات ← يصبح الحرير <strong style="color:var(--blue2)">مشحوناً سالباً</strong></p>
+      </div>
+    </div>
+
+    <!-- III: أنواع الشحنات -->
+    <div class="sec-title">
+      <div class="icon">🔴</div>
+      <h2>III. أنواع الشحنات الكهربائية</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="card">
+      <h3>⊕ الشحنة الموجبة والشحنة السالبة</h3>
+      <p>تجارب متعددة أثبتت وجود <strong>نوعين فقط</strong> من الشحنات الكهربائية:</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:14px 0;">
+        <div style="background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.3); border-radius:10px; padding:14px; text-align:center;">
+          <div style="font-size:1.8rem; color:var(--red); font-weight:900;">+</div>
+          <div style="font-size:.85rem; font-weight:700; color:var(--text);">الشحنة الموجبة</div>
+          <div style="font-size:.75rem; color:var(--muted); margin-top:4px;">مثال: قضيب زجاجي مدلوك بالحرير</div>
+        </div>
+        <div style="background:rgba(37,99,235,.1); border:1px solid rgba(37,99,235,.3); border-radius:10px; padding:14px; text-align:center;">
+          <div style="font-size:1.8rem; color:var(--blue2); font-weight:900;">−</div>
+          <div style="font-size:.85rem; font-weight:700; color:var(--text);">الشحنة السالبة</div>
+          <div style="font-size:.75rem; color:var(--muted); margin-top:4px;">مثال: قضيب بلاستيكي مدلوك بالصوف</div>
+        </div>
+      </div>
+
+      <div class="formula-box">
+        <div class="formula">الشحنة الكهربائية: q = n × e</div>
+        <div class="formula-desc">حيث e = 1.6 × 10⁻¹⁹ كولوم هي الشحنة الأولية — n عدد الإلكترونات المنتقلة</div>
+      </div>
+    </div>
+
+    <!-- IV: الأفعال المتبادلة -->
+    <div class="sec-title">
+      <div class="icon">🔁</div>
+      <h2>IV. الأفعال المتبادلة بين الأجسام المشحونة</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="card">
+      <h3>⚡ قاعدة الأفعال المتبادلة</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:14px 0;">
+        <div style="background:rgba(34,197,94,.08); border:1px solid rgba(34,197,94,.25); border-radius:10px; padding:16px; text-align:center;">
+          <div style="font-size:1.4rem; margin-bottom:8px;">🔴 ←→ 🔵</div>
+          <div style="font-size:.85rem; font-weight:700; color:var(--green);">شحنتان متخالفتان</div>
+          <div style="font-size:.78rem; color:var(--muted); margin-top:4px;">(+ و −) تتجاذبان</div>
+        </div>
+        <div style="background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.25); border-radius:10px; padding:16px; text-align:center;">
+          <div style="font-size:1.4rem; margin-bottom:8px;">🔴 ←  → 🔴</div>
+          <div style="font-size:.85rem; font-weight:700; color:var(--red);">شحنتان متماثلتان</div>
+          <div style="font-size:.78rem; color:var(--muted); margin-top:4px;">(+ و +) أو (− و −) تتنافران</div>
+        </div>
+      </div>
+      <div class="def-box">
+        <div class="def-title">📌 القاعدة</div>
+        <p><strong>الشحنات المتماثلة تتنافر — الشحنات المتخالفة تتجاذب</strong></p>
+      </div>
+    </div>
+
+  </div><!-- /tab-cours -->
+
+
+  <!-- ════════ SIMULATION ════════ -->
+  <div class="tab-panel" id="tab-simulation">
+
+    <div class="sec-title">
+      <div class="icon">⚡</div>
+      <h2>تجربة تفاعلية — الأفعال المتبادلة</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="sim-container">
+      <div class="sim-header">
+        <h3>محاكاة الشحنات الكهربائية</h3>
+        <span class="sim-badge">تفاعلي</span>
+      </div>
+      <div class="sim-body">
+
+        <p style="font-size:.82rem; color:var(--muted); margin-bottom:14px;">اختر شحنة كل جسم وشاهد قوة التجاذب أو التنافر بينهما</p>
+
+        <div class="charge-arena" id="arena">
+          <div class="arena-label">منطقة التجربة</div>
+          <div class="charge-obj positive" id="obj1" style="left:80px; top:80px;">+</div>
+          <div class="charge-obj negative" id="obj2" style="right:80px; top:80px;">−</div>
+          <svg id="force-svg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></svg>
+        </div>
+
+        <div class="sim-controls">
+          <div style="display:flex; gap:8px; align-items:center;">
+            <span style="font-size:.78rem; color:var(--muted);">الجسم A:</span>
+            <button class="sim-btn active" id="a-pos" onclick="setCharge('A','pos')">موجب (+)</button>
+            <button class="sim-btn" id="a-neg" onclick="setCharge('A','neg')">سالب (−)</button>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <span style="font-size:.78rem; color:var(--muted);">الجسم B:</span>
+            <button class="sim-btn" id="b-pos" onclick="setCharge('B','pos')">موجب (+)</button>
+            <button class="sim-btn active" id="b-neg" onclick="setCharge('B','neg')">سالب (−)</button>
+          </div>
+        </div>
+
+        <div class="result-panel attract" id="result-panel">
+          <div class="r-title">نتيجة التجربة:</div>
+          <div class="r-val" id="result-text">⚡ الجسم A (موجب) والجسم B (سالب) → شحنتان متخالفتان → <strong>تتجاذبان</strong></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- تجربة التكهرب -->
+    <div class="sim-container">
+      <div class="sim-header">
+        <h3>تجربة التكهرب بالدلك</h3>
+        <span class="sim-badge">تفاعلي</span>
+      </div>
+      <div class="sim-body">
+        <p style="font-size:.82rem; color:var(--muted); margin-bottom:18px;">اضغط على زر الدلك لتكهرب القضيب ثم اقتربه من قصاصات الورق</p>
+
+        <div style="display:flex; align-items:center; justify-content:space-around; padding:30px 0; background:rgba(10,15,30,.5); border-radius:12px; margin-bottom:16px; position:relative; overflow:hidden;" id="rub-demo">
+          <!-- القضيب -->
+          <div style="text-align:center;">
+            <div id="rod" style="width:120px; height:22px; background:linear-gradient(135deg,#6366f1,#8b5cf6); border-radius:4px; margin:0 auto 10px; box-shadow:0 0 0 rgba(99,102,241,0); transition:box-shadow .4s; display:flex; align-items:center; justify-content:center; font-size:.72rem; color:white; font-weight:700;">قضيب بلاستيك</div>
+            <div id="rod-charge" style="font-size:.75rem; color:var(--muted);">محايد</div>
+          </div>
+          <!-- قصاصات -->
+          <div style="text-align:center;">
+            <div style="display:flex; gap:4px; flex-wrap:wrap; width:80px; justify-content:center; margin:0 auto 10px;">
+              <div class="paper-bit" style="width:12px;height:16px;background:#f0c040;border-radius:2px;transition:transform .4s;"></div>
+              <div class="paper-bit" style="width:10px;height:14px;background:#f0c040;border-radius:2px;transition:transform .4s;animation-delay:.05s"></div>
+              <div class="paper-bit" style="width:14px;height:12px;background:#f0c040;border-radius:2px;transition:transform .4s;animation-delay:.1s"></div>
+              <div class="paper-bit" style="width:11px;height:15px;background:#f0c040;border-radius:2px;transition:transform .4s;animation-delay:.15s"></div>
+              <div class="paper-bit" style="width:13px;height:13px;background:#f0c040;border-radius:2px;transition:transform .4s;animation-delay:.2s"></div>
+              <div class="paper-bit" style="width:10px;height:16px;background:#f0c040;border-radius:2px;transition:transform .4s;animation-delay:.25s"></div>
+            </div>
+            <div style="font-size:.75rem; color:var(--muted);">قصاصات الورق</div>
+          </div>
+        </div>
+
+        <div class="sim-controls">
+          <button class="sim-btn" onclick="rubRod()" id="rub-btn">🤝 دلك القضيب بالصوف</button>
+          <button class="sim-btn" onclick="approachRod()" id="approach-btn" disabled style="opacity:.4">↔ اقترب من الورق</button>
+          <button class="sim-btn" onclick="resetRod()">🔄 إعادة</button>
+        </div>
+
+        <div class="result-panel" id="rub-result" style="display:none; margin-top:14px;">
+          <div class="r-title">الملاحظة:</div>
+          <div class="r-val" id="rub-result-text"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /tab-simulation -->
+
+
+  <!-- ════════ EXERCICES ════════ -->
+  <div class="tab-panel" id="tab-exercices">
+
+    <div class="sec-title">
+      <div class="icon">✏️</div>
+      <h2>تمارين تقييمية</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="quiz-container" id="quiz">
+
+      <!-- س1 -->
+      <div class="q-card">
+        <div class="q-num">السؤال 01</div>
+        <div class="q-text">عند دلك قضيب بلاستيكي بقطعة صوف، ماذا يحدث للإلكترونات؟</div>
+        <div class="q-options">
+          <button class="q-opt" onclick="answer(this,false,'q1')" data-q="q1">
+            <span class="opt-icon">○</span> تنتقل الإلكترونات من البلاستيك إلى الصوف
+          </button>
+          <button class="q-opt" onclick="answer(this,true,'q1')" data-q="q1">
+            <span class="opt-icon">○</span> تنتقل الإلكترونات من الصوف إلى البلاستيك
+          </button>
+          <button class="q-opt" onclick="answer(this,false,'q1')" data-q="q1">
+            <span class="opt-icon">○</span> لا تنتقل الإلكترونات وتبقى في مكانها
+          </button>
+          <button class="q-opt" onclick="answer(this,false,'q1')" data-q="q1">
+            <span class="opt-icon">○</span> تُدمَّر الإلكترونات أثناء الدلك
+          </button>
+        </div>
+        <div class="q-feedback" id="fb-q1"></div>
+      </div>
+
+      <!-- س2 -->
+      <div class="q-card">
+        <div class="q-num">السؤال 02</div>
+        <div class="q-text">جسمان مشحونان: الأول بشحنة موجبة والثاني بشحنة موجبة. ما نوع القوة بينهما؟</div>
+        <div class="q-options">
+          <button class="q-opt" onclick="answer(this,false,'q2')" data-q="q2">
+            <span class="opt-icon">○</span> قوة تجاذب لأن الشحنتين متساويتان في القيمة
+          </button>
+          <button class="q-opt" onclick="answer(this,true,'q2')" data-q="q2">
+            <span class="opt-icon">○</span> قوة تنافر لأن الشحنتين متماثلتان
+          </button>
+          <button class="q-opt" onclick="answer(this,false,'q2')" data-q="q2">
+            <span class="opt-icon">○</span> لا توجد أي قوة بينهما
+          </button>
+          <button class="q-opt" onclick="answer(this,false,'q2')" data-q="q2">
+            <span class="opt-icon">○</span> قوة تجاذب لأن الجسمين متقاربان
+          </button>
+        </div>
+        <div class="q-feedback" id="fb-q2"></div>
+      </div>
+
+      <!-- س3 -->
+      <div class="q-card">
+        <div class="q-num">السؤال 03</div>
+        <div class="q-text">ما الفرق بين التكهرب باللمس والتكهرب بالتأثير؟</div>
+        <div class="q-options">
+          <button class="q-opt" onclick="answer(this,false,'q3')" data-q="q3">
+            <span class="opt-icon">○</span> لا فرق بينهما، كلاهما يعطي نفس النتيجة
+          </button>
+          <button class="q-opt" onclick="answer(this,false,'q3')" data-q="q3">
+            <span class="opt-icon">○</span> باللمس لا تنتقل شحنات، وبالتأثير تنتقل شحنات
+          </button>
+          <button class="q-opt" onclick="answer(this,true,'q3')" data-q="q3">
+            <span class="opt-icon">○</span> باللمس يكون هناك تلامس مباشر فتنتقل شحنات، وبالتأثير لا يكون هناك تلامس
+          </button>
+          <button class="q-opt" onclick="answer(this,false,'q3')" data-q="q3">
+            <span class="opt-icon">○</span> التكهرب باللمس خاص بالمعادن فقط، والتأثير خاص بالعوازل فقط
+          </button>
+        </div>
+        <div class="q-feedback" id="fb-q3"></div>
+      </div>
+
+      <!-- س4 -->
+      <div class="q-card">
+        <div class="q-num">السؤال 04</div>
+        <div class="q-text">الجسم الكهربائياً محايد يعني أن:</div>
+        <div class="q-options">
+          <button class="q-opt" onclick="answer(this,false,'q4')" data-q="q4">
+            <span class="opt-icon">○</span> لا يحتوي على أي شحنات كهربائية
+          </button>
+          <button class="q-opt" onclick="answer(this,true,'q4')" data-q="q4">
+            <span class="opt-icon">○</span> عدد شحناته الموجبة يساوي عدد شحناته السالبة
+          </button>
+          <button class="q-opt" onclick="answer(this,false,'q4')" data-q="q4">
+            <span class="opt-icon">○</span> يحتوي على شحنات موجبة فقط
+          </button>
+          <button class="q-opt" onclick="answer(this,false,'q4')" data-q="q4">
+            <span class="opt-icon">○</span> لا يمكن تكهربه بأي طريقة
+          </button>
+        </div>
+        <div class="q-feedback" id="fb-q4"></div>
+      </div>
+
+      <button class="quiz-submit" onclick="submitQuiz()">📊 عرض النتيجة</button>
+
+      <div class="quiz-score" id="quiz-score">
+        <div class="score-num" id="score-num">0/4</div>
+        <div class="score-msg" id="score-msg"></div>
+      </div>
+    </div>
+
+  </div><!-- /tab-exercices -->
+
+
+  <!-- ════════ RESUME ════════ -->
+  <div class="tab-panel" id="tab-resume">
+
+    <div class="sec-title">
+      <div class="icon">📋</div>
+      <h2>ملخص الكراس</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="summary-card">
+      <h3>📓 الشحنة الكهربائية — السنة الرابعة متوسط</h3>
+
+      <ul class="summary-list">
+        <li>
+          <div class="s-icon">⚡</div>
+          <div><strong>ظاهرة التكهرب:</strong> اكتساب جسم لشحنات كهربائية عند دلكه أو لمسه بجسم مشحون أو تأثير جسم مشحون عليه، مما يجعله يجذب الأجسام الخفيفة المجاورة.</div>
+        </li>
+        <li>
+          <div class="s-icon">🔧</div>
+          <div><strong>طرق التكهرب الثلاث:</strong><br>
+          • <em>بالدلك:</em> دلك جسمين ببعضهما → انتقال إلكترونات بينهما<br>
+          • <em>باللمس:</em> تلامس جسم مشحون بجسم محايد → انتقال جزء من الشحنات<br>
+          • <em>بالتأثير:</em> اقتراب جسم مشحون دون تلامس → توزيع غير متساوٍ للشحنات
+          </div>
+        </li>
+        <li>
+          <div class="s-icon">+</div>
+          <div><strong>نوعا الشحنة الكهربائية:</strong><br>
+          • الشحنة الموجبة (+) : مثال — قضيب زجاجي مدلوك بالحرير<br>
+          • الشحنة السالبة (−)  : مثال — قضيب بلاستيكي مدلوك بالصوف
+          </div>
+        </li>
+        <li>
+          <div class="s-icon">🔁</div>
+          <div><strong>قاعدة الأفعال المتبادلة:</strong><br>
+          • الشحنات المتماثلة <strong>(+ و +) أو (− و −) → تتنافر</strong><br>
+          • الشحنات المتخالفة <strong>(+ و −) → تتجاذب</strong>
+          </div>
+        </li>
+        <li>
+          <div class="s-icon">e</div>
+          <div><strong>الشحنة الأولية:</strong> e = 1.6 × 10⁻¹⁹ كولوم (C) — هي أصغر شحنة كهربائية في الطبيعة وتساوي شحنة الإلكترون.</div>
+        </li>
+      </ul>
+
+      <button class="print-btn" onclick="window.print()">🖨️ طباعة الملخص</button>
+    </div>
+
+  </div><!-- /tab-resume -->
+
+</div><!-- /content-wrap -->
+
+<script>
+/* ── TABS ── */
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+/* ── SIMULATION 1: CHARGES ── */
+let chargeA = 'pos', chargeB = 'neg';
+
+function setCharge(who, type) {
+  if (who === 'A') {
+    chargeA = type;
+    document.getElementById('obj1').className = 'charge-obj ' + (type === 'pos' ? 'positive' : 'negative');
+    document.getElementById('obj1').textContent = type === 'pos' ? '+' : '−';
+    document.getElementById('a-pos').classList.toggle('active', type === 'pos');
+    document.getElementById('a-neg').classList.toggle('active', type === 'neg');
+  } else {
+    chargeB = type;
+    document.getElementById('obj2').className = 'charge-obj ' + (type === 'pos' ? 'positive' : 'negative');
+    document.getElementById('obj2').textContent = type === 'pos' ? '+' : '−';
+    document.getElementById('b-pos').classList.toggle('active', type === 'pos');
+    document.getElementById('b-neg').classList.toggle('active', type === 'neg');
+  }
+  updateResult();
+}
+
+function updateResult() {
+  const panel = document.getElementById('result-panel');
+  const text  = document.getElementById('result-text');
+  const aLabel = chargeA === 'pos' ? 'موجب' : 'سالب';
+  const bLabel = chargeB === 'pos' ? 'موجب' : 'سالب';
+  const aSign  = chargeA === 'pos' ? '+' : '−';
+  const bSign  = chargeB === 'pos' ? '+' : '−';
+
+  if (chargeA === chargeB) {
+    panel.className = 'result-panel repel';
+    text.innerHTML = `⚡ الجسم A (${aLabel}) والجسم B (${bLabel}) → شحنتان <strong>متماثلتان</strong> → <strong style="color:var(--red)">تتنافران 🔴↔🔴</strong>`;
+    drawArrows('repel');
+  } else {
+    panel.className = 'result-panel attract';
+    text.innerHTML = `⚡ الجسم A (${aLabel}) والجسم B (${bLabel}) → شحنتان <strong>متخالفتان</strong> → <strong style="color:var(--green)">تتجاذبان 🔴←→🔵</strong>`;
+    drawArrows('attract');
+  }
+}
+
+function drawArrows(type) {
+  const svg = document.getElementById('force-svg');
+  const arena = document.getElementById('arena');
+  const obj1 = document.getElementById('obj1');
+  const obj2 = document.getElementById('obj2');
+  const r1 = obj1.getBoundingClientRect();
+  const r2 = obj2.getBoundingClientRect();
+  const ar = arena.getBoundingClientRect();
+
+  const x1 = r1.left - ar.left + r1.width/2;
+  const y1 = r1.top  - ar.top  + r1.height/2;
+  const x2 = r2.left - ar.left + r2.width/2;
+  const y2 = r2.top  - ar.top  + r2.height/2;
+
+  const col = type === 'attract' ? '#22c55e' : '#ef4444';
+  const dash = type === 'attract' ? '' : '6,4';
+
+  svg.innerHTML = `
+    <defs>
+      <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+        <path d="M0,0 L6,3 L0,6 Z" fill="${col}"/>
+      </marker>
+    </defs>
+    <line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"
+      stroke="${col}" stroke-width="2" stroke-dasharray="${dash}"
+      marker-end="url(#arr)" opacity=".7"/>
+  `;
+}
+
+setTimeout(updateResult, 300);
+
+/* ── SIMULATION 2: RUB ROD ── */
+let rubbed = false;
+
+function rubRod() {
+  rubbed = true;
+  const rod = document.getElementById('rod');
+  rod.style.background = 'linear-gradient(135deg,#3b82f6,#06b6d4)';
+  rod.style.boxShadow = '0 0 20px rgba(59,130,246,.6)';
+  document.getElementById('rod-charge').textContent = 'مشحون سالباً (−)';
+  document.getElementById('rod-charge').style.color = 'var(--blue2)';
+  document.getElementById('approach-btn').disabled = false;
+  document.getElementById('approach-btn').style.opacity = '1';
+  document.getElementById('rub-btn').classList.add('active');
+}
+
+function approachRod() {
+  if (!rubbed) return;
+  const bits = document.querySelectorAll('.paper-bit');
+  bits.forEach((b, i) => {
+    setTimeout(() => {
+      b.style.transform = 'translateY(-18px) rotate(' + (Math.random()*20-10) + 'deg)';
+    }, i * 60);
+  });
+  const res = document.getElementById('rub-result');
+  res.style.display = 'block';
+  res.className = 'result-panel attract';
+  document.getElementById('rub-result-text').innerHTML =
+    '✅ القضيب البلاستيكي المكهرب يجذب قصاصات الورق! <br>السبب: الشحنات السالبة في القضيب تجذب الشحنات الموجبة في الورق (تأثير الحث).';
+}
+
+function resetRod() {
+  rubbed = false;
+  const rod = document.getElementById('rod');
+  rod.style.background = 'linear-gradient(135deg,#6366f1,#8b5cf6)';
+  rod.style.boxShadow = 'none';
+  document.getElementById('rod-charge').textContent = 'محايد';
+  document.getElementById('rod-charge').style.color = 'var(--muted)';
+  document.getElementById('approach-btn').disabled = true;
+  document.getElementById('approach-btn').style.opacity = '.4';
+  document.getElementById('rub-btn').classList.remove('active');
+  document.querySelectorAll('.paper-bit').forEach(b => b.style.transform = 'none');
+  document.getElementById('rub-result').style.display = 'none';
+}
+
+/* ── QUIZ ── */
+const feedbacks = {
+  q1: {
+    correct: '✅ صحيح! عند الدلك تنتقل الإلكترونات من الصوف إلى البلاستيك لأن البلاستيك يمتلك قدرة أكبر على استقطاب الإلكترونات.',
+    wrong:   '❌ خطأ. عند دلك قضيب بلاستيكي بصوف، تنتقل الإلكترونات من الصوف إلى البلاستيك، فيصبح البلاستيك مشحوناً سالباً والصوف موجباً.'
+  },
+  q2: {
+    correct: '✅ صحيح! الشحنتان المتماثلتان (موجبة + موجبة) تتنافران. هذه هي القاعدة الأساسية للأفعال الكهربائية.',
+    wrong:   '❌ خطأ. الشحنات المتماثلة دائماً تتنافر، والشحنات المتخالفة دائماً تتجاذب.'
+  },
+  q3: {
+    correct: '✅ صحيح! الفرق الجوهري هو وجود التلامس المباشر في التكهرب باللمس، بينما في التأثير لا يكون هناك تلامس.',
+    wrong:   '❌ خطأ. التكهرب باللمس يتطلب تلامساً مباشراً فتنتقل شحنات، أما التأثير فيحدث دون تلامس ويسبب توزيعاً غير متساوٍ للشحنات.'
+  },
+  q4: {
+    correct: '✅ صحيح! الجسم المحايد لا يعني خلوه من الشحنات، بل يعني أن عدد شحناته الموجبة (البروتونات) يساوي عدد شحناته السالبة (الإلكترونات).',
+    wrong:   '❌ خطأ. الجسم المحايد يحتوي على شحنات موجبة وسالبة بأعداد متساوية، لذلك محصلتها الكلية صفر.'
+  }
+};
+
+let answers = {};
+
+function answer(btn, isCorrect, qId) {
+  const opts = btn.closest('.q-card').querySelectorAll('.q-opt');
+  if ([...opts].some(o => o.classList.contains('answered'))) return;
+  opts.forEach(o => o.classList.add('answered'));
+  btn.classList.add(isCorrect ? 'correct' : 'wrong');
+  btn.querySelector('.opt-icon').textContent = isCorrect ? '✓' : '✗';
+
+  if (!isCorrect) {
+    opts.forEach(o => {
+      const ev = new CustomEvent('check');
+      o.setAttribute('data-orig', o.onclick.toString());
+    });
+  }
+
+  const fb = document.getElementById('fb-' + qId);
+  fb.textContent = isCorrect ? feedbacks[qId].correct : feedbacks[qId].wrong;
+  fb.className = 'q-feedback ' + (isCorrect ? 'correct' : 'wrong') + ' show';
+  answers[qId] = isCorrect;
+}
+
+function submitQuiz() {
+  const total = 4;
+  const score = Object.values(answers).filter(Boolean).length;
+  const scoreEl = document.getElementById('quiz-score');
+  document.getElementById('score-num').textContent = score + '/' + total;
+  let msg = '';
+  if (score === 4) msg = '🌟 ممتاز! أتقنت الدرس بالكامل!';
+  else if (score === 3) msg = '👍 جيد جداً! راجع الإجابات الخاطئة.';
+  else if (score === 2) msg = '📖 حسن! أعد قراءة الدرس مرة أخرى.';
+  else msg = '💪 لا بأس، راجع الدرس جيداً وحاول مجدداً.';
+  document.getElementById('score-msg').textContent = msg;
+  scoreEl.classList.add('show');
+  scoreEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+</script>
+
+</body>
+</html>
