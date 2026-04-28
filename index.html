@@ -16,9 +16,14 @@
   --border: #ddd5bb;
   --muted: #7a7a9a;
   --y1: #1a5276;
-  --y2: #1e8449;
+  --y2: #1e6b3a;
   --y3: #6c3483;
   --y4: #922b21;
+  --unit-elec: #1a5276;
+  --unit-mat:  #1e6b3a;
+  --unit-mec:  #7b4f12;
+  --unit-light:#8b2500;
+  --unit-mag:  #4a235a;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -33,49 +38,45 @@ body {
 /* ── HERO ── */
 .hero {
   background: var(--dark);
-  position: relative;
-  overflow: hidden;
-  padding: 56px 32px 48px;
-  text-align: center;
+  position: relative; overflow: hidden;
+  padding: 52px 32px 44px; text-align: center;
 }
 .hero::before {
-  content:'';
-  position:absolute; inset:0;
+  content:''; position:absolute; inset:0;
   background:
     radial-gradient(ellipse at 15% 50%, rgba(200,150,12,.18) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 50%, rgba(26,82,118,.25) 0%, transparent 55%),
-    repeating-linear-gradient(60deg, rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px, transparent 1px, transparent 28px),
-    repeating-linear-gradient(-60deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px, transparent 1px, transparent 28px);
+    radial-gradient(ellipse at 85% 50%, rgba(26,82,118,.22) 0%, transparent 55%),
+    repeating-linear-gradient(60deg, rgba(255,255,255,.015) 0,rgba(255,255,255,.015) 1px, transparent 1px, transparent 28px),
+    repeating-linear-gradient(-60deg,rgba(255,255,255,.015) 0,rgba(255,255,255,.015) 1px, transparent 1px, transparent 28px);
 }
-.hero-inner { position:relative; max-width:760px; margin:0 auto; }
+.hero-inner { position:relative; max-width:800px; margin:0 auto; }
 
 .hero-seal {
-  width:96px; height:96px; border-radius:50%;
+  width:90px; height:90px; border-radius:50%;
   background:linear-gradient(135deg,var(--gold),var(--gold2));
   display:inline-flex; align-items:center; justify-content:center;
-  font-family:'Amiri',serif; font-size:2.4rem; color:var(--dark); font-weight:700;
-  box-shadow:0 0 0 6px rgba(200,150,12,.25),0 8px 32px rgba(200,150,12,.35);
-  margin-bottom:22px;
+  font-family:'Amiri',serif; font-size:2.2rem; color:var(--dark); font-weight:700;
+  box-shadow:0 0 0 6px rgba(200,150,12,.22),0 8px 32px rgba(200,150,12,.35);
+  margin-bottom:18px;
   animation:glow 3s ease-in-out infinite;
 }
 @keyframes glow {
-  0%,100%{ box-shadow:0 0 0 6px rgba(200,150,12,.25),0 8px 32px rgba(200,150,12,.35); }
-  50%    { box-shadow:0 0 0 10px rgba(200,150,12,.15),0 8px 48px rgba(200,150,12,.55); }
+  0%,100%{ box-shadow:0 0 0 6px rgba(200,150,12,.22),0 8px 32px rgba(200,150,12,.35); }
+  50%    { box-shadow:0 0 0 10px rgba(200,150,12,.12),0 8px 48px rgba(200,150,12,.55); }
 }
 .hero h1 {
   font-family:'Amiri',serif;
-  font-size:clamp(1.6rem,4vw,2.4rem);
-  color:#fff; line-height:1.35; margin-bottom:10px;
+  font-size:clamp(1.5rem,3.5vw,2.3rem);
+  color:#fff; line-height:1.35; margin-bottom:8px;
 }
-.hero p { font-size:.95rem; color:rgba(255,255,255,.55); font-weight:300; }
-
+.hero p { font-size:.9rem; color:rgba(255,255,255,.5); font-weight:300; }
 .hero-tags {
-  display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:22px;
+  display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:18px;
 }
 .hero-tag {
-  background:rgba(200,150,12,.18); border:1px solid rgba(200,150,12,.4);
-  color:var(--gold2); font-size:.78rem; font-weight:600;
-  padding:5px 16px; border-radius:20px;
+  background:rgba(200,150,12,.17); border:1px solid rgba(200,150,12,.38);
+  color:var(--gold2); font-size:.75rem; font-weight:600;
+  padding:4px 14px; border-radius:20px;
 }
 
 .gold-bar {
@@ -84,153 +85,190 @@ body {
 }
 
 /* ── MAIN ── */
-main { max-width:1140px; margin:0 auto; padding:52px 28px 72px; }
+main { max-width:1200px; margin:0 auto; padding:48px 24px 72px; }
 
 /* STATS */
 .stats-strip {
-  display:flex; background:var(--dark2); border-radius:18px;
-  overflow:hidden; margin-bottom:44px;
+  display:flex; background:var(--dark2); border-radius:16px;
+  overflow:hidden; margin-bottom:40px;
 }
 .stat {
-  flex:1; padding:22px 16px; text-align:center;
+  flex:1; padding:20px 12px; text-align:center;
   border-left:1px solid rgba(255,255,255,.07);
 }
 .stat:last-child{ border-left:none; }
-.stat-n { font-size:1.9rem; font-weight:900; color:var(--gold2); line-height:1; }
-.stat-l { font-size:.73rem; color:rgba(255,255,255,.45); margin-top:5px; }
+.stat-n { font-size:1.8rem; font-weight:900; color:var(--gold2); line-height:1; }
+.stat-l { font-size:.7rem; color:rgba(255,255,255,.4); margin-top:4px; }
 
-/* YEARS GRID */
-.years-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(480px,1fr));
-  gap:32px;
+/* YEARS TABS */
+.tabs {
+  display:flex; gap:0; margin-bottom:0;
+  border-radius:16px 16px 0 0; overflow:hidden;
+  border:1px solid var(--border); border-bottom:none;
+}
+.tab-btn {
+  flex:1; padding:14px 8px; border:none; cursor:pointer;
+  font-family:'Cairo',sans-serif; font-size:.85rem; font-weight:700;
+  background:var(--bg); color:var(--muted);
+  border-left:1px solid var(--border); transition:.25s;
+}
+.tab-btn:first-child{ border-left:none; }
+.tab-btn.active { color:#fff; }
+.tab-btn[data-y="1"].active{ background:var(--y1); }
+.tab-btn[data-y="2"].active{ background:var(--y2); }
+.tab-btn[data-y="3"].active{ background:var(--y3); }
+.tab-btn[data-y="4"].active{ background:var(--y4); }
+
+/* YEAR PANELS */
+.year-panel { display:none; }
+.year-panel.active { display:block; }
+
+.panel-wrap {
+  background:var(--card);
+  border:1px solid var(--border); border-top:none;
+  border-radius:0 0 16px 16px;
+  overflow:hidden;
 }
 
-/* YEAR CARD */
-.year-card {
-  background:var(--card); border-radius:20px;
-  border:1px solid var(--border); overflow:hidden;
-  box-shadow:0 4px 24px rgba(15,31,53,.08);
-  transition:transform .3s,box-shadow .3s;
-  opacity:0; transform:translateY(28px);
-  animation:riseIn .6s ease forwards;
-}
-.year-card:hover { transform:translateY(-6px); box-shadow:0 16px 48px rgba(15,31,53,.14); }
-.year-card:nth-child(1){ animation-delay:.05s; }
-.year-card:nth-child(2){ animation-delay:.15s; }
-.year-card:nth-child(3){ animation-delay:.25s; }
-.year-card:nth-child(4){ animation-delay:.35s; }
-@keyframes riseIn { to{ opacity:1; transform:translateY(0); } }
-
-/* YEAR HEADER */
-.year-head {
-  padding:22px 26px 20px;
+/* YEAR HEADER BAR */
+.year-banner {
+  padding:20px 28px;
   display:flex; align-items:center; gap:16px;
-  position:relative; overflow:hidden;
 }
-.year-head::after {
-  content:''; position:absolute; inset:0;
-  background:linear-gradient(90deg,rgba(255,255,255,.08) 0%,transparent 70%);
-}
-.year-card[data-year="1"] .year-head{ background:var(--y1); }
-.year-card[data-year="2"] .year-head{ background:var(--y2); }
-.year-card[data-year="3"] .year-head{ background:var(--y3); }
-.year-card[data-year="4"] .year-head{ background:var(--y4); }
+.year-banner[data-y="1"]{ background:var(--y1); }
+.year-banner[data-y="2"]{ background:var(--y2); }
+.year-banner[data-y="3"]{ background:var(--y3); }
+.year-banner[data-y="4"]{ background:var(--y4); }
 
-.year-num {
-  width:52px; height:52px; border-radius:14px;
-  background:rgba(255,255,255,.18); border:2px solid rgba(255,255,255,.35);
+.banner-num {
+  width:48px; height:48px; border-radius:12px;
+  background:rgba(255,255,255,.2); border:2px solid rgba(255,255,255,.35);
   display:flex; align-items:center; justify-content:center;
-  font-family:'Amiri',serif; font-size:1.7rem; color:#fff; font-weight:700;
-  flex-shrink:0; position:relative; z-index:1;
+  font-family:'Amiri',serif; font-size:1.6rem; color:#fff; font-weight:700;
 }
-.year-info { position:relative; z-index:1; }
-.year-info h2 { font-size:1.15rem; color:#fff; font-weight:700; line-height:1.3; }
-.year-info span { font-size:.78rem; color:rgba(255,255,255,.65); }
-.year-badge {
-  margin-right:auto; position:relative; z-index:1;
+.banner-text h2 { font-size:1.1rem; color:#fff; font-weight:700; }
+.banner-text span { font-size:.78rem; color:rgba(255,255,255,.6); }
+.banner-badge {
+  margin-right:auto;
   background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.3);
-  color:rgba(255,255,255,.9); font-size:.72rem; font-weight:700;
-  padding:4px 12px; border-radius:12px; white-space:nowrap;
+  color:#fff; font-size:.72rem; font-weight:700;
+  padding:4px 12px; border-radius:10px;
 }
 
-/* YEAR BODY */
-.year-body { padding:22px 26px 26px; }
-
-.domain-block { margin-bottom:18px; }
-.domain-block:last-child{ margin-bottom:0; }
-
-.domain-label {
-  font-size:.72rem; font-weight:700; letter-spacing:.06em;
-  color:var(--muted); margin-bottom:10px;
-  display:flex; align-items:center; gap:8px;
+/* UNITS GRID */
+.units-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+  gap:0;
 }
-.domain-label::after { content:''; flex:1; height:1px; background:var(--border); }
 
-.lessons-list { display:flex; flex-direction:column; gap:7px; }
+/* UNIT BLOCK */
+.unit {
+  border-left:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:22px 24px;
+}
+.unit:nth-child(odd):last-child {
+  grid-column: 1 / -1;
+}
 
-.lesson-link {
-  display:flex; align-items:center; gap:12px;
-  padding:10px 14px; border-radius:10px;
-  border:1px solid transparent;
+.unit-header {
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:16px; padding-bottom:12px;
+  border-bottom:2px solid;
+}
+.unit-header.elec { border-color:var(--unit-elec); }
+.unit-header.mat  { border-color:var(--unit-mat);  }
+.unit-header.mec  { border-color:var(--unit-mec);  }
+.unit-header.light{ border-color:var(--unit-light);}
+.unit-header.mag  { border-color:var(--unit-mag);  }
+
+.unit-icon { font-size:1.4rem; }
+.unit-title {
+  font-size:.95rem; font-weight:800; color:var(--dark);
+}
+.unit-sub { font-size:.72rem; color:var(--muted); font-weight:400; }
+
+/* LESSON ITEMS */
+.lesson-item {
+  display:flex; align-items:flex-start; gap:10px;
+  padding:8px 10px; border-radius:9px; margin-bottom:5px;
   text-decoration:none; color:var(--dark);
-  transition:background .2s,border-color .2s,transform .2s;
+  border:1px solid transparent;
+  transition:background .2s, border-color .2s, transform .18s;
 }
-.lesson-link:hover {
+.lesson-item:hover {
   background:var(--bg); border-color:var(--border);
-  transform:translateX(-4px);
+  transform:translateX(-3px);
 }
-.lesson-link.soon {
-  opacity:.45; pointer-events:none;
-}
-.lesson-link.soon::after {
-  content:'قريباً'; font-size:.65rem;
-  background:var(--gold); color:#fff;
-  padding:1px 7px; border-radius:6px; font-weight:700; margin-right:auto;
+.lesson-item.soon {
+  opacity:.42; pointer-events:none;
 }
 
-.ln {
-  width:26px; height:26px; border-radius:7px;
+.li-num {
+  width:24px; height:24px; border-radius:6px;
   display:flex; align-items:center; justify-content:center;
-  font-size:.68rem; font-weight:700; color:#fff; flex-shrink:0;
+  font-size:.65rem; font-weight:700; color:#fff; flex-shrink:0; margin-top:1px;
 }
-.year-card[data-year="1"] .ln{ background:var(--y1); }
-.year-card[data-year="2"] .ln{ background:var(--y2); }
-.year-card[data-year="3"] .ln{ background:var(--y3); }
-.year-card[data-year="4"] .ln{ background:var(--y4); }
+.elec .li-num  { background:var(--unit-elec); }
+.mat  .li-num  { background:var(--unit-mat);  }
+.mec  .li-num  { background:var(--unit-mec);  }
+.light .li-num { background:var(--unit-light);}
+.mag  .li-num  { background:var(--unit-mag);  }
 
-.lesson-name { font-size:.88rem; font-weight:600; flex:1; line-height:1.4; }
-.lesson-arrow { font-size:.9rem; color:var(--muted); }
+.li-body { flex:1; }
+.li-title { font-size:.85rem; font-weight:700; line-height:1.35; }
+.li-detail { font-size:.72rem; color:var(--muted); line-height:1.4; margin-top:2px; }
+.li-arrow { font-size:.85rem; color:var(--muted); margin-top:3px; flex-shrink:0; }
 
-/* ── FOOTER ── */
+.soon-badge {
+  font-size:.62rem; background:var(--gold); color:#fff;
+  padding:1px 6px; border-radius:5px; font-weight:700;
+  margin-top:3px; display:inline-block;
+}
+
+/* ANIMATIONS */
+.year-panel.active .unit {
+  opacity:0; animation:fadeUp .4s ease forwards;
+}
+.year-panel.active .unit:nth-child(1){ animation-delay:.04s; }
+.year-panel.active .unit:nth-child(2){ animation-delay:.09s; }
+.year-panel.active .unit:nth-child(3){ animation-delay:.14s; }
+.year-panel.active .unit:nth-child(4){ animation-delay:.19s; }
+.year-panel.active .unit:nth-child(5){ animation-delay:.24s; }
+@keyframes fadeUp { to{ opacity:1; transform:translateY(0); } from{ opacity:0; transform:translateY(16px); } }
+
+/* FOOTER */
 footer {
   background:var(--dark); text-align:center;
-  padding:28px 20px; font-size:.8rem; color:rgba(255,255,255,.35);
+  padding:26px 20px; font-size:.78rem; color:rgba(255,255,255,.35);
 }
 footer strong{ color:var(--gold2); }
 
 /* RESPONSIVE */
-@media(max-width:700px){
-  .years-grid{ grid-template-columns:1fr; }
+@media(max-width:640px){
+  .tabs { flex-wrap:wrap; border-radius:12px 12px 0 0; }
+  .tab-btn { min-width:50%; border-bottom:1px solid var(--border); }
+  .units-grid{ grid-template-columns:1fr; }
   .stats-strip{ flex-wrap:wrap; }
   .stat{ min-width:50%; border-left:none; border-bottom:1px solid rgba(255,255,255,.07); }
-  .hero{ padding:40px 20px 36px; }
-  main{ padding:36px 16px 52px; }
+  main { padding:32px 14px 52px; }
 }
 </style>
 </head>
 <body>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-seal">ل</div>
     <h1>منصة دروس العلوم الفيزيائية والتكنولوجيا</h1>
-    <p>المرحلة المتوسطة · منهاج الجيل الثاني · وزارة التربية الوطنية الجزائرية</p>
+    <p>المرحلة المتوسطة · منهاج الجيل الثاني · المقاطعة الثانية — تلمسان · 2025/2026</p>
     <div class="hero-tags">
-      <span class="hero-tag">السنة الأولى متوسط</span>
-      <span class="hero-tag">السنة الثانية متوسط</span>
-      <span class="hero-tag">السنة الثالثة متوسط</span>
-      <span class="hero-tag">السنة الرابعة متوسط</span>
+      <span class="hero-tag">س1م</span>
+      <span class="hero-tag">س2م</span>
+      <span class="hero-tag">س3م</span>
+      <span class="hero-tag">س4م</span>
     </div>
   </div>
 </section>
@@ -238,212 +276,761 @@ footer strong{ color:var(--gold2); }
 
 <main>
 
+  <!-- STATS -->
   <div class="stats-strip">
     <div class="stat"><div class="stat-n">4</div><div class="stat-l">سنوات دراسية</div></div>
-    <div class="stat"><div class="stat-n">40+</div><div class="stat-l">درس تفاعلي</div></div>
-    <div class="stat"><div class="stat-n">3</div><div class="stat-l">مجالات علمية</div></div>
+    <div class="stat"><div class="stat-n">12</div><div class="stat-l">وحدة تعلمية</div></div>
+    <div class="stat"><div class="stat-n">3</div><div class="stat-l">مقاطع / سنة</div></div>
     <div class="stat"><div class="stat-n">∞</div><div class="stat-l">متاح مجاناً</div></div>
   </div>
 
-  <div class="years-grid">
-
-    <!-- ── السنة الأولى ── -->
-    <div class="year-card" data-year="1">
-      <div class="year-head">
-        <div class="year-num">١</div>
-        <div class="year-info">
-          <h2>السنة الأولى متوسط</h2>
-          <span>المادة وتحولاتها · الكهرباء الأساسية</span>
-        </div>
-        <div class="year-badge">1ère AM</div>
-      </div>
-      <div class="year-body">
-
-        <div class="domain-block">
-          <div class="domain-label">⚗️ المادة وخصائصها</div>
-          <div class="lessons-list">
-            <a href="1am/cours-matiere.html" class="lesson-link">
-              <div class="ln">01</div><div class="lesson-name">المادة وحالاتها الثلاث</div><div class="lesson-arrow">←</div>
-            </a>
-            <a href="1am/cours-melanges.html" class="lesson-link">
-              <div class="ln">02</div><div class="lesson-name">المخاليط وطرق فصلها</div><div class="lesson-arrow">←</div>
-            </a>
-            <a href="1am/cours-solutions.html" class="lesson-link">
-              <div class="ln">03</div><div class="lesson-name">المحاليل المائية</div><div class="lesson-arrow">←</div>
-            </a>
-            <a href="#" class="lesson-link soon">
-              <div class="ln">04</div><div class="lesson-name">تحولات المادة</div>
-            </a>
-          </div>
-        </div>
-
-        <div class="domain-block">
-          <div class="domain-label">⚡ الكهرباء الأساسية</div>
-          <div class="lessons-list">
-            <a href="1am/cours-circuit.html" class="lesson-link">
-              <div class="ln">05</div><div class="lesson-name">الدارة الكهربائية البسيطة</div><div class="lesson-arrow">←</div>
-            </a>
-            <a href="#" class="lesson-link soon">
-              <div class="ln">06</div><div class="lesson-name">الموصلات والعوازل</div>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── السنة الثانية ── -->
-    <div class="year-card" data-year="2">
-      <div class="year-head">
-        <div class="year-num">٢</div>
-        <div class="year-info">
-          <h2>السنة الثانية متوسط</h2>
-          <span>التفاعلات الكيميائية · الضوء والصوت</span>
-        </div>
-        <div class="year-badge">2ème AM</div>
-      </div>
-      <div class="year-body">
-
-        <div class="domain-block">
-          <div class="domain-label">⚗️ الكيمياء</div>
-          <div class="lessons-list">
-            <a href="2am/cours-reaction.html" class="lesson-link">
-              <div class="ln">01</div><div class="lesson-name">التفاعلات الكيميائية</div><div class="lesson-arrow">←</div>
-            </a>
-            <a href="2am/cours-combustion.html" class="lesson-link">
-              <div class="ln">02</div><div class="lesson-name">تفاعلات الاحتراق</div><div class="lesson-arrow">←</div>
-            </a>
-            <a href="#" class="lesson-link soon">
-              <div class="ln">03</div><div class="lesson-name">الأكسدة والاختزال</div>
-            </a>
-          </div>
-        </div>
-
-        <div class="domain-block">
-          <div class="domain-label">🔭 الضوء والصوت</div>
-          <div class="lessons-list">
-            <a href="2am/cours-lumiere.html" class="lesson-link">
-              <div class="ln">04</div><div class="lesson-name">انتشار الضوء والظلال</div><div class="lesson-arrow">←</div>
-            </a>
-            <a href="#" class="lesson-link soon">
-              <div class="ln">05</div><div class="lesson-name">الصوت وخصائصه</div>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── السنة الثالثة ── -->
-    <div class="year-card" data-year="3">
-      <div class="year-head">
-        <div class="year-num">٣</div>
-        <div class="year-info">
-          <h2>السنة الثالثة متوسط</h2>
-          <span>الكهرباء المتقدمة · البصريات · الميكانيك</span>
-        </div>
-        <div class="year-badge">3ème AM</div>
-      </div>
-      <div class="year-body">
-
-        <div class="domain-block">
-          <div class="domain-label">⚡ الكهرباء</div>
-          <div class="lessons-list">
-            <a href="cours-electricite.html" class="lesson-link">
-              <div class="ln">01</div><div class="lesson-name">التوترات والشدات في الدارات</div><div class="lesson-arrow">←</div>
-            </a>
-            <a href="cours-resistance.html" class="lesson-link">
-              <div class="ln">02</div><div class="lesson-name">قانون أوم والمقاومة</div><div class="lesson-arrow">←</div>
-            </a>
-            <a href="#" class="lesson-link soon">
-              <div class="ln">03</div><div class="lesson-name">الطاقة والقدرة الكهربائية</div>
-            </a>
-          </div>
-        </div>
-
-        <div class="domain-block">
-          <div class="domain-label">🔭 البصريات</div>
-          <div class="lessons-list">
-            <a href="cours-optique.html" class="lesson-link">
-              <div class="ln">04</div><div class="lesson-name">الانعكاس والانكسار</div><div class="lesson-arrow">←</div>
-            </a>
-          </div>
-        </div>
-
-        <div class="domain-block">
-          <div class="domain-label">⚖️ الميكانيك</div>
-          <div class="lessons-list">
-            <a href="cours-forces.html" class="lesson-link">
-              <div class="ln">05</div><div class="lesson-name">القوى وتمثيلها البياني</div><div class="lesson-arrow">←</div>
-            </a>
-            <a href="#" class="lesson-link soon">
-              <div class="ln">06</div><div class="lesson-name">توازن الأجسام</div>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── السنة الرابعة ── -->
-    <div class="year-card" data-year="4">
-      <div class="year-head">
-        <div class="year-num">٤</div>
-        <div class="year-info">
-          <h2>السنة الرابعة متوسط</h2>
-          <span>تحضير شهادة التعليم المتوسط — BEM</span>
-        </div>
-        <div class="year-badge">4ème AM</div>
-      </div>
-      <div class="year-body">
-
-        <div class="domain-block">
-          <div class="domain-label">⚡ الكهرباء والطاقة</div>
-          <div class="lessons-list">
-            <a href="4am/cours-energie.html" class="lesson-link">
-              <div class="ln">01</div><div class="lesson-name">تحولات الطاقة الكهربائية</div><div class="lesson-arrow">←</div>
-            </a>
-            <a href="#" class="lesson-link soon">
-              <div class="ln">02</div><div class="lesson-name">الطاقة المتجددة</div>
-            </a>
-          </div>
-        </div>
-
-        <div class="domain-block">
-          <div class="domain-label">⚗️ الكيمياء المتقدمة</div>
-          <div class="lessons-list">
-            <a href="#" class="lesson-link soon">
-              <div class="ln">03</div><div class="lesson-name">الجدول الدوري للعناصر</div>
-            </a>
-            <a href="#" class="lesson-link soon">
-              <div class="ln">04</div><div class="lesson-name">التفاعلات الأيونية</div>
-            </a>
-          </div>
-        </div>
-
-        <div class="domain-block">
-          <div class="domain-label">📋 مراجعة شاملة BEM</div>
-          <div class="lessons-list">
-            <a href="4am/revision-bem.html" class="lesson-link">
-              <div class="ln">★</div><div class="lesson-name">ملخص شامل لمادة الفيزياء</div><div class="lesson-arrow">←</div>
-            </a>
-            <a href="#" class="lesson-link soon">
-              <div class="ln">★</div><div class="lesson-name">نماذج امتحانات BEM</div>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" data-y="1" onclick="showYear(1)">السنة الأولى متوسط</button>
+    <button class="tab-btn" data-y="2" onclick="showYear(2)">السنة الثانية متوسط</button>
+    <button class="tab-btn" data-y="3" onclick="showYear(3)">السنة الثالثة متوسط</button>
+    <button class="tab-btn" data-y="4" onclick="showYear(4)">السنة الرابعة متوسط</button>
   </div>
+
+  <!-- ══════════════════════════════════════════
+       السنة الأولى متوسط
+       المقطع 1: الظواهر الكهربائية
+       المقطع 2: المادة وتحولاتها
+       المقطع 3: الظواهر الضوئية
+  ══════════════════════════════════════════ -->
+  <div class="year-panel active" id="year-1">
+  <div class="panel-wrap">
+    <div class="year-banner" data-y="1">
+      <div class="banner-num">١</div>
+      <div class="banner-text">
+        <h2>السنة الأولى متوسط</h2>
+        <span>3 مقاطع تعليمية · الجيل الثاني 2025/2026</span>
+      </div>
+      <div class="banner-badge">1ère AM</div>
+    </div>
+    <div class="units-grid">
+
+      <!-- مقطع 1 -->
+      <div class="unit">
+        <div class="unit-header elec">
+          <span class="unit-icon">⚡</span>
+          <div>
+            <div class="unit-title">المقطع 1 — الظواهر الكهربائية</div>
+            <div class="unit-sub">سبتمبر ← نوفمبر</div>
+          </div>
+        </div>
+        <a href="1am/circuit-1.html" class="lesson-item">
+          <div class="li-num elec">01</div>
+          <div class="li-body">
+            <div class="li-title">الدارة الكهربائية (1)</div>
+            <div class="li-detail">مفهوم الدارة وعناصرها — الدارة المغلقة والمفتوحة — قطبا المولد ومربطا المصباح</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="1am/circuit-2.html" class="lesson-item">
+          <div class="li-num elec">02</div>
+          <div class="li-body">
+            <div class="li-title">الدارة الكهربائية (2)</div>
+            <div class="li-detail">النواقل والعوازل — الرموز النظامية — المخطط النظامي — النموذج الدوراني للتيار</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="1am/circuit-3.html" class="lesson-item">
+          <div class="li-num elec">03</div>
+          <div class="li-body">
+            <div class="li-title">اشتعال مصباح التوهج</div>
+            <div class="li-detail">دلالة المولد — دلالة المصباح وشدة إضاءته — ضم الأعمدة</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="1am/circuit-4.html" class="lesson-item">
+          <div class="li-num elec">04</div>
+          <div class="li-body">
+            <div class="li-title">تركيب الدارات الكهربائية (1 و 2)</div>
+            <div class="li-detail">ربط التسلسل — ربط التفرع — الربط المختلط — الإنارة ذهاب-إياب</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="1am/circuit-5.html" class="lesson-item">
+          <div class="li-num elec">05</div>
+          <div class="li-body">
+            <div class="li-title">الدارة المستقصرة</div>
+            <div class="li-detail">الدارة المستقصرة — آثار استقصار الدارة — قواعد الأمن الكهربائي</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="1am/securite.html" class="lesson-item">
+          <div class="li-num elec">06</div>
+          <div class="li-body">
+            <div class="li-title">تنمية الدارة وقواعد الأمن الكهربائي</div>
+            <div class="li-detail">العزل — المنصهرة — القاطع التفاضلي — تنفيذ تركيبة كهربائية منزلية</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+      </div>
+
+      <!-- مقطع 2 -->
+      <div class="unit">
+        <div class="unit-header mat">
+          <span class="unit-icon">⚗️</span>
+          <div>
+            <div class="unit-title">المقطع 2 — المادة وتحولاتها</div>
+            <div class="unit-sub">نوفمبر ← مارس</div>
+          </div>
+        </div>
+        <a href="1am/mesures.html" class="lesson-item">
+          <div class="li-num mat">01</div>
+          <div class="li-body">
+            <div class="li-title">القياسات</div>
+            <div class="li-detail">قياس الأطوال — وحدات الطول والحجم والكتلة — حساب حجم جسم منتظم وغير منتظم</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="1am/temperature.html" class="lesson-item">
+          <div class="li-num mat">02</div>
+          <div class="li-body">
+            <div class="li-title">تعيين درجة الحرارة والكتلة الحجمية</div>
+            <div class="li-detail">المحرار — الكتلة الحجمية للأجسام الصلبة والسائلة — استنتاج الكثافة</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="1am/etats-matiere.html" class="lesson-item">
+          <div class="li-num mat">03</div>
+          <div class="li-body">
+            <div class="li-title">خصائص حالات المادة</div>
+            <div class="li-detail">الحالات الثلاث في الشروط العادية وغير العادية — النموذج الحبيبي</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="1am/changements-etat.html" class="lesson-item">
+          <div class="li-num mat">04</div>
+          <div class="li-body">
+            <div class="li-title">تغيرات حالة الجسم المادي</div>
+            <div class="li-detail">الانصهار — التجمد — التبخر — التكاثف — التسامي — العوامل المؤثرة</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="1am/melanges.html" class="lesson-item">
+          <div class="li-num mat">05</div>
+          <div class="li-body">
+            <div class="li-title">الخلائط وفصل مكوناتها</div>
+            <div class="li-detail">الجسم النقي والخليط — الترشيح — الإبانة — التقطير — التكرير</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="1am/solutions.html" class="lesson-item">
+          <div class="li-num mat">06</div>
+          <div class="li-body">
+            <div class="li-title">المحلول المائي</div>
+            <div class="li-detail">المحل والمذيب — التركيز الكتلي — المحلول المشبع — انحفاظ الكتلة</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+      </div>
+
+      <!-- مقطع 3 -->
+      <div class="unit">
+        <div class="unit-header light">
+          <span class="unit-icon">🔭</span>
+          <div>
+            <div class="unit-title">المقطع 3 — الظواهر الضوئية</div>
+            <div class="unit-sub">مارس ← ماي</div>
+          </div>
+        </div>
+        <a href="1am/sources-lumiere.html" class="lesson-item">
+          <div class="li-num light">01</div>
+          <div class="li-body">
+            <div class="li-title">المنابع والأوساط الضوئية</div>
+            <div class="li-detail">الأجسام المضيئة والمضاءة — الوسط الشفاف والعاتم والشاف</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="1am/propagation.html" class="lesson-item">
+          <div class="li-num light">02</div>
+          <div class="li-body">
+            <div class="li-title">الانتشار المستقيم للضوء</div>
+            <div class="li-detail">مبدأ الانتشار المستقيم — الحزمة الضوئية — الشعاع الضوئي — شرط الرؤية المباشرة</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="1am/ombre.html" class="lesson-item">
+          <div class="li-num light">03</div>
+          <div class="li-body">
+            <div class="li-title">الظل والظليل</div>
+            <div class="li-detail">المنبع النقطي والواسع — تشكل الظل الذاتي والمسقط — الظل والظليل الذاتيان والمسقطان</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="1am/systeme-solaire.html" class="lesson-item">
+          <div class="li-num light">04</div>
+          <div class="li-body">
+            <div class="li-title">المجموعة الشمسية ودوران الأرض</div>
+            <div class="li-detail">عناصر المجموعة الشمسية — سرعة الضوء — الوحدة الفلكية والسنة الضوئية — دوران الأرض</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="1am/phases-lune.html" class="lesson-item">
+          <div class="li-num light">05</div>
+          <div class="li-body">
+            <div class="li-title">أطوار القمر + الخسوف والكسوف</div>
+            <div class="li-detail">المحاق — الهلال — التربيع — الحدب — البدر — خسوف القمر — كسوف الشمس</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="1am/soleil-energie.html" class="lesson-item">
+          <div class="li-num light">06</div>
+          <div class="li-body">
+            <div class="li-title">الشمس مصدر للطاقة</div>
+            <div class="li-detail">الضوء والطاقة الحرارية — تحويل الطاقة الشمسية — الألوان وامتصاص الطاقة الحرارية</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+      </div>
+
+    </div><!-- /units-grid -->
+  </div><!-- /panel-wrap -->
+  </div><!-- /year-1 -->
+
+
+  <!-- ══════════════════════════════════════════
+       السنة الثانية متوسط
+       المقطع 1: المادة وتحولاتها
+       المقطع 2: الظواهر الميكانيكية
+       المقطع 3: الظواهر الكهربائية والمغناطيسية
+  ══════════════════════════════════════════ -->
+  <div class="year-panel" id="year-2">
+  <div class="panel-wrap">
+    <div class="year-banner" data-y="2">
+      <div class="banner-num">٢</div>
+      <div class="banner-text">
+        <h2>السنة الثانية متوسط</h2>
+        <span>3 مقاطع تعليمية · الجيل الثاني 2025/2026</span>
+      </div>
+      <div class="banner-badge">2ème AM</div>
+    </div>
+    <div class="units-grid">
+
+      <!-- مقطع 1 -->
+      <div class="unit">
+        <div class="unit-header mat">
+          <span class="unit-icon">⚗️</span>
+          <div>
+            <div class="unit-title">المقطع 1 — المادة وتحولاتها</div>
+            <div class="unit-sub">سبتمبر ← ديسمبر</div>
+          </div>
+        </div>
+        <a href="2am/transformation-physique.html" class="lesson-item">
+          <div class="li-num mat">01</div>
+          <div class="li-body">
+            <div class="li-title">التحول الفيزيائي</div>
+            <div class="li-detail">تبخر الماء وتكاثفه — انحلال السكر وتسخين المحلول — مميزات التحول الفيزيائي</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="2am/transformation-chimique.html" class="lesson-item">
+          <div class="li-num mat">02</div>
+          <div class="li-body">
+            <div class="li-title">التحول الكيميائي (1 و 2)</div>
+            <div class="li-detail">التحليل الكهربائي للماء — احتراق السكر — حرق مزيج برادة الحديد والكبريت — مميزات التحول الكيميائي</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="2am/conservation-masse.html" class="lesson-item">
+          <div class="li-num mat">03</div>
+          <div class="li-body">
+            <div class="li-title">انحفاظ الكتلة في التحولين</div>
+            <div class="li-detail">انحفاظ الكتلة في التحول الفيزيائي والكيميائي — انحلال الملح — احتراق صوف الحديد</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="2am/modele-microscopique.html" class="lesson-item">
+          <div class="li-num mat">04</div>
+          <div class="li-body">
+            <div class="li-title">النموذج المجهري (1 و 2 و 3)</div>
+            <div class="li-detail">الذرة والجزيء — النموذج الكروي والمتراص — تفسير التحول الكيميائي — انحفاظ الذرات وعدم انحفاظ الجزيئات</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="2am/formules-chimiques.html" class="lesson-item">
+          <div class="li-num mat">05</div>
+          <div class="li-body">
+            <div class="li-title">الرموز والصيغ الكيميائية</div>
+            <div class="li-detail">رموز الذرات — صيغ الجزيئات — التعبير عن الحالة الفيزيائية — التعبير عن التحولات الكيميائية بالصيغ</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+      </div>
+
+      <!-- مقطع 2 -->
+      <div class="unit">
+        <div class="unit-header mec">
+          <span class="unit-icon">⚙️</span>
+          <div>
+            <div class="unit-title">المقطع 2 — الظواهر الميكانيكية</div>
+            <div class="unit-sub">ديسمبر ← مارس</div>
+          </div>
+        </div>
+        <a href="2am/mouvement-repos.html" class="lesson-item">
+          <div class="li-num mec">01</div>
+          <div class="li-body">
+            <div class="li-title">الحركة والسكون</div>
+            <div class="li-detail">مفهوم الحركة والسكون — نسبية الحركة — المرجع</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="2am/trajectoire.html" class="lesson-item">
+          <div class="li-num mec">02</div>
+          <div class="li-body">
+            <div class="li-title">حركة نقطة مادية</div>
+            <div class="li-detail">المسار — أنواع المسارات (مستقيم، نيفي، دائري) — علاقة المسار بالمرجع</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="2am/mouvement-solide.html" class="lesson-item">
+          <div class="li-num mec">03</div>
+          <div class="li-body">
+            <div class="li-title">حركة نقاط من جسم صلب</div>
+            <div class="li-detail">الحركة الانسحابية (مستقيمة، كيفية، دائرية) — الحركة الدورانية</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="2am/vitesse.html" class="lesson-item">
+          <div class="li-num mec">04</div>
+          <div class="li-body">
+            <div class="li-title">سرعة المتحرك</div>
+            <div class="li-detail">مفهوم السرعة — السرعة المتوسطة — وحدات القياس — طبيعة الحركة (منتظمة، متسارعة، متباطئة) — مخطط السرعة</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="2am/transmission-mouvement.html" class="lesson-item">
+          <div class="li-num mec">05</div>
+          <div class="li-body">
+            <div class="li-title">نقل الحركة</div>
+            <div class="li-detail">عناصر نقل الحركة — نقل الحركة بين عنصرين متقاربين (الاحتكاك، التعشيق) — المتباعدين (السيور، السلاسل)</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+      </div>
+
+      <!-- مقطع 3 -->
+      <div class="unit">
+        <div class="unit-header mag">
+          <span class="unit-icon">🧲</span>
+          <div>
+            <div class="unit-title">المقطع 3 — الظواهر الكهربائية والمغناطيسية</div>
+            <div class="unit-sub">مارس ← ماي</div>
+          </div>
+        </div>
+        <a href="2am/aimants.html" class="lesson-item">
+          <div class="li-num mag">01</div>
+          <div class="li-body">
+            <div class="li-title">المغانط</div>
+            <div class="li-detail">قطبا المغناطيس — الأفعال المتبادلة — أشكال المغانط — تمغنط الحديد (الدلك، اللمس) — أنواع المغانط</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="2am/champ-mag-aimant.html" class="lesson-item">
+          <div class="li-num mag">02</div>
+          <div class="li-body">
+            <div class="li-title">الحقل المغناطيسي المتولد عن مغناطيس</div>
+            <div class="li-detail">مفهوم الحقل المغناطيسي — خطوط الحقل (الطيف) — الحقل المغناطيسي الأرضي</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="2am/champ-mag-courant.html" class="lesson-item">
+          <div class="li-num mag">03</div>
+          <div class="li-body">
+            <div class="li-title">الحقل المغناطيسي المتولد عن تيار كهربائي</div>
+            <div class="li-detail">تجربة أرستد — الحقل في وشيعة حلزونية — الكهرومغناطيس</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="2am/moteur-electrique.html" class="lesson-item">
+          <div class="li-num mag">04</div>
+          <div class="li-body">
+            <div class="li-title">فعل حقل مغناطيسي على تيار كهربائي</div>
+            <div class="li-detail">تجربة لابلاس — العوامل المؤثرة على جهة حركة الناقل — مبدأ عمل المحرك الكهربائي</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+  </div><!-- /year-2 -->
+
+
+  <!-- ══════════════════════════════════════════
+       السنة الثالثة متوسط
+       المقطع 1: المادة وتحولاتها (الكيمياء)
+       المقطع 2: الطاقة
+       المقطع 3: الظواهر الكهربائية
+       المقطع (ربيع): الظواهر الضوئية
+  ══════════════════════════════════════════ -->
+  <div class="year-panel" id="year-3">
+  <div class="panel-wrap">
+    <div class="year-banner" data-y="3">
+      <div class="banner-num">٣</div>
+      <div class="banner-text">
+        <h2>السنة الثالثة متوسط</h2>
+        <span>4 وحدات تعليمية · الجيل الثاني 2025/2026</span>
+      </div>
+      <div class="banner-badge">3ème AM</div>
+    </div>
+    <div class="units-grid">
+
+      <!-- مقطع 1 : المادة -->
+      <div class="unit">
+        <div class="unit-header mat">
+          <span class="unit-icon">⚗️</span>
+          <div>
+            <div class="unit-title">المقطع 1 — المادة وتحولاتها</div>
+            <div class="unit-sub">سبتمبر ← أكتوبر</div>
+          </div>
+        </div>
+        <a href="3am/modelisation-chimique-1.html" class="lesson-item">
+          <div class="li-num mat">01</div>
+          <div class="li-body">
+            <div class="li-title">نمذجة التحول الكيميائي بتفاعل كيميائي (1)</div>
+            <div class="li-detail">الفرد الكيميائي — الجملة الكيميائية — التحليل الكهربائي للماء — نمذجة التحول بتفاعل كيميائي</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="3am/modelisation-chimique-2.html" class="lesson-item">
+          <div class="li-num mat">02</div>
+          <div class="li-body">
+            <div class="li-title">نمذجة التحول الكيميائي بتفاعل كيميائي (2)</div>
+            <div class="li-detail">الاحتراق التام وغير التام لفحم هيدروجيني — نمذجة التحول بتفاعل كيميائي</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="3am/equation-chimique.html" class="lesson-item">
+          <div class="li-num mat">03</div>
+          <div class="li-body">
+            <div class="li-title">نمذجة التفاعل الكيميائي بمعادلة كيميائية</div>
+            <div class="li-detail">كتابة المعادلات الكيميائية — قواعد الكتابة — مبدأ انحفاظ الذرات من حيث نوعها وعددها</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="3am/facteurs-chimiques.html" class="lesson-item">
+          <div class="li-num mat">04</div>
+          <div class="li-body">
+            <div class="li-title">بعض العوامل المؤثرة في التحول الكيميائي</div>
+            <div class="li-detail">درجة الحرارة — سطح التلامس — حركية المزيج الابتدائي</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+      </div>
+
+      <!-- مقطع 2 : الطاقة -->
+      <div class="unit">
+        <div class="unit-header mec">
+          <span class="unit-icon">🔋</span>
+          <div>
+            <div class="unit-title">المقطع 2 — الطاقة</div>
+            <div class="unit-sub">أكتوبر ← ديسمبر</div>
+          </div>
+        </div>
+        <a href="3am/chaine-fonctionnelle.html" class="lesson-item">
+          <div class="li-num mec">01</div>
+          <div class="li-body">
+            <div class="li-title">السلسلة الوظيفية والطاقوية</div>
+            <div class="li-detail">تركيبة السلسلة الوظيفية — نموذج الطاقة — أشكال تخزين الطاقة — أنماط تحويل الطاقة</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="3am/conservation-energie-1.html" class="lesson-item">
+          <div class="li-num mec">02</div>
+          <div class="li-body">
+            <div class="li-title">مبدأ انحفاظ الطاقة (1)</div>
+            <div class="li-detail">التحويل المفيد وغير المفيد — نص مبدأ انحفاظ الطاقة — العلاقة الرمزية: E_finale = E_initiale + E_reçue - E_cédée</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="3am/conservation-energie-2.html" class="lesson-item">
+          <div class="li-num mec">03</div>
+          <div class="li-body">
+            <div class="li-title">مبدأ انحفاظ الطاقة (2)</div>
+            <div class="li-detail">الحصيلة الطاقوية — نموذج الحصيلة — وحدة الطاقة في الدلالة اليومية</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="3am/puissance.html" class="lesson-item">
+          <div class="li-num mec">04</div>
+          <div class="li-body">
+            <div class="li-title">استطاعة تحويل الطاقة</div>
+            <div class="li-detail">مفهوم الاستطاعة — العلاقة P = E/t — الوحدات — مكونات فاتورة الكهرباء والغاز</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+      </div>
+
+      <!-- مقطع 3 : الكهرباء -->
+      <div class="unit">
+        <div class="unit-header elec">
+          <span class="unit-icon">⚡</span>
+          <div>
+            <div class="unit-title">المقطع 3 — الظواهر الكهربائية</div>
+            <div class="unit-sub">يناير ← مارس</div>
+          </div>
+        </div>
+        <a href="3am/modele-courant.html" class="lesson-item">
+          <div class="li-num elec">01</div>
+          <div class="li-body">
+            <div class="li-title">نموذج التيار الكهربائي</div>
+            <div class="li-detail">النموذج الدوراني — مفهوم التيار المستمر — جهة التيار</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="3am/intensite.html" class="lesson-item">
+          <div class="li-num elec">02</div>
+          <div class="li-body">
+            <div class="li-title">شدة التيار الكهربائي</div>
+            <div class="li-detail">شدة التيار المستمر — وحدة القياس — الأمبريمتر — قانون الشدات في التسلسل والتفرع</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="3am/tension.html" class="lesson-item">
+          <div class="li-num elec">03</div>
+          <div class="li-body">
+            <div class="li-title">التوتر الكهربائي</div>
+            <div class="li-detail">جهاز القياس وطريقة ربطه — وحدة القياس — قانون التوترات في التسلسل والتفرع</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="3am/fem.html" class="lesson-item">
+          <div class="li-num elec">04</div>
+          <div class="li-body">
+            <div class="li-title">القوة المحركة الكهربائية</div>
+            <div class="li-detail">قياس التوتر بين طرفي المولد في دارة مفتوحة — مفهوم القوة المحركة — علاقة I = e/R</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="3am/resistance.html" class="lesson-item">
+          <div class="li-num elec">05</div>
+          <div class="li-body">
+            <div class="li-title">المقاومة الكهربائية وقانون أوم</div>
+            <div class="li-detail">مفهوم المقاومة — وحدة القياس — شفرة الألوان — قانون أوم U = R.I</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="3am/energie-electrique.html" class="lesson-item">
+          <div class="li-num elec">06</div>
+          <div class="li-body">
+            <div class="li-title">التحويل الطاقوي الكهربائي</div>
+            <div class="li-detail">الاستطاعة P = U.I — الطاقة E = U.I.t — انحفاظ الطاقة في الدارة الكهربائية</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+      </div>
+
+      <!-- مقطع 4 : الضوء الأبيض -->
+      <div class="unit">
+        <div class="unit-header light">
+          <span class="unit-icon">🌈</span>
+          <div>
+            <div class="unit-title">المقطع 4 — الظواهر الضوئية</div>
+            <div class="unit-sub">أبريل ← ماي</div>
+          </div>
+        </div>
+        <a href="3am/lumiere-blanche.html" class="lesson-item">
+          <div class="li-num light">01</div>
+          <div class="li-body">
+            <div class="li-title">طيف الضوء الأبيض</div>
+            <div class="li-detail">تحليل الضوء الأبيض — ألوان الطيف المرئي — حركية الضوء الأبيض</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="3am/synthese-additive.html" class="lesson-item">
+          <div class="li-num light">02</div>
+          <div class="li-body">
+            <div class="li-title">نموذج التركيبة الجمعية</div>
+            <div class="li-detail">الألوان الأساسية — الألوان الثانوية — قواعد التركيبة الجمعية</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="3am/synthese-soustractive.html" class="lesson-item">
+          <div class="li-num light">03</div>
+          <div class="li-body">
+            <div class="li-title">نموذج التركيبة الطرحية</div>
+            <div class="li-detail">تشريح الألوان (الضوء الساقط والممتص والنافذ) — تسويط أضواء ملونة على مرشح — قواعد التركيبة الطرحية</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="3am/couleur-objet.html" class="lesson-item">
+          <div class="li-num light">04</div>
+          <div class="li-body">
+            <div class="li-title">رؤية جسم بلون معين</div>
+            <div class="li-detail">الضوء المنثور أو النافذ إلى العين — الجسم مضاء بضوء أبيض أو بمركبات الضوء الأساسية أو بضوء لون ثانوي</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+  </div><!-- /year-3 -->
+
+
+  <!-- ══════════════════════════════════════════
+       السنة الرابعة متوسط
+       المقطع 1: الظواهر الكهربائية
+       المقطع 2: المادة وتحولها
+       المقطع 3: الظواهر الميكانيكية
+       المقطع 4: الظواهر الضوئية
+  ══════════════════════════════════════════ -->
+  <div class="year-panel" id="year-4">
+  <div class="panel-wrap">
+    <div class="year-banner" data-y="4">
+      <div class="banner-num">٤</div>
+      <div class="banner-text">
+        <h2>السنة الرابعة متوسط</h2>
+        <span>4 وحدات تعليمية · تحضير BEM 2026</span>
+      </div>
+      <div class="banner-badge">4ème AM</div>
+    </div>
+    <div class="units-grid">
+
+      <!-- مقطع 1 : الكهرباء -->
+      <div class="unit">
+        <div class="unit-header elec">
+          <span class="unit-icon">⚡</span>
+          <div>
+            <div class="unit-title">المقطع 1 — الظواهر الكهربائية</div>
+            <div class="unit-sub">سبتمبر ← نوفمبر</div>
+          </div>
+        </div>
+        <a href="4am/charge-electrique.html" class="lesson-item">
+          <div class="li-num elec">01</div>
+          <div class="li-body">
+            <div class="li-title">الشحنة الكهربائية</div>
+            <div class="li-detail">التكهرب — طرق التكهرب (الدلك، اللمس، التأثير) — أنواع الشحنات — الأفعال المتبادلة</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="4am/modele-atome.html" class="lesson-item">
+          <div class="li-num elec">02</div>
+          <div class="li-body">
+            <div class="li-title">النموذج المبسط للذرة</div>
+            <div class="li-detail">بنية الذرة (النواة، الإلكترونات) — الشحنة العنصرية — التعادل الكهربائي — تفسير التكهرب (انتقال الإلكترونات)</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="4am/courant-alternatif-1.html" class="lesson-item">
+          <div class="li-num elec">03</div>
+          <div class="li-body">
+            <div class="li-title">التيار الكهربائي المتناوب (1 و 2)</div>
+            <div class="li-detail">إنتاج التيار المتناوب (التحريض الكهرومغناطيسي) — المقارنة بين التيار المستمر والمتناوب</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="4am/courant-alternatif-2.html" class="lesson-item">
+          <div class="li-num elec">04</div>
+          <div class="li-body">
+            <div class="li-title">خصائص التوتر الكهربائي المتناوب</div>
+            <div class="li-detail">القيمة القصوى — الدور — التواتر — الشدة المنتجة (I_eff) — مأخذ التوتر الكهربائي في القطاع (الطور، الحيادي، الأرضي)</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="4am/securite-electrique.html" class="lesson-item">
+          <div class="li-num elec">05</div>
+          <div class="li-body">
+            <div class="li-title">الأمن الكهربائي</div>
+            <div class="li-detail">حماية الدارة والأشخاص — المنصهرة — القاطع التفاضلي — التوصيل الأرضي — أخطار التيار على الإنسان</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+      </div>
+
+      <!-- مقطع 2 : المادة -->
+      <div class="unit">
+        <div class="unit-header mat">
+          <span class="unit-icon">⚗️</span>
+          <div>
+            <div class="unit-title">المقطع 2 — المادة وتحولها</div>
+            <div class="unit-sub">نوفمبر ← يناير</div>
+          </div>
+        </div>
+        <a href="4am/ion-solution.html" class="lesson-item">
+          <div class="li-num mat">01</div>
+          <div class="li-body">
+            <div class="li-title">الشاردة والمحلول الشاردي (1، 2، 3)</div>
+            <div class="li-detail">المحلول الجزيئي والشاردي — ظاهرة الشوارد — الشاردة الموجبة والسالبة — التعادل الكهربائي — الصيغة الإحصائية</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="4am/electrolyse.html" class="lesson-item">
+          <div class="li-num mat">02</div>
+          <div class="li-body">
+            <div class="li-title">التحليل الكهربائي البسيط (1 و 2)</div>
+            <div class="li-detail">التحليل الكهربائي لمحلول كلور النحاس — حركة الشوارد — المعادلتان النصفيتان — المعادلة الإجمالية</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="4am/acide-metal.html" class="lesson-item">
+          <div class="li-num mat">03</div>
+          <div class="li-body">
+            <div class="li-title">تفاعل محلول حمضي مع معدن</div>
+            <div class="li-detail">تفاعل محلول حمض كلور الماء مع الزنك أو الألومينيوم أو الحديد — الكشف — كتابة معادلة التفاعل الكيميائي</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="4am/sel-metal.html" class="lesson-item">
+          <div class="li-num mat">04</div>
+          <div class="li-body">
+            <div class="li-title">تفاعل محلول ملحي مع معدن / محلول حمضي مع ملح</div>
+            <div class="li-detail">تفاعل نترات النحاس مع الحديد — تفاعل محلول حمض كلور الماء مع بيكاربونات الكالسيوم</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+      </div>
+
+      <!-- مقطع 3 : الميكانيك -->
+      <div class="unit">
+        <div class="unit-header mec">
+          <span class="unit-icon">⚖️</span>
+          <div>
+            <div class="unit-title">المقطع 3 — الظواهر الميكانيكية</div>
+            <div class="unit-sub">يناير ← مارس</div>
+          </div>
+        </div>
+        <a href="4am/forces-1.html" class="lesson-item">
+          <div class="li-num mec">01</div>
+          <div class="li-body">
+            <div class="li-title">المقاربة الأولية للقوة (1 و 2)</div>
+            <div class="li-detail">الدلالة الميكانيكية — الفعل الميكانيكي وآثاره — الأفعال الميكانيكية البعدية والتلامسية — مبدأ الفعلين المتبادلين</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="4am/modelisation-force.html" class="lesson-item">
+          <div class="li-num mec">02</div>
+          <div class="li-body">
+            <div class="li-title">نمذجة الفعل الميكانيكي بقوة</div>
+            <div class="li-detail">تمثيل القوة بشعاع — التمثيل الشعاعي للفعلين المتبادلين — قياس شدة القوة (الديناموميتر)</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="4am/poids.html" class="lesson-item">
+          <div class="li-num mec">03</div>
+          <div class="li-body">
+            <div class="li-title">فعل الأرض على جملة ميكانيكية (الثقل)</div>
+            <div class="li-detail">مفهوم الثقل — خصائص شعاع الثقل — العلاقة P = m.g — انحفاظ الكتلة وعدم انحفاظ الثقل</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="4am/equilibre.html" class="lesson-item">
+          <div class="li-num mec">04</div>
+          <div class="li-body">
+            <div class="li-title">توازن جسم صلب خاضع لعدة قوى</div>
+            <div class="li-detail">شرطا التوازن (قوتان، ثلاث قوى) — محصلة قوتين — التعيين الهندسي والبياني</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="4am/archimede.html" class="lesson-item">
+          <div class="li-num mec">05</div>
+          <div class="li-body">
+            <div class="li-title">دافعة أرخميدس في السوائل</div>
+            <div class="li-detail">خصائص الدافعة — الثقل الظاهري — FA = ρ.V.g — شرط توازن جسم مغمور وجسم طافٍ</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+      </div>
+
+      <!-- مقطع 4 : الضوء -->
+      <div class="unit">
+        <div class="unit-header light">
+          <span class="unit-icon">🪞</span>
+          <div>
+            <div class="unit-title">المقطع 4 — الظواهر الضوئية</div>
+            <div class="unit-sub">أبريل ← ماي</div>
+          </div>
+        </div>
+        <a href="4am/vision-perspective.html" class="lesson-item">
+          <div class="li-num light">01</div>
+          <div class="li-body">
+            <div class="li-title">اختلاف أبعاد منظر الشيء باختلاف زوايا النظر (1 و 2)</div>
+            <div class="li-detail">الرؤية المنظورية — مجال الرؤية المباشرة — زاوية النظر أو القطر الظاهري — تقدير أبعاد جسم بالتسديد المباشر وطريقة التثليث</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="4am/miroir-plan.html" class="lesson-item">
+          <div class="li-num light">02</div>
+          <div class="li-body">
+            <div class="li-title">صورة جسم معطاة بمرآة مستوية</div>
+            <div class="li-detail">المرآة المستوية — صورة الجسم وخصائصها — تحديد أبعاد وموضع الصورة</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="4am/lois-reflexion.html" class="lesson-item">
+          <div class="li-num light">03</div>
+          <div class="li-body">
+            <div class="li-title">قانونا الانعكاس</div>
+            <div class="li-detail">توضيح ظاهرة الانعكاس — نص قانوني الانعكاس — تمثيل مسير شعاع ضوئي</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+        <a href="4am/champ-miroir.html" class="lesson-item">
+          <div class="li-num light">04</div>
+          <div class="li-body">
+            <div class="li-title">مجال المرآة المستوية</div>
+            <div class="li-detail">مجال المرآة المستوية والعوامل المؤثرة — تمثيل حقل الرؤية — المرآة الدوارة وتغير مجال الرؤية</div>
+          </div><div class="li-arrow">←</div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+  </div><!-- /year-4 -->
+
 </main>
 
 <div class="gold-bar"></div>
 <footer>
   أُعِدَّ بعناية من طرف <strong>الأستاذ لبيب</strong> &nbsp;·&nbsp; السنة الدراسية 2025/2026
-  &nbsp;·&nbsp; منهاج الجيل الثاني &nbsp;·&nbsp; الجزائر
+  &nbsp;·&nbsp; منهاج الجيل الثاني &nbsp;·&nbsp; المقاطعة الثانية — تلمسان
 </footer>
+
+<script>
+function showYear(y) {
+  document.querySelectorAll('.year-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('year-' + y).classList.add('active');
+  document.querySelector('.tab-btn[data-y="' + y + '"]').classList.add('active');
+}
+</script>
 
 </body>
 </html>
