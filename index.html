@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الأستاذ لبيب | دروس العلوم الفيزيائية — المرحلة المتوسطة</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #c8960c;
+  --gold2: #f0c040;
+  --dark: #0f1f35;
+  --dark2: #162840;
+  --bg: #f4efe6;
+  --card: #ffffff;
+  --border: #ddd5bb;
+  --muted: #7a7a9a;
+  --y1: #1a5276;
+  --y2: #1e8449;
+  --y3: #6c3483;
+  --y4: #922b21;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  min-height: 100vh;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--dark);
+  position: relative;
+  overflow: hidden;
+  padding: 56px 32px 48px;
+  text-align: center;
+}
+.hero::before {
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse at 15% 50%, rgba(200,150,12,.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 50%, rgba(26,82,118,.25) 0%, transparent 55%),
+    repeating-linear-gradient(60deg, rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px, transparent 1px, transparent 28px),
+    repeating-linear-gradient(-60deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px, transparent 1px, transparent 28px);
+}
+.hero-inner { position:relative; max-width:760px; margin:0 auto; }
+
+.hero-seal {
+  width:96px; height:96px; border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  display:inline-flex; align-items:center; justify-content:center;
+  font-family:'Amiri',serif; font-size:2.4rem; color:var(--dark); font-weight:700;
+  box-shadow:0 0 0 6px rgba(200,150,12,.25),0 8px 32px rgba(200,150,12,.35);
+  margin-bottom:22px;
+  animation:glow 3s ease-in-out infinite;
+}
+@keyframes glow {
+  0%,100%{ box-shadow:0 0 0 6px rgba(200,150,12,.25),0 8px 32px rgba(200,150,12,.35); }
+  50%    { box-shadow:0 0 0 10px rgba(200,150,12,.15),0 8px 48px rgba(200,150,12,.55); }
+}
+.hero h1 {
+  font-family:'Amiri',serif;
+  font-size:clamp(1.6rem,4vw,2.4rem);
+  color:#fff; line-height:1.35; margin-bottom:10px;
+}
+.hero p { font-size:.95rem; color:rgba(255,255,255,.55); font-weight:300; }
+
+.hero-tags {
+  display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:22px;
+}
+.hero-tag {
+  background:rgba(200,150,12,.18); border:1px solid rgba(200,150,12,.4);
+  color:var(--gold2); font-size:.78rem; font-weight:600;
+  padding:5px 16px; border-radius:20px;
+}
+
+.gold-bar {
+  height:4px;
+  background:linear-gradient(90deg,var(--dark),var(--gold),var(--gold2),var(--gold),var(--dark));
+}
+
+/* ── MAIN ── */
+main { max-width:1140px; margin:0 auto; padding:52px 28px 72px; }
+
+/* STATS */
+.stats-strip {
+  display:flex; background:var(--dark2); border-radius:18px;
+  overflow:hidden; margin-bottom:44px;
+}
+.stat {
+  flex:1; padding:22px 16px; text-align:center;
+  border-left:1px solid rgba(255,255,255,.07);
+}
+.stat:last-child{ border-left:none; }
+.stat-n { font-size:1.9rem; font-weight:900; color:var(--gold2); line-height:1; }
+.stat-l { font-size:.73rem; color:rgba(255,255,255,.45); margin-top:5px; }
+
+/* YEARS GRID */
+.years-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(480px,1fr));
+  gap:32px;
+}
+
+/* YEAR CARD */
+.year-card {
+  background:var(--card); border-radius:20px;
+  border:1px solid var(--border); overflow:hidden;
+  box-shadow:0 4px 24px rgba(15,31,53,.08);
+  transition:transform .3s,box-shadow .3s;
+  opacity:0; transform:translateY(28px);
+  animation:riseIn .6s ease forwards;
+}
+.year-card:hover { transform:translateY(-6px); box-shadow:0 16px 48px rgba(15,31,53,.14); }
+.year-card:nth-child(1){ animation-delay:.05s; }
+.year-card:nth-child(2){ animation-delay:.15s; }
+.year-card:nth-child(3){ animation-delay:.25s; }
+.year-card:nth-child(4){ animation-delay:.35s; }
+@keyframes riseIn { to{ opacity:1; transform:translateY(0); } }
+
+/* YEAR HEADER */
+.year-head {
+  padding:22px 26px 20px;
+  display:flex; align-items:center; gap:16px;
+  position:relative; overflow:hidden;
+}
+.year-head::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(90deg,rgba(255,255,255,.08) 0%,transparent 70%);
+}
+.year-card[data-year="1"] .year-head{ background:var(--y1); }
+.year-card[data-year="2"] .year-head{ background:var(--y2); }
+.year-card[data-year="3"] .year-head{ background:var(--y3); }
+.year-card[data-year="4"] .year-head{ background:var(--y4); }
+
+.year-num {
+  width:52px; height:52px; border-radius:14px;
+  background:rgba(255,255,255,.18); border:2px solid rgba(255,255,255,.35);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Amiri',serif; font-size:1.7rem; color:#fff; font-weight:700;
+  flex-shrink:0; position:relative; z-index:1;
+}
+.year-info { position:relative; z-index:1; }
+.year-info h2 { font-size:1.15rem; color:#fff; font-weight:700; line-height:1.3; }
+.year-info span { font-size:.78rem; color:rgba(255,255,255,.65); }
+.year-badge {
+  margin-right:auto; position:relative; z-index:1;
+  background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.3);
+  color:rgba(255,255,255,.9); font-size:.72rem; font-weight:700;
+  padding:4px 12px; border-radius:12px; white-space:nowrap;
+}
+
+/* YEAR BODY */
+.year-body { padding:22px 26px 26px; }
+
+.domain-block { margin-bottom:18px; }
+.domain-block:last-child{ margin-bottom:0; }
+
+.domain-label {
+  font-size:.72rem; font-weight:700; letter-spacing:.06em;
+  color:var(--muted); margin-bottom:10px;
+  display:flex; align-items:center; gap:8px;
+}
+.domain-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+.lessons-list { display:flex; flex-direction:column; gap:7px; }
+
+.lesson-link {
+  display:flex; align-items:center; gap:12px;
+  padding:10px 14px; border-radius:10px;
+  border:1px solid transparent;
+  text-decoration:none; color:var(--dark);
+  transition:background .2s,border-color .2s,transform .2s;
+}
+.lesson-link:hover {
+  background:var(--bg); border-color:var(--border);
+  transform:translateX(-4px);
+}
+.lesson-link.soon {
+  opacity:.45; pointer-events:none;
+}
+.lesson-link.soon::after {
+  content:'قريباً'; font-size:.65rem;
+  background:var(--gold); color:#fff;
+  padding:1px 7px; border-radius:6px; font-weight:700; margin-right:auto;
+}
+
+.ln {
+  width:26px; height:26px; border-radius:7px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:.68rem; font-weight:700; color:#fff; flex-shrink:0;
+}
+.year-card[data-year="1"] .ln{ background:var(--y1); }
+.year-card[data-year="2"] .ln{ background:var(--y2); }
+.year-card[data-year="3"] .ln{ background:var(--y3); }
+.year-card[data-year="4"] .ln{ background:var(--y4); }
+
+.lesson-name { font-size:.88rem; font-weight:600; flex:1; line-height:1.4; }
+.lesson-arrow { font-size:.9rem; color:var(--muted); }
+
+/* ── FOOTER ── */
+footer {
+  background:var(--dark); text-align:center;
+  padding:28px 20px; font-size:.8rem; color:rgba(255,255,255,.35);
+}
+footer strong{ color:var(--gold2); }
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  .years-grid{ grid-template-columns:1fr; }
+  .stats-strip{ flex-wrap:wrap; }
+  .stat{ min-width:50%; border-left:none; border-bottom:1px solid rgba(255,255,255,.07); }
+  .hero{ padding:40px 20px 36px; }
+  main{ padding:36px 16px 52px; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-seal">ل</div>
+    <h1>منصة دروس العلوم الفيزيائية والتكنولوجيا</h1>
+    <p>المرحلة المتوسطة · منهاج الجيل الثاني · وزارة التربية الوطنية الجزائرية</p>
+    <div class="hero-tags">
+      <span class="hero-tag">السنة الأولى متوسط</span>
+      <span class="hero-tag">السنة الثانية متوسط</span>
+      <span class="hero-tag">السنة الثالثة متوسط</span>
+      <span class="hero-tag">السنة الرابعة متوسط</span>
+    </div>
+  </div>
+</section>
+<div class="gold-bar"></div>
+
+<main>
+
+  <div class="stats-strip">
+    <div class="stat"><div class="stat-n">4</div><div class="stat-l">سنوات دراسية</div></div>
+    <div class="stat"><div class="stat-n">40+</div><div class="stat-l">درس تفاعلي</div></div>
+    <div class="stat"><div class="stat-n">3</div><div class="stat-l">مجالات علمية</div></div>
+    <div class="stat"><div class="stat-n">∞</div><div class="stat-l">متاح مجاناً</div></div>
+  </div>
+
+  <div class="years-grid">
+
+    <!-- ── السنة الأولى ── -->
+    <div class="year-card" data-year="1">
+      <div class="year-head">
+        <div class="year-num">١</div>
+        <div class="year-info">
+          <h2>السنة الأولى متوسط</h2>
+          <span>المادة وتحولاتها · الكهرباء الأساسية</span>
+        </div>
+        <div class="year-badge">1ère AM</div>
+      </div>
+      <div class="year-body">
+
+        <div class="domain-block">
+          <div class="domain-label">⚗️ المادة وخصائصها</div>
+          <div class="lessons-list">
+            <a href="1am/cours-matiere.html" class="lesson-link">
+              <div class="ln">01</div><div class="lesson-name">المادة وحالاتها الثلاث</div><div class="lesson-arrow">←</div>
+            </a>
+            <a href="1am/cours-melanges.html" class="lesson-link">
+              <div class="ln">02</div><div class="lesson-name">المخاليط وطرق فصلها</div><div class="lesson-arrow">←</div>
+            </a>
+            <a href="1am/cours-solutions.html" class="lesson-link">
+              <div class="ln">03</div><div class="lesson-name">المحاليل المائية</div><div class="lesson-arrow">←</div>
+            </a>
+            <a href="#" class="lesson-link soon">
+              <div class="ln">04</div><div class="lesson-name">تحولات المادة</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="domain-block">
+          <div class="domain-label">⚡ الكهرباء الأساسية</div>
+          <div class="lessons-list">
+            <a href="1am/cours-circuit.html" class="lesson-link">
+              <div class="ln">05</div><div class="lesson-name">الدارة الكهربائية البسيطة</div><div class="lesson-arrow">←</div>
+            </a>
+            <a href="#" class="lesson-link soon">
+              <div class="ln">06</div><div class="lesson-name">الموصلات والعوازل</div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── السنة الثانية ── -->
+    <div class="year-card" data-year="2">
+      <div class="year-head">
+        <div class="year-num">٢</div>
+        <div class="year-info">
+          <h2>السنة الثانية متوسط</h2>
+          <span>التفاعلات الكيميائية · الضوء والصوت</span>
+        </div>
+        <div class="year-badge">2ème AM</div>
+      </div>
+      <div class="year-body">
+
+        <div class="domain-block">
+          <div class="domain-label">⚗️ الكيمياء</div>
+          <div class="lessons-list">
+            <a href="2am/cours-reaction.html" class="lesson-link">
+              <div class="ln">01</div><div class="lesson-name">التفاعلات الكيميائية</div><div class="lesson-arrow">←</div>
+            </a>
+            <a href="2am/cours-combustion.html" class="lesson-link">
+              <div class="ln">02</div><div class="lesson-name">تفاعلات الاحتراق</div><div class="lesson-arrow">←</div>
+            </a>
+            <a href="#" class="lesson-link soon">
+              <div class="ln">03</div><div class="lesson-name">الأكسدة والاختزال</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="domain-block">
+          <div class="domain-label">🔭 الضوء والصوت</div>
+          <div class="lessons-list">
+            <a href="2am/cours-lumiere.html" class="lesson-link">
+              <div class="ln">04</div><div class="lesson-name">انتشار الضوء والظلال</div><div class="lesson-arrow">←</div>
+            </a>
+            <a href="#" class="lesson-link soon">
+              <div class="ln">05</div><div class="lesson-name">الصوت وخصائصه</div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── السنة الثالثة ── -->
+    <div class="year-card" data-year="3">
+      <div class="year-head">
+        <div class="year-num">٣</div>
+        <div class="year-info">
+          <h2>السنة الثالثة متوسط</h2>
+          <span>الكهرباء المتقدمة · البصريات · الميكانيك</span>
+        </div>
+        <div class="year-badge">3ème AM</div>
+      </div>
+      <div class="year-body">
+
+        <div class="domain-block">
+          <div class="domain-label">⚡ الكهرباء</div>
+          <div class="lessons-list">
+            <a href="cours-electricite.html" class="lesson-link">
+              <div class="ln">01</div><div class="lesson-name">التوترات والشدات في الدارات</div><div class="lesson-arrow">←</div>
+            </a>
+            <a href="cours-resistance.html" class="lesson-link">
+              <div class="ln">02</div><div class="lesson-name">قانون أوم والمقاومة</div><div class="lesson-arrow">←</div>
+            </a>
+            <a href="#" class="lesson-link soon">
+              <div class="ln">03</div><div class="lesson-name">الطاقة والقدرة الكهربائية</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="domain-block">
+          <div class="domain-label">🔭 البصريات</div>
+          <div class="lessons-list">
+            <a href="cours-optique.html" class="lesson-link">
+              <div class="ln">04</div><div class="lesson-name">الانعكاس والانكسار</div><div class="lesson-arrow">←</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="domain-block">
+          <div class="domain-label">⚖️ الميكانيك</div>
+          <div class="lessons-list">
+            <a href="cours-forces.html" class="lesson-link">
+              <div class="ln">05</div><div class="lesson-name">القوى وتمثيلها البياني</div><div class="lesson-arrow">←</div>
+            </a>
+            <a href="#" class="lesson-link soon">
+              <div class="ln">06</div><div class="lesson-name">توازن الأجسام</div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── السنة الرابعة ── -->
+    <div class="year-card" data-year="4">
+      <div class="year-head">
+        <div class="year-num">٤</div>
+        <div class="year-info">
+          <h2>السنة الرابعة متوسط</h2>
+          <span>تحضير شهادة التعليم المتوسط — BEM</span>
+        </div>
+        <div class="year-badge">4ème AM</div>
+      </div>
+      <div class="year-body">
+
+        <div class="domain-block">
+          <div class="domain-label">⚡ الكهرباء والطاقة</div>
+          <div class="lessons-list">
+            <a href="4am/cours-energie.html" class="lesson-link">
+              <div class="ln">01</div><div class="lesson-name">تحولات الطاقة الكهربائية</div><div class="lesson-arrow">←</div>
+            </a>
+            <a href="#" class="lesson-link soon">
+              <div class="ln">02</div><div class="lesson-name">الطاقة المتجددة</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="domain-block">
+          <div class="domain-label">⚗️ الكيمياء المتقدمة</div>
+          <div class="lessons-list">
+            <a href="#" class="lesson-link soon">
+              <div class="ln">03</div><div class="lesson-name">الجدول الدوري للعناصر</div>
+            </a>
+            <a href="#" class="lesson-link soon">
+              <div class="ln">04</div><div class="lesson-name">التفاعلات الأيونية</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="domain-block">
+          <div class="domain-label">📋 مراجعة شاملة BEM</div>
+          <div class="lessons-list">
+            <a href="4am/revision-bem.html" class="lesson-link">
+              <div class="ln">★</div><div class="lesson-name">ملخص شامل لمادة الفيزياء</div><div class="lesson-arrow">←</div>
+            </a>
+            <a href="#" class="lesson-link soon">
+              <div class="ln">★</div><div class="lesson-name">نماذج امتحانات BEM</div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div class="gold-bar"></div>
+<footer>
+  أُعِدَّ بعناية من طرف <strong>الأستاذ لبيب</strong> &nbsp;·&nbsp; السنة الدراسية 2025/2026
+  &nbsp;·&nbsp; منهاج الجيل الثاني &nbsp;·&nbsp; الجزائر
+</footer>
+
+</body>
+</html>
