@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>النموذج المبسط للذرة - رابعة متوسط</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #f8fafc; }
+        .atom-container { position: relative; width: 300px; height: 300px; margin: auto; }
+        .nucleus { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 40px; height: 40px; background: radial-gradient(circle, #ef4444, #b91c1c);
+            border-radius: 50%; z-index: 10; box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+        }
+        .orbit {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            border: 1px dashed #cbd5e1; border-radius: 50%;
+        }
+        .electron {
+            position: absolute; width: 12px; height: 12px; background: #3b82f6;
+            border-radius: 50%; transform-origin: center;
+        }
+        @keyframes orbit-rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        .anim-orbit { animation: orbit-rotate linear infinite; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="bg-indigo-900 text-white rounded-3xl p-8 mb-8 shadow-2xl relative overflow-hidden">
+            <div class="relative z-10">
+                <h1 class="text-3xl md:text-4xl font-black mb-2">النموذج المبسط للذرة</h1>
+                <p class="text-indigo-200 text-lg font-medium">مقطع الظواهر الكهربائية - السنة الرابعة متوسط</p>
+            </div>
+            <i data-lucide="atom" class="absolute left-4 top-4 w-32 h-32 text-white/10 -rotate-12"></i>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Interactive Simulation Card -->
+            <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-200 flex flex-col items-center">
+                <h2 class="text-xl font-bold mb-6 text-slate-800 self-start">محاكاة بنية الذرة</h2>
+                
+                <div class="atom-container" id="atom-view">
+                    <div class="nucleus" title="النواة (بروتونات + نيوترونات)"></div>
+                    <!-- Orbits will be injected here -->
+                </div>
+
+                <div class="mt-8 w-full space-y-6">
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-slate-600">عدد الإلكترونات (e⁻):</span>
+                            <span id="e-count" class="bg-blue-600 text-white px-3 py-1 rounded-full font-bold">3</span>
+                        </div>
+                        <input type="range" id="e-slider" min="1" max="10" value="3" class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div class="bg-red-50 p-3 rounded-xl border border-red-100">
+                            <div class="text-xs text-red-600 font-bold mb-1">شحنة النواة</div>
+                            <div id="nucleus-charge" class="text-lg font-black text-red-700">+3e</div>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded-xl border border-blue-100">
+                            <div class="text-xs text-blue-600 font-bold mb-1">شحنة الإلكترونات</div>
+                            <div id="electron-charge" class="text-lg font-black text-blue-700">-3e</div>
+                        </div>
+                    </div>
+
+                    <div id="balance-msg" class="text-center p-3 rounded-xl bg-green-100 text-green-700 font-bold border border-green-200">
+                        الذرة متعادلة كهربائياً
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Details -->
+            <div class="space-y-6">
+                <!-- Rutherford Model -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold text-indigo-900 mb-3 flex items-center gap-2">
+                        <i data-lucide="microscope" class="w-5 h-5"></i> نموذج رذرفورد
+                    </h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        تتكون الذرة من **نواة مركزية** موجبة الشحنة تدور حولها **إلكترونات** سالبة الشحنة في مدارات، تماماً مثل دوران الكواكب حول الشمس. معظم حجم الذرة فراغ.
+                    </p>
+                </div>
+
+                <!-- Components Table -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 overflow-hidden">
+                    <h3 class="text-lg font-bold text-indigo-900 mb-4">مكونات الذرة</h3>
+                    <table class="w-full text-sm">
+                        <thead class="bg-slate-50">
+                            <tr>
+                                <th class="p-2 text-right">المكون</th>
+                                <th class="p-2 text-center">الرمز</th>
+                                <th class="p-2 text-left">الشحنة</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr>
+                                <td class="p-2 font-bold text-slate-700">الإلكترونات</td>
+                                <td class="p-2 text-center">e⁻</td>
+                                <td class="p-2 text-left text-blue-600">-1.6 × 10⁻¹⁹ C</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-bold text-slate-700">البروتونات</td>
+                                <td class="p-2 text-center">p⁺</td>
+                                <td class="p-2 text-left text-red-600">+1.6 × 10⁻¹⁹ C</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Learning Outcome -->
+                <div class="bg-indigo-50 rounded-3xl p-6 border-r-4 border-indigo-600">
+                    <h3 class="font-bold text-indigo-900 mb-2">قاعدة ذهبية:</h3>
+                    <p class="text-indigo-800 text-sm italic">
+                        "الذرة في حالتها العادية تكون **متعادلة كهربائياً** لأن عدد الشحنات الموجبة في النواة يساوي تماماً عدد الإلكترونات السالبة التي تدور حولها."
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: Electrification Explanation -->
+        <section class="mt-12 bg-white rounded-[2.5rem] p-8 shadow-sm border border-slate-200">
+            <h2 class="text-2xl font-black text-slate-800 mb-6 flex items-center gap-3">
+                <i data-lucide="zap" class="text-yellow-500"></i> تفسير ظاهرة التكهرب
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-red-50 p-6 rounded-3xl border border-red-100">
+                    <h4 class="font-bold text-red-800 mb-3 flex items-center gap-2">الجسم المشحون موجباً</h4>
+                    <p class="text-red-700 text-sm">هو جسم **فقد** عدداً من الإلكترونات. تصبح شحنة النواة الموجبة أكبر من شحنة الإلكترونات المتبقية.</p>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-3xl border border-blue-100">
+                    <h4 class="font-bold text-blue-800 mb-3 flex items-center gap-2">الجسم المشحون سالباً</h4>
+                    <p class="text-blue-700 text-sm">هو جسم **اكتسب** إلكترونات إضافية. تصبح شحنة الإلكترونات السالبة أكبر من شحنة النواة.</p>
+                </div>
+            </div>
+            <div class="mt-6 p-4 bg-yellow-50 text-yellow-800 rounded-2xl border border-yellow-200 text-center font-bold">
+                تنبيه: البروتونات لا تنتقل أبداً! الإلكترونات فقط هي التي تنتقل بين الأجسام.
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const slider = document.getElementById('e-slider');
+        const eCountLabel = document.getElementById('e-count');
+        const nChargeLabel = document.getElementById('nucleus-charge');
+        const eChargeLabel = document.getElementById('electron-charge');
+        const atomView = document.getElementById('atom-view');
+
+        function updateAtom(count) {
+            eCountLabel.textContent = count;
+            nChargeLabel.textContent = `+${count}e`;
+            eChargeLabel.textContent = `-${count}e`;
+
+            // Clear old orbits/electrons
+            const oldOrbits = atomView.querySelectorAll('.orbit');
+            oldOrbits.forEach(o => o.remove());
+
+            // Create new orbits based on count
+            const orbitConfigs = [
+                { size: 100, speed: 5 },
+                { size: 180, speed: 8 },
+                { size: 260, speed: 12 }
+            ];
+
+            let placedE = 0;
+            orbitConfigs.forEach((config, idx) => {
+                if (placedE >= count) return;
+
+                const orbit = document.createElement('div');
+                orbit.className = 'orbit anim-orbit';
+                orbit.style.width = config.size + 'px';
+                orbit.style.height = config.size + 'px';
+                orbit.style.animationDuration = config.speed + 's';
+                
+                // Max 2 in first orbit, 8 in others for simplicity
+                const eInThisOrbit = (idx === 0) ? Math.min(2, count) : Math.min(8, count - placedE);
+                
+                for(let i=0; i<eInThisOrbit; i++) {
+                    const e = document.createElement('div');
+                    e.className = 'electron';
+                    const angle = (i * (360/eInThisOrbit));
+                    const rad = (config.size / 2);
+                    const x = rad + rad * Math.cos(angle * Math.PI / 180) - 6;
+                    const y = rad + rad * Math.sin(angle * Math.PI / 180) - 6;
+                    e.style.left = x + 'px';
+                    e.style.top = y + 'px';
+                    orbit.appendChild(e);
+                }
+                
+                atomView.appendChild(orbit);
+                placedE += eInThisOrbit;
+            });
+        }
+
+        slider.addEventListener('input', (e) => {
+            updateAtom(parseInt(e.target.value));
+        });
+
+        // Initialize
+        updateAtom(3);
+        lucide.createIcons();
+    </script>
+</body>
+</html>
