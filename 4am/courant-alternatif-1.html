@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التيار الكهربائي المتناوب - درس تفاعلي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #f0f4f8; }
+        .canvas-container { position: relative; width: 100%; height: 250px; background: #fff; border-radius: 1.5rem; border: 2px solid #e2e8f0; overflow: hidden; }
+        .magnet { width: 80px; height: 30px; background: linear-gradient(to right, #ef4444 50%, #3b82f6 50%); border-radius: 4px; position: absolute; cursor: grab; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px; z-index: 20; }
+        .coil { position: absolute; left: 60%; top: 50%; transform: translateY(-50%); width: 60px; height: 100px; border: 4px double #b45309; border-radius: 10px; z-index: 10; }
+        .galvanometer { position: absolute; left: 80%; top: 50%; transform: translateY(-50%); width: 60px; height: 60px; border: 3px solid #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #f8fafc; }
+        .needle { width: 2px; height: 25px; background: #ef4444; transform-origin: bottom center; transition: transform 0.1s ease-out; }
+        .wave-path { fill: none; stroke-width: 3; }
+    </style>
+</head>
+<body class="pb-12">
+
+    <!-- Navbar -->
+    <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="bg-slate-100 p-2 rounded-xl text-slate-600 hover:bg-slate-200 transition-all" title="العودة للفهرس">
+                    <i data-lucide="layout-grid"></i>
+                </a>
+                <h1 class="text-xl font-black text-slate-800">التيار الكهربائي المتناوب</h1>
+            </div>
+            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold">رابعة متوسط</span>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 mt-8 max-w-5xl">
+        
+        <!-- Section 1: Electromagnetic Induction -->
+        <section class="bg-white rounded-[2.5rem] p-8 shadow-sm border border-slate-200 mb-8">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-amber-100 p-3 rounded-2xl text-amber-600">
+                    <i data-lucide="magnet"></i>
+                </div>
+                <h2 class="text-2xl font-black text-slate-800">1. ظاهرة التحريض الكهرومغناطيسي</h2>
+            </div>
+            
+            <p class="text-slate-600 mb-8 leading-relaxed">
+                يتم إنتاج التيار المتناوب عن طريق تحريك **مغناطيس** أمام **وشيعة**. هذه العملية تسمى التحريض، حيث يلعب المغناطيس دور **المحرض** والوشيعة دور **المتحرض**.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <!-- Experiment Area -->
+                <div class="lg:col-span-2">
+                    <div class="canvas-container" id="exp-area">
+                        <div class="absolute top-4 right-4 bg-slate-50 px-3 py-1 rounded-lg text-xs font-bold text-slate-400">مختبر افتراضي: حرك المغناطيس يميناً ويساراً</div>
+                        <div id="magnet" class="magnet shadow-lg" style="top: 110px; left: 50px;">
+                            <span class="mr-2">N</span><span>S</span>
+                        </div>
+                        <div class="coil"></div>
+                        <div class="galvanometer">
+                            <div id="needle" class="needle"></div>
+                        </div>
+                        <!-- Wires -->
+                        <svg class="absolute inset-0 w-full h-full pointer-events-none">
+                            <path d="M 215 125 L 240 125" stroke="#475569" stroke-width="2" fill="none" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Explanation -->
+                <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100 h-full">
+                    <h3 class="font-bold text-slate-800 mb-4">ماذا تلاحظ؟</h3>
+                    <ul class="space-y-3 text-sm text-slate-600">
+                        <li class="flex gap-2">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-green-500 shrink-0"></i>
+                            عند حركة المغناطيس، ينحرف مؤشر الغلفانومتر يميناً ويساراً.
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-green-500 shrink-0"></i>
+                            عند التوقف، يعود المؤشر للصفر (لا يوجد تيار).
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="info" class="w-4 h-4 text-blue-500 shrink-0"></i>
+                            التيار الناتج يغير جهته وقيمته باستمرار.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Comparison -->
+        <section class="bg-white rounded-[2.5rem] p-8 shadow-sm border border-slate-200">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="bg-blue-100 p-3 rounded-2xl text-blue-600">
+                    <i data-lucide="activity"></i>
+                </div>
+                <h2 class="text-2xl font-black text-slate-800">2. مقارنة بين التيار المستمر والمتناوب</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- DC Current -->
+                <div class="p-6 rounded-3xl bg-slate-50 border border-slate-100">
+                    <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <span class="w-3 h-3 bg-red-500 rounded-full"></span> التيار المستمر (DC)
+                    </h3>
+                    <div class="h-32 bg-white rounded-2xl mb-4 relative overflow-hidden border border-slate-200">
+                        <svg viewBox="0 0 400 100" class="w-full h-full">
+                            <line x1="0" y1="30" x2="400" y2="30" stroke="#ef4444" stroke-width="4" />
+                        </svg>
+                    </div>
+                    <p class="text-sm text-slate-500 italic leading-relaxed">
+                        تيار ثابت الجولة (جهة واحدة) وثابت القيمة بمرور الزمن. نتحصل عليه من البطاريات.
+                    </p>
+                </div>
+
+                <!-- AC Current -->
+                <div class="p-6 rounded-3xl bg-blue-50 border border-blue-100">
+                    <h3 class="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
+                        <span class="w-3 h-3 bg-blue-600 rounded-full animate-pulse"></span> التيار المتناوب (AC)
+                    </h3>
+                    <div class="h-32 bg-white rounded-2xl mb-4 relative overflow-hidden border border-blue-200">
+                        <svg viewBox="0 0 400 100" class="w-full h-full">
+                            <path d="M0 50 Q 50 0, 100 50 T 200 50 T 300 50 T 400 50" stroke="#2563eb" stroke-width="4" fill="none" class="wave-path" />
+                        </svg>
+                    </div>
+                    <p class="text-sm text-blue-800 italic leading-relaxed">
+                        تيار متغير الجهة ومتغير القيمة بمرور الزمن (بشكل نوبي). نتحصل عليه من المنوب (الدينامو).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="mt-8 overflow-hidden rounded-2xl border border-slate-200">
+                <table class="w-full text-sm text-right">
+                    <thead class="bg-slate-800 text-white font-bold">
+                        <tr>
+                            <th class="p-4">وجه المقارنة</th>
+                            <th class="p-4">التيار المستمر (DC)</th>
+                            <th class="p-4">التيار المتناوب (AC)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                        <tr>
+                            <td class="p-4 font-bold bg-slate-50">المصدر</td>
+                            <td class="p-4 italic">البطاريات، الأعمدة</td>
+                            <td class="p-4 italic text-blue-600">المنوبات، المأخذ المنزلي</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold bg-slate-50">الجهة</td>
+                            <td class="p-4 italic">ثابتة (من + إلى -)</td>
+                            <td class="p-4 italic text-blue-600">متغيرة (نوبتان)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold bg-slate-50">القيمة</td>
+                            <td class="p-4 italic">ثابتة</td>
+                            <td class="p-4 italic text-blue-600">متغيرة بين قيمتين حديتين</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold bg-slate-50">الرمز</td>
+                            <td class="p-4 font-black">= أو DC</td>
+                            <td class="p-4 font-black text-blue-600">~ أو AC</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Back to Index Button -->
+        <div class="mt-12 flex justify-center">
+            <a href="levels/grade4.html" class="flex items-center gap-3 bg-slate-800 hover:bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-xl hover:-translate-y-1">
+                <i data-lucide="arrow-right"></i>
+                العودة إلى دروس السنة الرابعة
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // Lucide Icons
+        lucide.createIcons();
+
+        // Magnet Logic
+        const magnet = document.getElementById('magnet');
+        const needle = document.getElementById('needle');
+        const expArea = document.getElementById('exp-area');
+        
+        let isDragging = false;
+        let lastX = 0;
+
+        magnet.onmousedown = (e) => { isDragging = true; magnet.style.cursor = 'grabbing'; };
+        window.onmouseup = () => { 
+            isDragging = false; 
+            magnet.style.cursor = 'grab';
+            needle.style.transform = 'rotate(0deg)';
+        };
+
+        window.onmousemove = (e) => {
+            if (!isDragging) return;
+
+            const rect = expArea.getBoundingClientRect();
+            let x = e.clientX - rect.left - 40; // 40 is half magnet width
+            
+            // Constrain
+            if (x < 10) x = 10;
+            if (x > 180) x = 180;
+
+            magnet.style.left = x + 'px';
+
+            // Velocity for needle
+            let velocity = x - lastX;
+            let angle = velocity * 4; // Sensitivity
+            if (angle > 60) angle = 60;
+            if (angle < -60) angle = -60;
+
+            needle.style.transform = `rotate(${angle}deg)`;
+            lastX = x;
+        };
+
+        // Touch support
+        magnet.ontouchstart = (e) => { isDragging = true; };
+        window.ontouchend = () => { isDragging = false; needle.style.transform = 'rotate(0deg)'; };
+        window.ontouchmove = (e) => {
+            if (!isDragging) return;
+            const touch = e.touches[0];
+            const rect = expArea.getBoundingClientRect();
+            let x = touch.clientX - rect.left - 40;
+            if (x < 10) x = 10;
+            if (x > 180) x = 180;
+            magnet.style.left = x + 'px';
+            let velocity = x - lastX;
+            let angle = velocity * 4;
+            needle.style.transform = `rotate(${angle}deg)`;
+            lastX = x;
+        };
+    </script>
+</body>
+</html>
