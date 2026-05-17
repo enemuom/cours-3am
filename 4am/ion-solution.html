@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الشاردة والمحلول الشاردي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #f3f4f6; }
+        .tab-btn.active { border-bottom-color: #3b82f6; color: #3b82f6; }
+        .hidden { display: none; }
+        
+        /* Circuit Styles */
+        .bulb { transition: all 0.3s; }
+        .bulb.on { fill: #fbbf24; filter: drop-shadow(0 0 15px #fbbf24); }
+        .bulb.off { fill: #e5e7eb; }
+        
+        /* Beaker Styles */
+        .beaker {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border: 4px solid #9ca3af;
+            border-top: none;
+            border-radius: 0 0 20px 20px;
+            margin: 0 auto;
+            overflow: hidden;
+            background: linear-gradient(to bottom, transparent 20%, #bfdbfe 20%, #93c5fd 100%);
+        }
+        
+        .electrode {
+            position: absolute;
+            top: 20%;
+            width: 16px;
+            height: 80%;
+            background-color: #4b5563;
+        }
+        .electrode.anode { right: 20%; }
+        .electrode.cathode { left: 20%; }
+        
+        .particle {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: white;
+            transition: all 2s ease-in-out;
+        }
+        .cation { background-color: #ef4444; } /* Red for positive */
+        .anion { background-color: #3b82f6; } /* Blue for negative */
+        .molecule { background-color: #10b981; width: 30px; border-radius: 10px;} /* Green for neutral molecule */
+        
+        .wire { background-color: #1f2937; position: absolute; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+        <!-- Header -->
+        <div class="bg-blue-600 text-white p-6 text-center">
+            <h1 class="text-3xl font-bold mb-2">المادة وتحولاتها: الشاردة والمحلول الشاردي</h1>
+            <p class="text-blue-100">تطبيق تفاعلي لمحاكاة الدروس 1، 2، و 3</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex border-b">
+            <button onclick="showTab('tab1')" id="btn-tab1" class="tab-btn active flex-1 py-4 font-semibold text-gray-600 border-b-4 border-transparent hover:bg-gray-50 focus:outline-none transition">
+                1. الناقلية الكهربائية
+            </button>
+            <button onclick="showTab('tab2')" id="btn-tab2" class="tab-btn flex-1 py-4 font-semibold text-gray-600 border-b-4 border-transparent hover:bg-gray-50 focus:outline-none transition">
+                2. هجرة الشوارد
+            </button>
+            <button onclick="showTab('tab3')" id="btn-tab3" class="tab-btn flex-1 py-4 font-semibold text-gray-600 border-b-4 border-transparent hover:bg-gray-50 focus:outline-none transition">
+                3. التعادل والصيغ
+            </button>
+        </div>
+
+        <!-- Tab 1: Conductivity -->
+        <div id="tab1" class="p-6 md:p-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-r-4 border-blue-500 pr-3">المحلول الجزيئي والمحلول الشاردي</h2>
+            <p class="mb-6 text-gray-600">اختر نوع المحلول في البيشر لتلاحظ هل يتوهج المصباح (دليل على مرور التيار الكهربائي) أم لا.</p>
+            
+            <div class="flex flex-col md:flex-row items-center justify-around bg-gray-50 p-6 rounded-xl border">
+                <div class="mb-6 md:mb-0 w-full md:w-1/3">
+                    <label class="block text-gray-700 font-bold mb-2">اختر المحلول:</label>
+                    <select id="solution-select" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500" onchange="updateConductivity()">
+                        <option value="distilled">ماء مقطر (خالي من الأملاح)</option>
+                        <option value="molecular">محلول مائي سكري (ماء + سكر)</option>
+                        <option value="ionic">محلول مائي ملحي (ماء + ملح الطعام)</option>
+                    </select>
+                    
+                    <div id="conduct-explanation" class="mt-4 p-4 rounded-lg bg-blue-50 text-blue-800 text-sm border border-blue-200">
+                        الماء المقطر خالٍ من الشوارد، فهو عازل للكهرباء.
+                    </div>
+                </div>
+
+                <!-- Circuit UI -->
+                <div class="relative w-64 h-64 flex flex-col items-center">
+                    <!-- Bulb SVG -->
+                    <svg class="w-16 h-16 mb-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path id="bulb-path" class="bulb off" d="M9 18h6m-3-15a6 6 0 00-6 6c0 2.21 1.34 4.13 3.32 5.09a1.5 1.5 0 01.68 1.25v1.16a2 2 0 002 2h2a2 2 0 002-2v-1.16a1.5 1.5 0 01.68-1.25A6 6 0 0015 9a6 6 0 00-6-6z"/>
+                    </svg>
+                    
+                    <!-- Wires -->
+                    <div class="wire w-1 h-8 bg-gray-700 absolute top-16 left-1/2 -ml-0.5"></div>
+                    <div class="wire w-32 h-1 bg-gray-700 absolute top-24 left-1/2 -ml-16"></div>
+                    <div class="wire w-1 h-20 bg-gray-700 absolute top-24 left-16"></div>
+                    <div class="wire w-1 h-20 bg-gray-700 absolute top-24 right-16"></div>
+
+                    <!-- Beaker for Tab 1 -->
+                    <div class="beaker mt-auto" id="beaker-tab1">
+                        <div class="electrode cathode"></div>
+                        <div class="electrode anode"></div>
+                        <div id="particles-container-tab1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Ion Migration -->
+        <div id="tab2" class="p-6 md:p-8 hidden">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-r-4 border-green-500 pr-3">تجربة هجرة الشوارد</h2>
+            <p class="mb-6 text-gray-600">عند غلق القاطعة في دارة بها محلول شاردي (مثل كلور النحاس)، تنتقل الشوارد الموجبة نحو المهبط والشوارد السالبة نحو المصعد.</p>
+            
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="flex-1 bg-gray-50 p-6 rounded-xl border text-center relative h-96 flex flex-col items-center justify-center">
+                    
+                    <!-- Power Source -->
+                    <div class="absolute top-4 flex gap-4 text-xl font-bold">
+                        <div class="text-red-600 border-2 border-red-600 px-4 py-1 rounded bg-red-50">(+) موجب</div>
+                        <div class="text-blue-600 border-2 border-blue-600 px-4 py-1 rounded bg-blue-50">(-) سالب</div>
+                    </div>
+
+                    <!-- Beaker for Tab 2 -->
+                    <div class="beaker w-64 h-48 mt-12" id="beaker-tab2">
+                        <!-- Labels -->
+                        <div class="absolute top-0 right-10 text-xs font-bold text-red-700 bg-white px-1 rounded z-10">المصعد (+)</div>
+                        <div class="absolute top-0 left-10 text-xs font-bold text-blue-700 bg-white px-1 rounded z-10">المهبط (-)</div>
+                        
+                        <div class="electrode anode right-16"></div>
+                        <div class="electrode cathode left-16"></div>
+                        <div id="particles-container-tab2"></div>
+                    </div>
+                    
+                    <div class="mt-8 space-x-4 space-x-reverse">
+                        <button id="btn-circuit" onclick="toggleCircuit()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-md transition">
+                            أغلق القاطعة
+                        </button>
+                        <button onclick="resetMigration()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg transition">
+                            إعادة الضبط
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex-1 space-y-4">
+                    <div class="bg-white border p-4 rounded-lg shadow-sm border-l-4 border-l-red-500">
+                        <h3 class="font-bold text-red-600 flex items-center gap-2">
+                            <span class="w-4 h-4 rounded-full bg-red-500 inline-block"></span> الشوارد الموجبة (الكاتيونات)
+                        </h3>
+                        <p class="text-sm mt-2 text-gray-600">هي ذرات (أو مجموعة ذرات) فقدت إلكتروناً أو أكثر. تهاجر نحو <strong>المهبط (القطب السالب)</strong>.</p>
+                        <p class="text-sm font-mono mt-1" dir="ltr">Cu<sup>2+</sup>, Na<sup>+</sup></p>
+                    </div>
+                    <div class="bg-white border p-4 rounded-lg shadow-sm border-l-4 border-l-blue-500">
+                        <h3 class="font-bold text-blue-600 flex items-center gap-2">
+                            <span class="w-4 h-4 rounded-full bg-blue-500 inline-block"></span> الشوارد السالبة (الأنيونات)
+                        </h3>
+                        <p class="text-sm mt-2 text-gray-600">هي ذرات (أو مجموعة ذرات) اكتسبت إلكتروناً أو أكثر. تهاجر نحو <strong>المصعد (القطب الموجب)</strong>.</p>
+                        <p class="text-sm font-mono mt-1" dir="ltr">Cl<sup>-</sup>, SO<sub>4</sub><sup>2-</sup></p>
+                    </div>
+                    <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-lg text-sm text-yellow-800">
+                        <strong>أنواع الشوارد:</strong><br>
+                        - <strong>بسيطة:</strong> تتكون من ذرة واحدة (مثل Na⁺, Cl⁻).<br>
+                        - <strong>مركبة:</strong> تتكون من مجموعة ذرات (مثل SO₄²⁻, OH⁻).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Neutrality and Formulas -->
+        <div id="tab3" class="p-6 md:p-8 hidden">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-r-4 border-purple-500 pr-3">التعادل الكهربائي والصيغ</h2>
+            <p class="mb-6 text-gray-600">أي محلول مائي شاردي يكون متعادلاً كهربائياً، أي أن (مجموع الشحنات الموجبة = مجموع الشحنات السالبة). ركّب المحلول الصحيح لترى الصيغتين الشاردية والإحصائية.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-6 rounded-xl border mb-6">
+                
+                <!-- Positive Ion Selection -->
+                <div class="bg-white p-4 rounded-lg border shadow-sm">
+                    <h3 class="text-red-600 font-bold mb-3">اختر الشاردة الموجبة:</h3>
+                    <select id="cation-select" class="w-full p-2 border rounded mb-3 font-mono" dir="ltr" onchange="calculateFormula()">
+                        <option value='{"sym":"Na","charge":1,"isC":false}'>Na⁺ (صوديوم)</option>
+                        <option value='{"sym":"Cu","charge":2,"isC":false}'>Cu²⁺ (نحاس ثنائي)</option>
+                        <option value='{"sym":"Fe","charge":3,"isC":false}'>Fe³⁺ (حديد ثلاثي)</option>
+                        <option value='{"sym":"Al","charge":3,"isC":false}'>Al³⁺ (ألمنيوم)</option>
+                    </select>
+                    <div class="flex items-center justify-between">
+                        <label>العدد المضروب (المعامل):</label>
+                        <input type="number" id="cation-num" value="1" min="1" max="5" class="w-16 p-1 border rounded text-center" onchange="calculateFormula()">
+                    </div>
+                </div>
+
+                <!-- Negative Ion Selection -->
+                <div class="bg-white p-4 rounded-lg border shadow-sm">
+                    <h3 class="text-blue-600 font-bold mb-3">اختر الشاردة السالبة:</h3>
+                    <select id="anion-select" class="w-full p-2 border rounded mb-3 font-mono" dir="ltr" onchange="calculateFormula()">
+                        <option value='{"sym":"Cl","charge":-1,"isC":false}'>Cl⁻ (كلور)</option>
+                        <option value='{"sym":"OH","charge":-1,"isC":true}'>OH⁻ (هيدروكسيد)</option>
+                        <option value='{"sym":"SO4","charge":-2,"isC":true}'>SO₄²⁻ (كبريتات)</option>
+                        <option value='{"sym":"CO3","charge":-2,"isC":true}'>CO₃²⁻ (كربونات)</option>
+                    </select>
+                    <div class="flex items-center justify-between">
+                        <label>العدد المضروب (المعامل):</label>
+                        <input type="number" id="anion-num" value="1" min="1" max="5" class="w-16 p-1 border rounded text-center" onchange="calculateFormula()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculation & Results -->
+            <div class="text-center">
+                <div class="text-xl mb-4 font-bold text-gray-700">مجموع الشحنات: 
+                    <span id="charge-calc" dir="ltr" class="inline-block bg-gray-200 px-3 py-1 rounded mx-2 font-mono">(1 × +1) + (1 × -1) = 0</span>
+                </div>
+                
+                <div id="neutral-alert" class="inline-block px-6 py-2 rounded-full font-bold text-white bg-green-500 mb-6 transition-colors">
+                    المحلول متعادل كهربائياً ✅
+                </div>
+
+                <div id="formulas-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-purple-50 p-4 border border-purple-200 rounded-lg">
+                        <h4 class="font-bold text-purple-800 mb-2">الصيغة الشاردية</h4>
+                        <div id="ionic-formula" class="text-2xl font-mono text-center tracking-widest" dir="ltr">
+                            (Na<sup>+</sup> + Cl<sup>-</sup>)
+                        </div>
+                    </div>
+                    <div class="bg-indigo-50 p-4 border border-indigo-200 rounded-lg">
+                        <h4 class="font-bold text-indigo-800 mb-2">الصيغة الإحصائية (الجزيئية)</h4>
+                        <div id="stat-formula" class="text-2xl font-mono text-center tracking-widest" dir="ltr">
+                            NaCl
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- Tabs Logic ---
+        function showTab(tabId) {
+            document.querySelectorAll('div[id^="tab"]').forEach(div => div.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active', 'border-blue-500', 'border-green-500', 'border-purple-500'));
+            
+            document.getElementById(tabId).classList.remove('hidden');
+            let currentBtn = document.getElementById('btn-' + tabId);
+            currentBtn.classList.add('active');
+            
+            if(tabId === 'tab1') { currentBtn.classList.add('border-blue-500'); updateConductivity(); }
+            if(tabId === 'tab2') { currentBtn.classList.add('border-green-500'); initMigration(); }
+            if(tabId === 'tab3') { currentBtn.classList.add('border-purple-500'); calculateFormula(); }
+        }
+
+        // --- Tab 1: Conductivity Logic ---
+        function updateConductivity() {
+            const type = document.getElementById('solution-select').value;
+            const bulb = document.getElementById('bulb-path');
+            const explanation = document.getElementById('conduct-explanation');
+            const container = document.getElementById('particles-container-tab1');
+            
+            container.innerHTML = ''; // clear particles
+            
+            if (type === 'ionic') {
+                bulb.classList.replace('off', 'on');
+                explanation.className = "mt-4 p-4 rounded-lg bg-green-50 text-green-800 text-sm border border-green-200";
+                explanation.innerHTML = "<strong>يضيء المصباح!</strong> المحلول الملحي يحتوي على شوارد حرة (Na⁺ و Cl⁻) مما يسمح بنقل التيار الكهربائي.";
+                spawnParticles(container, 'cation', 'Na⁺', 5);
+                spawnParticles(container, 'anion', 'Cl⁻', 5);
+            } else if (type === 'molecular') {
+                bulb.classList.replace('on', 'off');
+                explanation.className = "mt-4 p-4 rounded-lg bg-red-50 text-red-800 text-sm border border-red-200";
+                explanation.innerHTML = "<strong>لا يضيء المصباح.</strong> المحلول السكري عبارة عن جزيئات متعادلة ولا يحتوي على حاملات شحنة (شوارد)، فهو غير ناقل.";
+                spawnParticles(container, 'molecule', 'سكر', 6);
+            } else {
+                bulb.classList.replace('on', 'off');
+                explanation.className = "mt-4 p-4 rounded-lg bg-gray-50 text-gray-800 text-sm border border-gray-200";
+                explanation.innerHTML = "الماء المقطر خالٍ من الشوارد، فهو عازل للكهرباء.";
+            }
+        }
+
+        function spawnParticles(container, type, text, count) {
+            for(let i=0; i<count; i++) {
+                let p = document.createElement('div');
+                p.className = `particle ${type}`;
+                p.innerText = text;
+                // Random position inside beaker (lower 80%)
+                p.style.top = (20 + Math.random() * 60) + '%';
+                p.style.left = (10 + Math.random() * 80) + '%';
+                container.appendChild(p);
+            }
+        }
+
+        // --- Tab 2: Migration Logic ---
+        let isCircuitClosed = false;
+        let migrationParticles = [];
+
+        function initMigration() {
+            const container = document.getElementById('particles-container-tab2');
+            container.innerHTML = '';
+            migrationParticles = [];
+            isCircuitClosed = false;
+            document.getElementById('btn-circuit').innerText = "أغلق القاطعة";
+            document.getElementById('btn-circuit').classList.replace('bg-red-600', 'bg-blue-600');
+
+            // Spawn Cu2+ and Cl-
+            for(let i=0; i<6; i++) {
+                let cation = createDriftParticle('cation', 'Cu²⁺');
+                let anion = createDriftParticle('anion', 'Cl⁻');
+                container.appendChild(cation.el);
+                container.appendChild(anion.el);
+                migrationParticles.push(cation, anion);
+            }
+        }
+
+        function createDriftParticle(type, text) {
+            let p = document.createElement('div');
+            p.className = `particle ${type}`;
+            p.innerText = text;
+            
+            // Initial center-ish position
+            let topPos = 40 + Math.random() * 40;
+            let leftPos = 40 + Math.random() * 20; 
+            
+            p.style.top = topPos + '%';
+            p.style.left = leftPos + '%';
+
+            return { el: p, type: type, originalLeft: leftPos };
+        }
+
+        function toggleCircuit() {
+            isCircuitClosed = !isCircuitClosed;
+            let btn = document.getElementById('btn-circuit');
+            
+            if(isCircuitClosed) {
+                btn.innerText = "افتح القاطعة";
+                btn.classList.replace('bg-blue-600', 'bg-red-600');
+                // Move particles
+                migrationParticles.forEach(p => {
+                    if(p.type === 'cation') {
+                        // Move to cathode (left side)
+                        p.el.style.left = (10 + Math.random() * 10) + '%'; 
+                    } else {
+                        // Move to anode (right side)
+                        p.el.style.left = (80 + Math.random() * 10) + '%';
+                    }
+                });
+            } else {
+                btn.innerText = "أغلق القاطعة";
+                btn.classList.replace('bg-red-600', 'bg-blue-600');
+                // Stop/Scatter slightly
+                migrationParticles.forEach(p => {
+                    p.el.style.left = p.originalLeft + '%';
+                });
+            }
+        }
+
+        function resetMigration() {
+            initMigration();
+        }
+
+        // --- Tab 3: Formula Logic ---
+        function formatCharge(num) {
+            if (num === 1) return "+";
+            if (num === -1) return "-";
+            if (num > 0) return num + "+";
+            return Math.abs(num) + "-";
+        }
+
+        function formatStatSubscript(sym) {
+            // Replace numbers in compound symbols with subscripts for Stat formula
+            return sym.replace(/(\d+)/g, '<sub>$1</sub>');
+        }
+
+        function calculateFormula() {
+            const cationData = JSON.parse(document.getElementById('cation-select').value);
+            const anionData = JSON.parse(document.getElementById('anion-select').value);
+            
+            const nCat = parseInt(document.getElementById('cation-num').value) || 1;
+            const nAni = parseInt(document.getElementById('anion-num').value) || 1;
+
+            const totalCharge = (nCat * cationData.charge) + (nAni * anionData.charge);
+
+            // Display Math
+            const catSign = cationData.charge > 0 ? "+" + cationData.charge : cationData.charge;
+            const aniSign = anionData.charge > 0 ? "+" + anionData.charge : anionData.charge;
+            document.getElementById('charge-calc').innerText = `(${nCat} × ${catSign}) + (${nAni} × ${aniSign}) = ${totalCharge}`;
+
+            const alertBox = document.getElementById('neutral-alert');
+            const formulasDiv = document.getElementById('formulas-container');
+
+            if (totalCharge === 0) {
+                alertBox.className = "inline-block px-6 py-2 rounded-full font-bold text-white bg-green-500 mb-6";
+                alertBox.innerText = "المحلول متعادل كهربائياً ✅";
+                formulasDiv.classList.remove('hidden', 'opacity-50', 'pointer-events-none');
+                
+                // Build Ionic Formula
+                let catPart = nCat > 1 ? `${nCat}${cationData.sym}<sup>${formatCharge(cationData.charge)}</sup>` : `${cationData.sym}<sup>${formatCharge(cationData.charge)}</sup>`;
+                // Add subscript to compound formulas in ionic state (like SO4)
+                catPart = catPart.replace(/(\d+)(?=<sup>)/g, '<sub>$1</sub>'); 
+                
+                let anionSymFormatted = anionData.sym.replace(/(\d+)/g, '<sub>$1</sub>');
+                let aniPart = nAni > 1 ? `${nAni}${anionSymFormatted}<sup>${formatCharge(anionData.charge)}</sup>` : `${anionSymFormatted}<sup>${formatCharge(anionData.charge)}</sup>`;
+
+                document.getElementById('ionic-formula').innerHTML = `(${catPart} + ${aniPart})`;
+
+                // Build Statistical Formula
+                let statCat = nCat > 1 ? `${cationData.sym}<sub>${nCat}</sub>` : cationData.sym;
+                
+                let statAni = "";
+                if (nAni > 1) {
+                    if (anionData.isC) {
+                        statAni = `(${formatStatSubscript(anionData.sym)})<sub>${nAni}</sub>`;
+                    } else {
+                        statAni = `${formatStatSubscript(anionData.sym)}<sub>${nAni}</sub>`;
+                    }
+                } else {
+                    statAni = formatStatSubscript(anionData.sym);
+                }
+
+                document.getElementById('stat-formula').innerHTML = `${statCat}${statAni}`;
+
+            } else {
+                alertBox.className = "inline-block px-6 py-2 rounded-full font-bold text-white bg-red-500 mb-6";
+                alertBox.innerText = "المحلول غير متعادل! ❌ (عدّل المعاملات)";
+                formulasDiv.classList.add('opacity-50', 'pointer-events-none');
+                document.getElementById('ionic-formula').innerHTML = "---";
+                document.getElementById('stat-formula').innerHTML = "---";
+            }
+        }
+
+        // Initialize first tab correctly on load
+        window.onload = () => {
+            showTab('tab1');
+        }
+    </script>
+</body>
+</html>
