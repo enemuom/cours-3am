@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>التحليل الكهربائي البسيط | السنة الرابعة متوسط</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#0a0f1e; --dark2:#111827; --dark3:#1a2540;
+  --blue:#2563eb; --blue2:#3b82f6; --cyan:#06b6d4;
+  --gold:#f59e0b; --gold2:#fbbf24;
+  --red:#ef4444; --green:#22c55e; --orange:#f97316;
+  --teal:#14b8a6; --purple:#a855f7;
+  --text:#e2e8f0; --muted:#94a3b8;
+  --border:rgba(255,255,255,.08); --card:rgba(255,255,255,.04);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;overflow-x:hidden;}
+.bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 20% 30%,rgba(37,99,235,.12) 0%,transparent 50%),
+             radial-gradient(ellipse at 80% 70%,rgba(20,184,166,.09) 0%,transparent 50%);}
+
+header{position:relative;z-index:10;background:rgba(10,15,30,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);padding:0 32px;}
+.header-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:18px 0;}
+.back-btn{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:.8rem;font-weight:600;text-decoration:none;padding:6px 12px;border-radius:8px;border:1px solid var(--border);transition:.2s;}
+.back-btn:hover{color:var(--text);border-color:rgba(255,255,255,.2);}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--muted);}
+.breadcrumb span{color:var(--blue2);font-weight:700;}
+.breadcrumb .sep{opacity:.4;}
+.lesson-badge{margin-right:auto;background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;font-size:.72rem;font-weight:700;padding:4px 14px;border-radius:20px;}
+
+.lesson-hero{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:52px 32px 40px;}
+.lesson-num{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;color:var(--blue2);margin-bottom:16px;}
+.lesson-num::before{content:'';width:24px;height:2px;background:var(--blue2);}
+.lesson-hero h1{font-family:'Amiri',serif;font-size:clamp(1.8rem,4.5vw,2.8rem);color:#fff;line-height:1.25;margin-bottom:16px;}
+.lesson-hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--blue2),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.lesson-meta{display:flex;gap:18px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-bottom:32px;}
+.objectives-box{background:var(--card);border:1px solid var(--border);border-right:3px solid var(--blue2);border-radius:12px;padding:20px 24px;}
+.objectives-box h3{font-size:.78rem;font-weight:700;letter-spacing:.08em;color:var(--blue2);margin-bottom:12px;text-transform:uppercase;}
+.objectives-box ul{list-style:none;}
+.objectives-box li{font-size:.88rem;color:var(--text);padding:5px 0;display:flex;align-items:flex-start;gap:10px;line-height:1.5;}
+.objectives-box li::before{content:'✦';color:var(--cyan);font-size:.65rem;margin-top:4px;flex-shrink:0;}
+
+.tabs-nav{position:sticky;top:0;z-index:50;background:rgba(10,15,30,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
+.tabs-inner{max-width:1000px;margin:0 auto;display:flex;padding:0 32px;overflow-x:auto;}
+.tab-btn{padding:16px 22px;border:none;background:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.85rem;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;transition:.2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--blue2);border-bottom-color:var(--blue2);}
+
+.content-wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:40px 32px 80px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.sec-title{display:flex;align-items:center;gap:12px;margin-bottom:24px;margin-top:36px;}
+.sec-title:first-child{margin-top:0;}
+.sec-title .icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--teal));display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.sec-title h2{font-size:1.15rem;font-weight:800;color:#fff;}
+.sec-title .line{flex:1;height:1px;background:var(--border);}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;}
+.card h3{font-size:.95rem;font-weight:700;color:var(--cyan);margin-bottom:12px;}
+.card p{font-size:.9rem;color:var(--text);line-height:1.8;margin-bottom:10px;}
+.card p:last-child{margin-bottom:0;}
+
+.def-box{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:16px 20px;margin:12px 0;}
+.def-box .def-title{font-size:.72rem;font-weight:700;letter-spacing:.08em;color:var(--gold2);margin-bottom:8px;text-transform:uppercase;}
+.def-box p{font-size:.88rem;color:var(--text);line-height:1.7;}
+
+.highlight{background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(20,184,166,.07));border:1px solid rgba(59,130,246,.2);border-radius:12px;padding:18px 20px;margin:16px 0;}
+.highlight p{font-size:.9rem;line-height:1.8;}
+
+.formula-box{background:var(--dark3);border:1px solid rgba(59,130,246,.3);border-radius:12px;padding:18px 22px;margin:14px 0;text-align:center;}
+.formula-box .formula{font-size:1.1rem;font-weight:700;color:var(--blue2);letter-spacing:.04em;margin-bottom:8px;}
+.formula-box .formula-desc{font-size:.78rem;color:var(--muted);}
+
+.info-table{width:100%;border-collapse:collapse;font-size:.85rem;margin:14px 0;}
+.info-table th{background:rgba(37,99,235,.15);color:var(--blue2);font-weight:700;padding:10px 14px;text-align:right;border:1px solid var(--border);}
+.info-table td{padding:10px 14px;border:1px solid var(--border);color:var(--text);line-height:1.5;}
+.info-table tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+
+/* ── ELECTROLYSIS SIMULATOR ── */
+.elec-wrap{background:var(--dark3);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px;}
+.elec-head{background:rgba(255,255,255,.04);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:10px;}
+.elec-head h3{font-size:.88rem;font-weight:700;}
+.sim-badge{font-size:.65rem;background:rgba(37,99,235,.2);color:var(--blue2);border:1px solid rgba(37,99,235,.3);padding:2px 8px;border-radius:6px;font-weight:700;}
+.elec-body{padding:24px;}
+
+/* Cell diagram */
+.cell-diagram{
+  width:100%; height:320px;
+  background:rgba(10,15,30,.7);
+  border-radius:14px; border:1px solid var(--border);
+  position:relative; overflow:hidden; margin-bottom:18px;
+}
+
+/* Solution */
+.cell-solution{
+  position:absolute; bottom:0; left:20px; right:20px; height:55%;
+  border-radius:0 0 10px 10px;
+  transition:background .5s;
+}
+
+/* Electrodes */
+.electrode{
+  position:absolute; bottom:30%; width:18px;
+  border-radius:4px 4px 0 0;
+  display:flex; flex-direction:column; align-items:center;
+}
+.electrode.cathode{ left:25%; background:linear-gradient(180deg,#374151,#1f2937); }
+.electrode.anode  { right:25%; background:linear-gradient(180deg,#374151,#1f2937); }
+.electrode-label{
+  position:absolute; top:-28px;
+  font-size:.7rem; font-weight:700; padding:3px 8px;
+  border-radius:6px; white-space:nowrap;
+}
+.electrode.cathode .electrode-label{background:rgba(37,99,235,.3);color:var(--blue2);}
+.electrode.anode   .electrode-label{background:rgba(239,68,68,.3);color:var(--red);}
+
+/* Wires */
+.wire-top{
+  position:absolute; top:20px; left:calc(25% + 9px); right:calc(25% + 9px);
+  height:3px; background:linear-gradient(90deg,var(--blue2),var(--red));
+  border-radius:2px;
+}
+.battery-box{
+  position:absolute; top:6px; left:50%; transform:translateX(-50%);
+  background:var(--dark3); border:2px solid var(--gold2);
+  border-radius:8px; padding:4px 14px;
+  font-size:.7rem; font-weight:700; color:var(--gold2);
+  display:flex; align-items:center; gap:6px;
+}
+
+/* Bubbles */
+.bubble{
+  position:absolute; border-radius:50%;
+  opacity:0; animation:rise-bubble 2s ease-in infinite;
+  pointer-events:none;
+}
+@keyframes rise-bubble{
+  0%  {opacity:.7; transform:translateY(0) scale(1);}
+  100%{opacity:0;  transform:translateY(-80px) scale(.5);}
+}
+
+/* Ion arrows */
+.ion-arrow{
+  position:absolute; font-size:.75rem; font-weight:700;
+  animation:drift 2s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes drift{
+  0%,100%{transform:translateX(0);}
+  50%{transform:translateX(8px);}
+}
+
+/* Deposit */
+.deposit{
+  position:absolute; bottom:0; width:100%; height:0;
+  background:linear-gradient(180deg,rgba(180,130,50,.8),rgba(150,100,30,.9));
+  border-radius:0 0 3px 3px;
+  transition:height 1.5s ease;
+}
+
+/* Controls */
+.elec-controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+.elec-btn{padding:9px 18px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:'Cairo',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:.2s;}
+.elec-btn:hover{border-color:var(--blue2);}
+.elec-btn.active{background:rgba(37,99,235,.2);border-color:var(--blue2);color:var(--blue2);}
+.elec-btn.run{background:linear-gradient(135deg,var(--blue),var(--teal));border:none;color:#fff;}
+.elec-btn.run:hover{opacity:.85;}
+
+.elec-result{background:rgba(10,15,30,.6);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-top:14px;display:none;}
+.elec-result.show{display:block;}
+.er-title{font-size:.72rem;color:var(--muted);font-weight:600;margin-bottom:8px;}
+.er-half{margin:8px 0;padding:10px 14px;border-radius:8px;font-size:.85rem;line-height:1.7;}
+.er-half.cathode-r{background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.25);}
+.er-half.anode-r  {background:rgba(239,68,68,.1);  border:1px solid rgba(239,68,68,.25);}
+.er-global{margin-top:10px;padding:10px 14px;border-radius:8px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);font-size:.85rem;}
+
+/* QUIZ */
+.q-card{background:var(--dark3);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;}
+.q-num{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--blue2);margin-bottom:10px;text-transform:uppercase;}
+.q-text{font-size:.95rem;color:var(--text);line-height:1.7;margin-bottom:18px;font-weight:600;}
+.q-options{display:flex;flex-direction:column;gap:8px;}
+.q-opt{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:'Cairo',sans-serif;font-size:.88rem;cursor:pointer;text-align:right;transition:.2s;display:flex;align-items:center;gap:10px;}
+.q-opt:hover:not(.answered){border-color:var(--blue2);}
+.q-opt.correct{border-color:var(--green);background:rgba(34,197,94,.1);color:var(--green);}
+.q-opt.wrong{border-color:var(--red);background:rgba(239,68,68,.1);color:var(--red);}
+.q-feedback{margin-top:12px;padding:12px 16px;border-radius:8px;font-size:.82rem;line-height:1.6;display:none;}
+.q-feedback.correct{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--green);}
+.q-feedback.wrong{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#f87171;}
+.q-feedback.show{display:block;}
+.quiz-submit{width:100%;padding:14px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--teal));border:none;color:#fff;font-family:'Cairo',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:8px;}
+.quiz-score{background:linear-gradient(135deg,rgba(37,99,235,.15),rgba(20,184,166,.1));border:1px solid rgba(37,99,235,.3);border-radius:14px;padding:24px;text-align:center;display:none;}
+.quiz-score.show{display:block;}
+.score-num{font-size:3rem;font-weight:900;color:var(--gold2);}
+.score-msg{font-size:.9rem;color:var(--text);margin-top:8px;}
+
+/* SUMMARY */
+.summary-card{background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(20,184,166,.07));border:1px solid rgba(37,99,235,.2);border-radius:16px;padding:28px;}
+.summary-card h3{font-family:'Amiri',serif;font-size:1.3rem;color:#fff;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.summary-list{list-style:none;}
+.summary-list li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.88rem;color:var(--text);line-height:1.6;}
+.summary-list li:last-child{border-bottom:none;}
+.s-icon{width:28px;height:28px;border-radius:7px;background:rgba(37,99,235,.2);border:1px solid rgba(37,99,235,.3);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;margin-top:1px;}
+.print-btn{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:10px 20px;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Cairo',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:.2s;}
+.print-btn:hover{border-color:var(--blue2);color:var(--blue2);}
+
+@media(max-width:600px){
+  .lesson-hero,.content-wrap{padding-left:16px;padding-right:16px;}
+  .tabs-inner{padding:0 16px;}
+  header{padding:0 16px;}
+}
+</style>
+</head>
+<body>
+<div class="bg-canvas"></div>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="back-btn">← الفهرس</a>
+    <div class="breadcrumb">
+      <span>س4م</span><span class="sep">›</span>
+      المقطع 2 — المادة وتحولها<span class="sep">›</span>الدرس 02
+    </div>
+    <div class="lesson-badge">4ème AM</div>
+  </div>
+</header>
+
+<div class="lesson-hero">
+  <div class="lesson-num">الدرس الثاني — المقطع 2</div>
+  <h1>التحليل الكهربائي <em>البسيط</em></h1>
+  <div class="lesson-meta">
+    <span>⚗️ المادة وتحولها</span>
+    <span>📅 المقطع 2 — ديسمبر/يناير</span>
+    <span>⏱ 90 دقيقة (3 حصص)</span>
+    <span>📚 منهاج الجيل الثاني 2025/2026</span>
+  </div>
+  <div class="objectives-box">
+    <h3>🎯 الأهداف التعلمية</h3>
+    <ul>
+      <li>وصف تجربة التحليل الكهربائي لمحلول كلور النحاس CuCl₂</li>
+      <li>تفسير حركة الشوارد في خلية التحليل الكهربائي</li>
+      <li>كتابة المعادلتين النصفيتين عند المهبط والمصعد</li>
+      <li>كتابة المعادلة الإجمالية للتحليل الكهربائي</li>
+      <li>التحقق من مبدأ انحفاظ الشحنة الكهربائية ومبدأ انحفاظ الذرات</li>
+    </ul>
+  </div>
+</div>
+
+<nav class="tabs-nav">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="showTab('cours')">📖 الدرس</button>
+    <button class="tab-btn" onclick="showTab('simulation')">⚗️ خلية التحليل</button>
+    <button class="tab-btn" onclick="showTab('exercices')">✏️ تمارين</button>
+    <button class="tab-btn" onclick="showTab('resume')">📋 ملخص الكراس</button>
+  </div>
+</nav>
+
+<div class="content-wrap">
+
+  <!-- ══ COURS ══ -->
+  <div class="tab-panel active" id="tab-cours">
+
+    <div class="sec-title"><div class="icon">⚗️</div><h2>I. تجربة التحليل الكهربائي لمحلول CuCl₂</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>🔬 وصف الجهاز</h3>
+      <p>خلية التحليل الكهربائي تتكون من:</p>
+      <table class="info-table">
+        <tr><th>المكوّن</th><th>الوصف</th></tr>
+        <tr><td><strong style="color:var(--blue2)">المهبط (الكاثود)</strong></td><td>القطب السالب — موصول بالقطب السالب للمولد</td></tr>
+        <tr><td><strong style="color:var(--red)">المصعد (الأنود)</strong></td><td>القطب الموجب — موصول بالقطب الموجب للمولد</td></tr>
+        <tr><td><strong style="color:var(--teal)">المحلول الشاردي</strong></td><td>محلول كلور النحاس CuCl₂ يحتوي على [Cu²⁺ , 2Cl⁻]</td></tr>
+        <tr><td><strong style="color:var(--gold2)">المولد</strong></td><td>يُنتج فرق توتر مستمر يُحرّك الشوارد</td></tr>
+      </table>
+      <div class="def-box">
+        <div class="def-title">📌 تعريف</div>
+        <p>التحليل الكهربائي هو <strong>تحوّل كيميائي ناتج عن مرور تيار كهربائي</strong> عبر محلول شاردي. يُسمى أيضاً <strong>التحوّل الكهروكيميائي</strong>.</p>
+      </div>
+    </div>
+
+    <div class="sec-title"><div class="icon">⚡</div><h2>II. حركة الشوارد في الخلية</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>🔄 اتجاه حركة الشوارد</h3>
+      <div class="highlight">
+        <p>🔴 <strong>الكاتيونات Cu²⁺</strong> (موجبة) تتحرك نحو <strong>المهبط</strong> (القطب السالب ← تجاذب الأضداد)</p>
+        <p>🔵 <strong>الأنيونات Cl⁻</strong> (سالبة) تتحرك نحو <strong>المصعد</strong> (القطب الموجب ← تجاذب الأضداد)</p>
+      </div>
+      <div class="def-box">
+        <div class="def-title">📌 قاعدة</div>
+        <p>في الخلية الكهروكيميائية:<br>
+        • <strong>الكاتيونات → المهبط</strong> (القطب السالب)<br>
+        • <strong>الأنيونات → المصعد</strong> (القطب الموجب)</p>
+      </div>
+    </div>
+
+    <div class="sec-title"><div class="icon">📝</div><h2>III. المعادلات النصفية والمعادلة الإجمالية</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>🔵 عند المهبط (الكاثود — القطب السالب)</h3>
+      <p>الكاتيونات Cu²⁺ تصل إلى المهبط وتكتسب إلكترونات (اختزال) فتترسب كنحاس صلب:</p>
+      <div class="formula-box" style="border-color:rgba(37,99,235,.4);">
+        <div class="formula" style="color:var(--blue2);">Cu²⁺ + 2e⁻ → Cu</div>
+        <div class="formula-desc">شاردة النحاس تكتسب إلكترونَين وتترسب كمعدن نحاس على المهبط<br>(تفاعل الاختزال)</div>
+      </div>
+      <p>الملاحظة: تظهر <strong>طبقة بنية لامعة</strong> على المهبط هي النحاس المترسب.</p>
+    </div>
+
+    <div class="card">
+      <h3>🔴 عند المصعد (الأنود — القطب الموجب)</h3>
+      <p>الأنيونات Cl⁻ تصل إلى المصعد وتفقد إلكترونات (أكسدة) فتتحوّل إلى غاز كلور:</p>
+      <div class="formula-box" style="border-color:rgba(239,68,68,.4);">
+        <div class="formula" style="color:var(--red);">2Cl⁻ → Cl₂ + 2e⁻</div>
+        <div class="formula-desc">شاردتا كلور تفقدان إلكترونَين وتتحولان إلى غاز كلور Cl₂<br>(تفاعل الأكسدة)</div>
+      </div>
+      <p>الملاحظة: يتصاعد <strong>غاز أصفر-أخضر ذو رائحة نفاذة</strong> عند المصعد هو غاز الكلور.</p>
+    </div>
+
+    <div class="card">
+      <h3>⚖️ المعادلة الإجمالية للتحليل الكهربائي</h3>
+      <p>بجمع المعادلتين النصفيتين (مع التأكد من تساوي الإلكترونات):</p>
+      <div class="formula-box" style="border-color:rgba(34,197,94,.4);">
+        <div class="formula" style="color:var(--green);">CuCl₂ → Cu + Cl₂</div>
+        <div class="formula-desc">التحليل الكهربائي لكلور النحاس ينتج النحاس المعدني وغاز الكلور<br>التحقق: انحفاظ الذرات ✓ | انحفاظ الشحنة ✓</div>
+      </div>
+      <div class="highlight">
+        <p>✅ <strong>التحقق من انحفاظ الذرات:</strong><br>
+        يسار: 1 Cu + 2 Cl → يمين: 1 Cu + 2 Cl ✓</p>
+        <p>✅ <strong>التحقق من انحفاظ الشحنة:</strong><br>
+        المهبط: e⁻ مكتسبة = 2 | المصعد: e⁻ مُعطاة = 2 ✓</p>
+      </div>
+    </div>
+
+    <div class="sec-title"><div class="icon">🔬</div><h2>IV. تطبيق على محاليل أخرى</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>📋 تحليل كهربائي لمحاليل شاردية أخرى</h3>
+      <table class="info-table">
+        <tr>
+          <th>المحلول</th>
+          <th>عند المهبط</th>
+          <th>عند المصعد</th>
+          <th>المعادلة الإجمالية</th>
+        </tr>
+        <tr>
+          <td>CuCl₂ (كلور النحاس)</td>
+          <td style="color:var(--blue2)">Cu²⁺ + 2e⁻ → Cu (ترسب نحاس)</td>
+          <td style="color:var(--red)">2Cl⁻ → Cl₂ + 2e⁻ (غاز Cl₂)</td>
+          <td>CuCl₂ → Cu + Cl₂</td>
+        </tr>
+        <tr>
+          <td>ZnCl₂ (كلور الزنك)</td>
+          <td style="color:var(--blue2)">Zn²⁺ + 2e⁻ → Zn (ترسب زنك)</td>
+          <td style="color:var(--red)">2Cl⁻ → Cl₂ + 2e⁻ (غاز Cl₂)</td>
+          <td>ZnCl₂ → Zn + Cl₂</td>
+        </tr>
+        <tr>
+          <td>CuSO₄ (كبريتات النحاس)</td>
+          <td style="color:var(--blue2)">Cu²⁺ + 2e⁻ → Cu (ترسب نحاس)</td>
+          <td style="color:var(--red)">2H₂O → O₂ + 4H⁺ + 4e⁻ (غاز O₂)</td>
+          <td>2CuSO₄ + 2H₂O → 2Cu + O₂ + 2H₂SO₄</td>
+        </tr>
+        <tr>
+          <td>PbCl₂ (كلور الرصاص)</td>
+          <td style="color:var(--blue2)">Pb²⁺ + 2e⁻ → Pb (ترسب رصاص)</td>
+          <td style="color:var(--red)">2Cl⁻ → Cl₂ + 2e⁻ (غاز Cl₂)</td>
+          <td>PbCl₂ → Pb + Cl₂</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>💡 تطبيق التحليل الكهربائي — الطلاء الكهربائي</h3>
+      <p>يُستخدم التحليل الكهربائي في <strong>الطلاء المعدني</strong> (الغلفنة، التفضيض، التذهيب):</p>
+      <div class="highlight">
+        <p>🔧 <strong>مبدأ الغلفنة (تغليف الحديد بالزنك):</strong><br>
+        المهبط: الجسم المراد طلاؤه (الحديد)<br>
+        المحلول: محلول شاردي يحتوي على Zn²⁺<br>
+        → الزنك يترسب على الحديد ويحميه من الصدأ</p>
+      </div>
+    </div>
+
+  </div><!-- /cours -->
+
+
+  <!-- ══ SIMULATION ══ -->
+  <div class="tab-panel" id="tab-simulation">
+
+    <div class="sec-title"><div class="icon">⚗️</div><h2>محاكاة خلية التحليل الكهربائي</h2><div class="line"></div></div>
+
+    <div class="elec-wrap">
+      <div class="elec-head">
+        <h3>تحليل كهربائي تفاعلي</h3>
+        <span class="sim-badge">تفاعلي</span>
+      </div>
+      <div class="elec-body">
+
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px;">اختر المحلول ثم اضغط "شغّل" لمشاهدة التحليل الكهربائي</p>
+
+        <!-- Solution select -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+          <button class="elec-btn active" onclick="selectSol('CuCl2')" id="sol-CuCl2">🔵 CuCl₂</button>
+          <button class="elec-btn" onclick="selectSol('ZnCl2')" id="sol-ZnCl2">⚪ ZnCl₂</button>
+          <button class="elec-btn" onclick="selectSol('PbCl2')" id="sol-PbCl2">🩶 PbCl₂</button>
+        </div>
+
+        <!-- Cell diagram -->
+        <div class="cell-diagram" id="cell-diagram">
+          <!-- solution -->
+          <div class="cell-solution" id="cell-solution" style="background:rgba(59,130,246,.25);"></div>
+
+          <!-- Wire top -->
+          <div class="wire-top"></div>
+          <div class="battery-box">⚡ مولد</div>
+
+          <!-- Cathode -->
+          <div class="electrode cathode" id="cathode" style="height:100px;top:calc(45% - 100px);">
+            <div class="electrode-label">مهبط (−)<br>كاثود</div>
+            <div class="deposit" id="cathode-deposit"></div>
+          </div>
+
+          <!-- Anode -->
+          <div class="electrode anode" id="anode" style="height:100px;top:calc(45% - 100px);">
+            <div class="electrode-label">مصعد (+)<br>أنود</div>
+          </div>
+
+          <!-- Labels -->
+          <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:.7rem;color:var(--muted);white-space:nowrap;" id="sol-label">محلول CuCl₂ — [Cu²⁺, 2Cl⁻]</div>
+
+          <!-- Ion indicators (static) -->
+          <div id="ion-indicators"></div>
+          <!-- Bubbles container -->
+          <div id="bubbles-container"></div>
+        </div>
+
+        <!-- Controls -->
+        <div class="elec-controls">
+          <button class="elec-btn run" onclick="runElectrolysis()" id="run-btn">▶ شغّل التحليل</button>
+          <button class="elec-btn" onclick="resetElectrolysis()">🔄 إعادة</button>
+        </div>
+
+        <!-- Result -->
+        <div class="elec-result" id="elec-result">
+          <div class="er-title">نتائج التحليل الكهربائي:</div>
+          <div class="er-half cathode-r" id="er-cathode">
+            <strong style="color:var(--blue2);">🔵 عند المهبط (اختزال):</strong><br>
+            <span id="eq-cathode"></span>
+          </div>
+          <div class="er-half anode-r" id="er-anode">
+            <strong style="color:var(--red);">🔴 عند المصعد (أكسدة):</strong><br>
+            <span id="eq-anode"></span>
+          </div>
+          <div class="er-global">
+            <strong style="color:var(--green);">⚖️ المعادلة الإجمالية:</strong>
+            <span id="eq-global" style="color:var(--green);font-weight:700;margin-right:8px;"></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /simulation -->
+
+
+  <!-- ══ EXERCICES ══ -->
+  <div class="tab-panel" id="tab-exercices">
+
+    <div class="sec-title"><div class="icon">✏️</div><h2>تمارين تقييمية</h2><div class="line"></div></div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 01</div>
+      <div class="q-text">في خلية التحليل الكهربائي، نحو أي قطب تتجه الكاتيونات؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,true,'q1')"><span>○</span> المهبط (القطب السالب)</button>
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> المصعد (القطب الموجب)</button>
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> تبقى في وسط المحلول</button>
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> تتجه نحو كلا القطبين</button>
+      </div>
+      <div class="q-feedback" id="fb-q1"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 02</div>
+      <div class="q-text">ما المعادلة النصفية الصحيحة عند المهبط لتحليل CuCl₂؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> Cu → Cu²⁺ + 2e⁻</button>
+        <button class="q-opt" onclick="answer(this,true,'q2')"><span>○</span> Cu²⁺ + 2e⁻ → Cu</button>
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> 2Cl⁻ → Cl₂ + 2e⁻</button>
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> Cl₂ + 2e⁻ → 2Cl⁻</button>
+      </div>
+      <div class="q-feedback" id="fb-q2"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 03</div>
+      <div class="q-text">ماذا تلاحظ على المهبط أثناء تحليل محلول كلور النحاس CuCl₂؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> يتصاعد غاز عديم اللون</button>
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> يتصاعد غاز أصفر-أخضر</button>
+        <button class="q-opt" onclick="answer(this,true,'q3')"><span>○</span> تترسب طبقة بنية لامعة من النحاس المعدني</button>
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> يتحلل الماء إلى هيدروجين وأكسجين</button>
+      </div>
+      <div class="q-feedback" id="fb-q3"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 04</div>
+      <div class="q-text">ما المعادلة الإجمالية لتحليل كلور الزنك ZnCl₂؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> ZnCl₂ → Zn²⁺ + 2Cl⁻</button>
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> Zn + Cl₂ → ZnCl₂</button>
+        <button class="q-opt" onclick="answer(this,true,'q4')"><span>○</span> ZnCl₂ → Zn + Cl₂</button>
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> 2ZnCl₂ → 2Zn + Cl₂</button>
+      </div>
+      <div class="q-feedback" id="fb-q4"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 05</div>
+      <div class="q-text">ما التطبيق العملي للتحليل الكهربائي في الصناعة؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q5')"><span>○</span> إنتاج الكهرباء من المواد الكيميائية</button>
+        <button class="q-opt" onclick="answer(this,true,'q5')"><span>○</span> الطلاء المعدني (الغلفنة، التفضيض، التذهيب)</button>
+        <button class="q-opt" onclick="answer(this,false,'q5')"><span>○</span> تبريد المحاليل الكيميائية</button>
+        <button class="q-opt" onclick="answer(this,false,'q5')"><span>○</span> قياس درجة حرارة المحاليل</button>
+      </div>
+      <div class="q-feedback" id="fb-q5"></div>
+    </div>
+
+    <button class="quiz-submit" onclick="submitQuiz()">📊 عرض النتيجة</button>
+    <div class="quiz-score" id="quiz-score">
+      <div class="score-num" id="score-num">0/5</div>
+      <div class="score-msg" id="score-msg"></div>
+    </div>
+
+  </div><!-- /exercices -->
+
+
+  <!-- ══ RESUME ══ -->
+  <div class="tab-panel" id="tab-resume">
+
+    <div class="sec-title"><div class="icon">📋</div><h2>ملخص الكراس</h2><div class="line"></div></div>
+
+    <div class="summary-card">
+      <h3>📓 التحليل الكهربائي البسيط — السنة الرابعة متوسط</h3>
+      <ul class="summary-list">
+        <li>
+          <div class="s-icon">⚗️</div>
+          <div><strong>التحليل الكهربائي:</strong> تحوّل كيميائي ناتج عن مرور تيار كهربائي عبر محلول شاردي.</div>
+        </li>
+        <li>
+          <div class="s-icon">🔄</div>
+          <div><strong>حركة الشوارد:</strong><br>
+          • الكاتيونات (موجبة) → المهبط (السالب)<br>
+          • الأنيونات (سالبة) → المصعد (الموجب)</div>
+        </li>
+        <li>
+          <div class="s-icon">🔵</div>
+          <div><strong>عند المهبط — الاختزال:</strong><br>
+          Cu²⁺ + 2e⁻ → Cu (ترسّب معدن النحاس)</div>
+        </li>
+        <li>
+          <div class="s-icon">🔴</div>
+          <div><strong>عند المصعد — الأكسدة:</strong><br>
+          2Cl⁻ → Cl₂ + 2e⁻ (تصاعد غاز الكلور)</div>
+        </li>
+        <li>
+          <div class="s-icon">⚖️</div>
+          <div><strong>المعادلة الإجمالية:</strong><br>
+          CuCl₂ → Cu + Cl₂<br>
+          انحفاظ الذرات ✓ | انحفاظ الشحنة ✓</div>
+        </li>
+        <li>
+          <div class="s-icon">💡</div>
+          <div><strong>تطبيقات التحليل الكهربائي:</strong><br>
+          الغلفنة (تغليف الحديد بالزنك) — التفضيض — التذهيب — إنتاج المعادن النقية.</div>
+        </li>
+      </ul>
+      <button class="print-btn" onclick="window.print()">🖨️ طباعة الملخص</button>
+    </div>
+
+  </div><!-- /resume -->
+
+</div><!-- /content-wrap -->
+
+<script>
+/* TABS */
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+/* SOLUTION DATA */
+const solutions = {
+  CuCl2:{
+    label:'محلول CuCl₂ — [Cu²⁺, 2Cl⁻]',
+    color:'rgba(59,130,246,.3)',
+    depositColor:'#b45309',
+    cathodeEq:'Cu²⁺ + 2e⁻ → Cu &nbsp;(ترسّب النحاس)',
+    anodeEq:'2Cl⁻ → Cl₂ + 2e⁻ &nbsp;(تصاعد غاز Cl₂)',
+    globalEq:'CuCl₂ → Cu + Cl₂',
+    bubbleColor:'rgba(200,200,50,.7)',
+  },
+  ZnCl2:{
+    label:'محلول ZnCl₂ — [Zn²⁺, 2Cl⁻]',
+    color:'rgba(148,163,184,.15)',
+    depositColor:'#94a3b8',
+    cathodeEq:'Zn²⁺ + 2e⁻ → Zn &nbsp;(ترسّب الزنك)',
+    anodeEq:'2Cl⁻ → Cl₂ + 2e⁻ &nbsp;(تصاعد غاز Cl₂)',
+    globalEq:'ZnCl₂ → Zn + Cl₂',
+    bubbleColor:'rgba(200,200,50,.7)',
+  },
+  PbCl2:{
+    label:'محلول PbCl₂ — [Pb²⁺, 2Cl⁻]',
+    color:'rgba(100,100,120,.2)',
+    depositColor:'#6b7280',
+    cathodeEq:'Pb²⁺ + 2e⁻ → Pb &nbsp;(ترسّب الرصاص)',
+    anodeEq:'2Cl⁻ → Cl₂ + 2e⁻ &nbsp;(تصاعد غاز Cl₂)',
+    globalEq:'PbCl₂ → Pb + Cl₂',
+    bubbleColor:'rgba(200,200,50,.7)',
+  }
+};
+
+let currentSol = 'CuCl2';
+let running = false;
+let bubbleInterval = null;
+
+function selectSol(key){
+  currentSol = key;
+  Object.keys(solutions).forEach(k=>{
+    document.getElementById('sol-'+k).classList.toggle('active', k===key);
+  });
+  document.getElementById('cell-solution').style.background = solutions[key].color;
+  document.getElementById('sol-label').textContent = solutions[key].label;
+  resetElectrolysis();
+}
+
+function runElectrolysis(){
+  if(running) return;
+  running = true;
+  document.getElementById('run-btn').textContent = '⏸ جارٍ التحليل...';
+  const s = solutions[currentSol];
+
+  // Deposit on cathode
+  const deposit = document.getElementById('cathode-deposit');
+  deposit.style.background = `linear-gradient(180deg,${s.depositColor}cc,${s.depositColor})`;
+  setTimeout(()=>{ deposit.style.height='14px'; },200);
+
+  // Bubbles at anode
+  const anode = document.getElementById('anode');
+  const diagram = document.getElementById('cell-diagram');
+  const ar = anode.getBoundingClientRect();
+  const dr = diagram.getBoundingClientRect();
+  const ax = ar.left - dr.left + ar.width/2;
+  const ay = ar.top  - dr.top;
+
+  bubbleInterval = setInterval(()=>{
+    const b = document.createElement('div');
+    b.className = 'bubble';
+    const size = 6 + Math.random()*8;
+    b.style.cssText = `width:${size}px;height:${size}px;
+      background:${s.bubbleColor};
+      left:${ax - size/2 + (Math.random()-0.5)*20}px;
+      top:${ay - 10}px;
+      animation-duration:${1.5+Math.random()}s;`;
+    diagram.appendChild(b);
+    setTimeout(()=>b.remove(), 2000);
+  }, 300);
+
+  // Show result after delay
+  setTimeout(()=>{
+    document.getElementById('eq-cathode').innerHTML = s.cathodeEq;
+    document.getElementById('eq-anode').innerHTML   = s.anodeEq;
+    document.getElementById('eq-global').textContent = s.globalEq;
+    const res = document.getElementById('elec-result');
+    res.classList.add('show');
+  },800);
+}
+
+function resetElectrolysis(){
+  running = false;
+  if(bubbleInterval){ clearInterval(bubbleInterval); bubbleInterval=null; }
+  document.getElementById('run-btn').textContent = '▶ شغّل التحليل';
+  document.getElementById('cathode-deposit').style.height='0';
+  document.getElementById('elec-result').classList.remove('show');
+  document.querySelectorAll('.bubble').forEach(b=>b.remove());
+}
+
+/* QUIZ */
+const feedbacks={
+  q1:{correct:'✅ صحيح! الكاتيونات موجبة الشحنة فتنجذب نحو المهبط السالب.',
+      wrong:'❌ خطأ. الكاتيونات (موجبة) تنجذب نحو المهبط (السالب) — الأضداد تتجاذب.'},
+  q2:{correct:'✅ صحيح! Cu²⁺ + 2e⁻ → Cu هي معادلة الاختزال عند المهبط: Cu²⁺ يكتسب إلكترونَين ليصبح Cu معدنياً.',
+      wrong:'❌ خطأ. عند المهبط يحدث الاختزال: Cu²⁺ + 2e⁻ → Cu (اكتساب إلكترونات).'},
+  q3:{correct:'✅ صحيح! تترسب طبقة بنية لامعة من النحاس المعدني على المهبط نتيجة اختزال Cu²⁺.',
+      wrong:'❌ خطأ. عند المهبط يترسب النحاس المعدني (طبقة بنية لامعة). الغاز الأصفر-الأخضر يتصاعد عند المصعد.'},
+  q4:{correct:'✅ صحيح! ZnCl₂ → Zn + Cl₂. التحليل يُعطي زنك معدنياً وغاز كلور.',
+      wrong:'❌ خطأ. المعادلة الإجمالية: ZnCl₂ → Zn + Cl₂'},
+  q5:{correct:'✅ صحيح! الطلاء المعدني (الغلفنة، التفضيض، التذهيب) هو التطبيق الصناعي الأبرز للتحليل الكهربائي.',
+      wrong:'❌ خطأ. التطبيق الصناعي الرئيسي للتحليل الكهربائي هو الطلاء المعدني (الغلفنة، التفضيض...).'},
+};
+let answers={};
+function answer(btn,isCorrect,qId){
+  const opts=btn.closest('.q-card').querySelectorAll('.q-opt');
+  if([...opts].some(o=>o.classList.contains('answered'))) return;
+  opts.forEach(o=>o.classList.add('answered'));
+  btn.classList.add(isCorrect?'correct':'wrong');
+  btn.querySelector('span').textContent=isCorrect?'✓':'✗';
+  const fb=document.getElementById('fb-'+qId);
+  fb.textContent=isCorrect?feedbacks[qId].correct:feedbacks[qId].wrong;
+  fb.className='q-feedback '+(isCorrect?'correct':'wrong')+' show';
+  answers[qId]=isCorrect;
+}
+function submitQuiz(){
+  const score=Object.values(answers).filter(Boolean).length;
+  document.getElementById('score-num').textContent=score+'/5';
+  const msgs=['💪 راجع الدرس جيداً.','📖 حسن، راجع النقاط الخاطئة.','📖 جيد! أعد المراجعة.','👍 جيد جداً!','🌟 ممتاز! أتقنت الدرس بالكامل!'];
+  document.getElementById('score-msg').textContent=msgs[score]||msgs[0];
+  const el=document.getElementById('quiz-score');
+  el.classList.add('show');
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+</script>
+</body>
+</html>
