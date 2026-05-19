@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الأمن الكهربائي | السنة الرابعة متوسط</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#0a0f1e; --dark2:#111827; --dark3:#1a2540;
+  --blue:#2563eb; --blue2:#3b82f6; --cyan:#06b6d4;
+  --gold:#f59e0b; --gold2:#fbbf24;
+  --red:#ef4444; --green:#22c55e; --orange:#f97316;
+  --yellow:#eab308; --purple:#a855f7;
+  --text:#e2e8f0; --muted:#94a3b8;
+  --border:rgba(255,255,255,.08); --card:rgba(255,255,255,.04);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;overflow-x:hidden;}
+.bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 20% 30%,rgba(239,68,68,.1) 0%,transparent 50%),
+             radial-gradient(ellipse at 80% 70%,rgba(234,179,8,.07) 0%,transparent 50%);}
+
+header{position:relative;z-index:10;background:rgba(10,15,30,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);padding:0 32px;}
+.header-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:18px 0;}
+.back-btn{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:.8rem;font-weight:600;text-decoration:none;padding:6px 12px;border-radius:8px;border:1px solid var(--border);transition:.2s;}
+.back-btn:hover{color:var(--text);border-color:rgba(255,255,255,.2);}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--muted);}
+.breadcrumb span{color:var(--red);font-weight:700;}
+.breadcrumb .sep{opacity:.4;}
+.lesson-badge{margin-right:auto;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-size:.72rem;font-weight:700;padding:4px 14px;border-radius:20px;}
+
+.lesson-hero{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:52px 32px 40px;}
+.lesson-num{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;color:var(--red);margin-bottom:16px;}
+.lesson-num::before{content:'';width:24px;height:2px;background:var(--red);}
+.lesson-hero h1{font-family:'Amiri',serif;font-size:clamp(1.8rem,4.5vw,2.8rem);color:#fff;line-height:1.25;margin-bottom:16px;}
+.lesson-hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--red),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.lesson-meta{display:flex;gap:18px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-bottom:32px;}
+.objectives-box{background:var(--card);border:1px solid var(--border);border-right:3px solid var(--red);border-radius:12px;padding:20px 24px;}
+.objectives-box h3{font-size:.78rem;font-weight:700;letter-spacing:.08em;color:var(--red);margin-bottom:12px;text-transform:uppercase;}
+.objectives-box ul{list-style:none;}
+.objectives-box li{font-size:.88rem;color:var(--text);padding:5px 0;display:flex;align-items:flex-start;gap:10px;line-height:1.5;}
+.objectives-box li::before{content:'✦';color:var(--orange);font-size:.65rem;margin-top:4px;flex-shrink:0;}
+
+.tabs-nav{position:sticky;top:0;z-index:50;background:rgba(10,15,30,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
+.tabs-inner{max-width:1000px;margin:0 auto;display:flex;padding:0 32px;overflow-x:auto;}
+.tab-btn{padding:16px 22px;border:none;background:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.85rem;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;transition:.2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--red);border-bottom-color:var(--red);}
+
+.content-wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:40px 32px 80px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.sec-title{display:flex;align-items:center;gap:12px;margin-bottom:24px;margin-top:36px;}
+.sec-title:first-child{margin-top:0;}
+.sec-title .icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--red),var(--orange));display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.sec-title h2{font-size:1.15rem;font-weight:800;color:#fff;}
+.sec-title .line{flex:1;height:1px;background:var(--border);}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;}
+.card h3{font-size:.95rem;font-weight:700;color:var(--cyan);margin-bottom:12px;}
+.card p{font-size:.9rem;color:var(--text);line-height:1.8;margin-bottom:10px;}
+.card p:last-child{margin-bottom:0;}
+
+.def-box{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:16px 20px;margin:12px 0;}
+.def-box .def-title{font-size:.72rem;font-weight:700;letter-spacing:.08em;color:var(--gold2);margin-bottom:8px;text-transform:uppercase;}
+.def-box p{font-size:.88rem;color:var(--text);line-height:1.7;}
+
+.danger-box{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);border-radius:10px;padding:16px 20px;margin:12px 0;}
+.danger-box .d-title{font-size:.72rem;font-weight:700;letter-spacing:.08em;color:var(--red);margin-bottom:8px;text-transform:uppercase;}
+.danger-box p{font-size:.88rem;color:var(--text);line-height:1.7;}
+
+.safe-box{background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.25);border-radius:10px;padding:16px 20px;margin:12px 0;}
+.safe-box .s-title{font-size:.72rem;font-weight:700;letter-spacing:.08em;color:var(--green);margin-bottom:8px;text-transform:uppercase;}
+.safe-box p{font-size:.88rem;color:var(--text);line-height:1.7;}
+
+.highlight{background:linear-gradient(135deg,rgba(239,68,68,.1),rgba(249,115,22,.07));border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:18px 20px;margin:16px 0;}
+.highlight p{font-size:.9rem;line-height:1.8;}
+
+.info-table{width:100%;border-collapse:collapse;font-size:.85rem;margin:14px 0;}
+.info-table th{background:rgba(239,68,68,.15);color:var(--red);font-weight:700;padding:10px 14px;text-align:right;border:1px solid var(--border);}
+.info-table td{padding:10px 14px;border:1px solid var(--border);color:var(--text);line-height:1.5;}
+.info-table tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+
+/* ── PROTECTION DEVICES GRID ── */
+.devices-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:16px 0;}
+.device-card{background:var(--dark3);border:1px solid var(--border);border-radius:14px;padding:20px 16px;text-align:center;transition:border-color .2s,transform .2s;cursor:default;}
+.device-card:hover{border-color:var(--red);transform:translateY(-3px);}
+.device-card .d-icon{font-size:2.2rem;margin-bottom:12px;display:block;}
+.device-card .d-name{font-size:.88rem;font-weight:800;color:var(--text);margin-bottom:8px;}
+.device-card .d-role{font-size:.75rem;color:var(--muted);line-height:1.5;}
+.device-card .d-type{font-size:.68rem;background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3);padding:3px 8px;border-radius:6px;display:inline-block;margin-top:8px;font-weight:700;}
+
+/* ── EFFECTS TABLE ── */
+.effects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0;}
+.effect-card{border-radius:12px;padding:16px;border:1px solid;text-align:center;}
+.effect-card .e-range{font-size:1rem;font-weight:800;margin-bottom:6px;}
+.effect-card .e-effect{font-size:.78rem;line-height:1.5;}
+.effect-card.safe{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.3);}
+.effect-card.safe .e-range{color:var(--green);}
+.effect-card.warn{background:rgba(234,179,8,.08);border-color:rgba(234,179,8,.3);}
+.effect-card.warn .e-range{color:var(--yellow);}
+.effect-card.danger{background:rgba(249,115,22,.08);border-color:rgba(249,115,22,.3);}
+.effect-card.danger .e-range{color:var(--orange);}
+.effect-card.lethal{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.4);}
+.effect-card.lethal .e-range{color:var(--red);}
+
+/* ── INTERACTIVE CIRCUIT ── */
+.circuit-wrap{background:var(--dark3);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px;}
+.circuit-head{background:rgba(255,255,255,.04);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:10px;}
+.circuit-head h3{font-size:.88rem;font-weight:700;}
+.sim-badge{font-size:.65rem;background:rgba(239,68,68,.2);color:var(--red);border:1px solid rgba(239,68,68,.3);padding:2px 8px;border-radius:6px;font-weight:700;}
+.circuit-body{padding:24px;}
+
+.scenario-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:20px;}
+.scenario-card{background:rgba(10,15,30,.7);border:2px solid var(--border);border-radius:14px;padding:20px;cursor:pointer;transition:.25s;}
+.scenario-card:hover{border-color:rgba(239,68,68,.4);}
+.scenario-card.selected{border-color:var(--red);background:rgba(239,68,68,.08);}
+.scenario-card .sc-icon{font-size:2rem;margin-bottom:10px;}
+.scenario-card .sc-title{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:6px;}
+.scenario-card .sc-desc{font-size:.75rem;color:var(--muted);line-height:1.5;}
+.scenario-result{background:rgba(10,15,30,.6);border:1px solid var(--border);border-radius:12px;padding:18px;min-height:80px;display:none;}
+.scenario-result.show{display:block;}
+.scenario-result.danger-result{border-color:rgba(239,68,68,.4);}
+.scenario-result.safe-result{border-color:rgba(34,197,94,.4);}
+
+/* QUIZ */
+.q-card{background:var(--dark3);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;}
+.q-num{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--red);margin-bottom:10px;text-transform:uppercase;}
+.q-text{font-size:.95rem;color:var(--text);line-height:1.7;margin-bottom:18px;font-weight:600;}
+.q-options{display:flex;flex-direction:column;gap:8px;}
+.q-opt{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:'Cairo',sans-serif;font-size:.88rem;cursor:pointer;text-align:right;transition:.2s;display:flex;align-items:center;gap:10px;}
+.q-opt:hover:not(.answered){border-color:var(--red);}
+.q-opt.correct{border-color:var(--green);background:rgba(34,197,94,.1);color:var(--green);}
+.q-opt.wrong{border-color:var(--red);background:rgba(239,68,68,.1);color:var(--red);}
+.q-feedback{margin-top:12px;padding:12px 16px;border-radius:8px;font-size:.82rem;line-height:1.6;display:none;}
+.q-feedback.correct{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--green);}
+.q-feedback.wrong{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#f87171;}
+.q-feedback.show{display:block;}
+.quiz-submit{width:100%;padding:14px;border-radius:10px;background:linear-gradient(135deg,var(--red),var(--orange));border:none;color:#fff;font-family:'Cairo',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:8px;}
+.quiz-score{background:linear-gradient(135deg,rgba(239,68,68,.15),rgba(249,115,22,.1));border:1px solid rgba(239,68,68,.3);border-radius:14px;padding:24px;text-align:center;display:none;}
+.quiz-score.show{display:block;}
+.score-num{font-size:3rem;font-weight:900;color:var(--gold2);}
+.score-msg{font-size:.9rem;color:var(--text);margin-top:8px;}
+
+/* SUMMARY */
+.summary-card{background:linear-gradient(135deg,rgba(239,68,68,.1),rgba(249,115,22,.07));border:1px solid rgba(239,68,68,.2);border-radius:16px;padding:28px;}
+.summary-card h3{font-family:'Amiri',serif;font-size:1.3rem;color:#fff;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.summary-list{list-style:none;}
+.summary-list li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.88rem;color:var(--text);line-height:1.6;}
+.summary-list li:last-child{border-bottom:none;}
+.s-icon{width:28px;height:28px;border-radius:7px;background:rgba(239,68,68,.2);border:1px solid rgba(239,68,68,.3);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;margin-top:1px;}
+.print-btn{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:10px 20px;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Cairo',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:.2s;}
+.print-btn:hover{border-color:var(--red);color:var(--red);}
+
+@media(max-width:600px){
+  .lesson-hero,.content-wrap{padding-left:16px;padding-right:16px;}
+  .tabs-inner{padding:0 16px;}
+  header{padding:0 16px;}
+  .devices-grid{grid-template-columns:1fr 1fr;}
+  .effects-grid{grid-template-columns:1fr 1fr;}
+  .scenario-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="bg-canvas"></div>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="back-btn">← الفهرس</a>
+    <div class="breadcrumb">
+      <span>س4م</span><span class="sep">›</span>
+      المقطع 1<span class="sep">›</span>الدرس 05
+    </div>
+    <div class="lesson-badge">4ème AM</div>
+  </div>
+</header>
+
+<div class="lesson-hero">
+  <div class="lesson-num">الدرس الخامس</div>
+  <h1>الأمن <em>الكهربائي</em></h1>
+  <div class="lesson-meta">
+    <span>⚡ الظواهر الكهربائية</span>
+    <span>📅 المقطع 1 — أكتوبر/نوفمبر</span>
+    <span>⏱ 60 دقيقة</span>
+    <span>📚 منهاج الجيل الثاني 2025/2026</span>
+  </div>
+  <div class="objectives-box">
+    <h3>🎯 الأهداف التعلمية</h3>
+    <ul>
+      <li>تعرّف أخطار التيار الكهربائي على جسم الإنسان</li>
+      <li>وصف أجهزة الحماية الكهربائية ودور كل منها</li>
+      <li>شرح مبدأ عمل المنصهرة والقاطع التفاضلي والتوصيل الأرضي</li>
+      <li>تطبيق قواعد الأمن الكهربائي في الحياة اليومية</li>
+      <li>اكتشاف الخلل في مخطط كهربائي واقتراح الحلول</li>
+    </ul>
+  </div>
+</div>
+
+<nav class="tabs-nav">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="showTab('cours')">📖 الدرس</button>
+    <button class="tab-btn" onclick="showTab('simulation')">⚠️ سيناريوهات</button>
+    <button class="tab-btn" onclick="showTab('exercices')">✏️ تمارين</button>
+    <button class="tab-btn" onclick="showTab('resume')">📋 ملخص الكراس</button>
+  </div>
+</nav>
+
+<div class="content-wrap">
+
+  <!-- ══ COURS ══ -->
+  <div class="tab-panel active" id="tab-cours">
+
+    <div class="sec-title"><div class="icon">⚠️</div><h2>I. أخطار التيار الكهربائي على جسم الإنسان</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>🧍 لماذا الكهرباء خطيرة على الإنسان؟</h3>
+      <p>جسم الإنسان <strong>ناقل للكهرباء</strong> بسبب وجود الأملاح والماء فيه. عند لمس موصل مكشوف تحت توتر كهربائي، يسري التيار عبر الجسم مسبباً أضراراً خطيرة.</p>
+      <div class="danger-box">
+        <div class="d-title">⚠️ العوامل المؤثرة في خطورة الصعقة الكهربائية</div>
+        <p>• <strong>شدة التيار المار في الجسم</strong> — هي العامل الأساسي في الخطورة<br>
+        • <strong>مدة التعرض</strong> — كلما طالت المدة زادت الأضرار<br>
+        • <strong>مسار التيار في الجسم</strong> — المرور عبر القلب أشد خطورة<br>
+        • <strong>مقاومة جسم الإنسان</strong> — تتراوح بين 1000 Ω (جلد جاف) و100 Ω (جلد رطب)</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📊 تأثيرات التيار الكهربائي على جسم الإنسان</h3>
+      <div class="effects-grid">
+        <div class="effect-card safe">
+          <div class="e-range">I &lt; 10 mA</div>
+          <div class="e-effect">تنميل خفيف — لا خطر يُذكر</div>
+        </div>
+        <div class="effect-card warn">
+          <div class="e-range">10 mA ≤ I &lt; 30 mA</div>
+          <div class="e-effect">تقلص عضلي — صعوبة في الإفلات من الموصل</div>
+        </div>
+        <div class="effect-card danger">
+          <div class="e-range">30 mA ≤ I &lt; 100 mA</div>
+          <div class="e-effect">اضطراب في التنفس — خطر شديد</div>
+        </div>
+        <div class="effect-card lethal">
+          <div class="e-range">I ≥ 100 mA</div>
+          <div class="e-effect">رجفان قلبي — قد يؤدي إلى الوفاة</div>
+        </div>
+      </div>
+      <div class="highlight">
+        <p>⚡ <strong>الخطر الحقيقي هو شدة التيار</strong> وليس التوتر مباشرةً. لكن الشبكة المنزلية 220V تُنتج تياراً كافياً لإحداث رجفان قلبي قاتل عبر جسم الإنسان!</p>
+      </div>
+    </div>
+
+    <div class="sec-title"><div class="icon">🛡️</div><h2>II. أجهزة الحماية الكهربائية</h2><div class="line"></div></div>
+
+    <div class="devices-grid">
+      <div class="device-card">
+        <span class="d-icon">🔌</span>
+        <div class="d-name">المنصهرة (الفيوز)</div>
+        <div class="d-role">سلك رفيع يذوب عند تجاوز شدة تيار محددة، فيقطع الدارة ويحمي الأسلاك من الاحتراق.</div>
+        <span class="d-type">حماية الأسلاك</span>
+      </div>
+      <div class="device-card">
+        <span class="d-icon">⚡</span>
+        <div class="d-name">القاطع التفاضلي</div>
+        <div class="d-role">يقيس الفرق بين تيار الذهاب وتيار الإياب. عند وجود تسرب (30 mA) يقطع الدارة فوراً ويحمي الأشخاص.</div>
+        <span class="d-type">حماية الأشخاص</span>
+      </div>
+      <div class="device-card">
+        <span class="d-icon">🌍</span>
+        <div class="d-name">التوصيل الأرضي</div>
+        <div class="d-role">توصيل الأجسام المعدنية للأجهزة بالأرض. عند التسرب يسري التيار نحو الأرض بدلاً من جسم الإنسان.</div>
+        <span class="d-type">حماية الأشخاص</span>
+      </div>
+      <div class="device-card">
+        <span class="d-icon">🔲</span>
+        <div class="d-name">القاطع الآلي</div>
+        <div class="d-role">يقطع الدارة آلياً عند الاستقصار أو زيادة الشدة. يمكن إعادة تشغيله يدوياً بعد إصلاح العطب.</div>
+        <span class="d-type">حماية الأسلاك والأشخاص</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🔌 مكوّنات التركيبة الكهربائية المنزلية الآمنة</h3>
+      <table class="info-table">
+        <tr><th>السلك</th><th>اللون</th><th>الدور</th></tr>
+        <tr><td><strong>الطور (الحي)</strong></td><td style="color:var(--red)">■ أحمر أو بني</td><td>يحمل التوتر الكهربائي (220V) — خطير عند اللمس</td></tr>
+        <tr><td><strong>الحيادي</strong></td><td style="color:#94a3b8">■ أزرق أو أبيض</td><td>يُكمل الدارة — توتره منخفض نسبياً</td></tr>
+        <tr><td><strong>الأرضي</strong></td><td style="color:var(--green)">■ أصفر-أخضر</td><td>يوصّل الهياكل المعدنية بالأرض — للحماية</td></tr>
+      </table>
+      <div class="safe-box">
+        <div class="s-title">✅ كيفية الكشف عن الطور</div>
+        <p>باستخدام <strong>قلم الطور (التورنيفيس المضيء)</strong>: يضيء عند لمس سلك الطور ولا يضيء عند لمس الحيادي أو الأرضي.</p>
+      </div>
+    </div>
+
+    <div class="sec-title"><div class="icon">📋</div><h2>III. قواعد الأمن الكهربائي</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>🚫 ممنوع مطلقاً</h3>
+      <div class="danger-box">
+        <div class="d-title">⛔ لا تفعل أبداً</div>
+        <p>
+          ❌ لا تلمس أسلاكاً كهربائية مكشوفة أو معطوبة<br>
+          ❌ لا تستخدم أجهزة كهربائية قرب الماء (حمام، مطبخ...)<br>
+          ❌ لا تُدخل أشياء معدنية في مقابس الكهرباء<br>
+          ❌ لا تربط عدة أجهزة قوية في مقبس واحد (الإرهاق الكهربائي)<br>
+          ❌ لا تُصلح التركيبة الكهربائية وأنت غير متخصص<br>
+          ❌ لا تُبدّل المنصهرة بسلك عادي (خطير جداً!)
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>✅ قواعد السلامة الصحيحة</h3>
+      <div class="safe-box">
+        <div class="s-title">✅ افعل دائماً</div>
+        <p>
+          ✅ افصل التيار قبل أي تدخل في التركيبة الكهربائية<br>
+          ✅ استخدم أدوات معزولة عند العمل في الكهرباء<br>
+          ✅ تأكد من سلامة الأسلاك والمقابس بصفة دورية<br>
+          ✅ ركّب قاطعاً تفاضلياً في كل منزل<br>
+          ✅ ابتعد عن أسلاك الضغط العالي<br>
+          ✅ علّم الأطفال خطر الكهرباء من الصغر
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🆘 ماذا تفعل عند حادثة كهربائية؟</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:12px;background:rgba(239,68,68,.07);border-radius:10px;border:1px solid rgba(239,68,68,.2);">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:.85rem;">1</div>
+          <div style="font-size:.88rem;"><strong>قطع التيار فوراً</strong> — من لوحة التوزيع أو القاطع الرئيسي</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:12px;background:rgba(249,115,22,.07);border-radius:10px;border:1px solid rgba(249,115,22,.2);">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:.85rem;">2</div>
+          <div style="font-size:.88rem;"><strong>لا تلمس المصعوق</strong> — قد تُصاب أنت أيضاً. استخدم عصا خشبية أو حبلاً لإبعاده</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:12px;background:rgba(234,179,8,.07);border-radius:10px;border:1px solid rgba(234,179,8,.2);">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:.85rem;color:#000;">3</div>
+          <div style="font-size:.88rem;"><strong>اتصل بالإسعاف فوراً</strong> — رقم الإسعاف: 14 أو 1021</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:12px;background:rgba(34,197,94,.07);border-radius:10px;border:1px solid rgba(34,197,94,.2);">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:.85rem;">4</div>
+          <div style="font-size:.88rem;"><strong>الإنعاش القلبي الرئوي</strong> — إذا كنت متدرباً عليه وكان المصعوق فاقداً للوعي</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cours -->
+
+
+  <!-- ══ SIMULATION: SCENARIOS ══ -->
+  <div class="tab-panel" id="tab-simulation">
+
+    <div class="sec-title"><div class="icon">⚠️</div><h2>سيناريوهات الأمن الكهربائي</h2><div class="line"></div></div>
+
+    <div class="circuit-wrap">
+      <div class="circuit-head">
+        <h3>هل هذا الموقف آمن أم خطير؟</h3>
+        <span class="sim-badge">تفاعلي</span>
+      </div>
+      <div class="circuit-body">
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:18px;">اضغط على كل سيناريو لمعرفة إذا كان آمناً أم خطيراً مع شرح السبب</p>
+
+        <div class="scenario-grid">
+
+          <div class="scenario-card" onclick="showScenario(this,'danger','⛔ خطير جداً! استخدام الأجهزة الكهربائية بالقرب من الماء خطر مميت. الماء ناقل جيد للكهرباء وقد يُسبب صعقة قاتلة.')">
+            <div class="sc-icon">🛁⚡</div>
+            <div class="sc-title">استخدام مجفف الشعر في الحمام</div>
+            <div class="sc-desc">شخص يستخدم مجفف شعر كهربائي بالقرب من حوض الاستحمام المملوء بالماء</div>
+          </div>
+
+          <div class="scenario-card" onclick="showScenario(this,'danger','⛔ خطير! تبديل المنصهرة بسلك عادي يزيل الحماية الأساسية للدارة. في حالة استقصار، سيحترق السلك الكهربائي وقد يتسبب في حريق.')">
+            <div class="sc-icon">🔌🔧</div>
+            <div class="sc-title">تبديل المنصهرة بسلك عادي</div>
+            <div class="sc-desc">شخص يضع سلكاً معدنياً عادياً بدلاً من المنصهرة لأنها تحترق باستمرار</div>
+          </div>
+
+          <div class="scenario-card" onclick="showScenario(this,'danger','⛔ خطير! ربط عدة أجهزة قوية (مكيف، فرن، غسالة...) في مقبس واحد يُسبب الإرهاق الكهربائي: الأسلاك تسخن فوق طاقتها وقد تحترق.')">
+            <div class="sc-icon">🔌🔌🔌</div>
+            <div class="sc-title">مشترك كهربائي محمّل بشدة</div>
+            <div class="sc-desc">استخدام مشترك واحد لتوصيل 5 أجهزة كهربائية قوية في نفس الوقت</div>
+          </div>
+
+          <div class="scenario-card" onclick="showScenario(this,'safe','✅ آمن! فصل التيار من اللوحة الرئيسية قبل أي تدخل في التركيبة الكهربائية هو الإجراء الصحيح والإلزامي لضمان السلامة.')">
+            <div class="sc-icon">🔒✅</div>
+            <div class="sc-title">فصل التيار قبل الإصلاح</div>
+            <div class="sc-desc">كهربائي يقطع التيار من اللوحة الرئيسية قبل تغيير مقبس كهربائي</div>
+          </div>
+
+          <div class="scenario-card" onclick="showScenario(this,'danger','⛔ خطير! لمس سلك مكشوف حتى بيد جافة خطير. الجلد الجاف يملك مقاومة أعلى لكن التوتر 220V كافٍ لإحداث صعقة مؤلمة أو قاتلة.')">
+            <div class="sc-icon">👆⚡</div>
+            <div class="sc-title">لمس سلك مكشوف بيد جافة</div>
+            <div class="sc-desc">شخص يلمس طرف سلك كهربائي مكشوف معتقداً أن يديه الجافة تحميه</div>
+          </div>
+
+          <div class="scenario-card" onclick="showScenario(this,'safe','✅ آمن! استخدام أدوات معزولة بمقابض بلاستيكية أو مطاطية هو الطريقة الصحيحة للعمل في التركيبات الكهربائية. العازل يمنع مرور التيار عبر الجسم.')">
+            <div class="sc-icon">🔧🛡️</div>
+            <div class="sc-title">استخدام أدوات معزولة</div>
+            <div class="sc-desc">كهربائي يستخدم مفك براغي بمقبض بلاستيكي معزول عند العمل في لوحة التوزيع</div>
+          </div>
+
+        </div>
+
+        <div class="scenario-result" id="scenario-result">
+          <div id="scenario-text" style="font-size:.9rem;line-height:1.7;font-weight:600;"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Protection devices quiz -->
+    <div class="circuit-wrap">
+      <div class="circuit-head"><h3>تعرّف على جهاز الحماية</h3><span class="sim-badge">تفاعلي</span></div>
+      <div class="circuit-body">
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:18px;">لكل وضعية، اختر جهاز الحماية المناسب</p>
+
+        <div id="protect-quiz" style="display:flex;flex-direction:column;gap:16px;">
+
+          <div style="background:rgba(10,15,30,.6);border:1px solid var(--border);border-radius:12px;padding:18px;" id="pq1">
+            <div style="font-size:.88rem;font-weight:700;margin-bottom:14px;color:var(--text);">⚡ الدارة مستقصرة والأسلاك تسخن. ما جهاز الحماية الذي يقطع التيار؟</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="q-opt" style="flex:1;min-width:120px;" onclick="pqAnswer(this,'pq1',false)"><span>○</span> القاطع التفاضلي</button>
+              <button class="q-opt" style="flex:1;min-width:120px;" onclick="pqAnswer(this,'pq1',true)"><span>○</span> المنصهرة</button>
+              <button class="q-opt" style="flex:1;min-width:120px;" onclick="pqAnswer(this,'pq1',false)"><span>○</span> التوصيل الأرضي</button>
+            </div>
+            <div class="q-feedback" id="pqfb1"></div>
+          </div>
+
+          <div style="background:rgba(10,15,30,.6);border:1px solid var(--border);border-radius:12px;padding:18px;" id="pq2">
+            <div style="font-size:.88rem;font-weight:700;margin-bottom:14px;color:var(--text);">🧍 شخص لمس حادثة غسالة معطلة — التيار يمر عبر هيكلها. ما جهاز الحماية الذي يمنع الصعقة؟</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="q-opt" style="flex:1;min-width:120px;" onclick="pqAnswer(this,'pq2',false)"><span>○</span> المنصهرة</button>
+              <button class="q-opt" style="flex:1;min-width:120px;" onclick="pqAnswer(this,'pq2',true)"><span>○</span> التوصيل الأرضي</button>
+              <button class="q-opt" style="flex:1;min-width:120px;" onclick="pqAnswer(this,'pq2',false)"><span>○</span> القاطع الآلي</button>
+            </div>
+            <div class="q-feedback" id="pqfb2"></div>
+          </div>
+
+          <div style="background:rgba(10,15,30,.6);border:1px solid var(--border);border-radius:12px;padding:18px;" id="pq3">
+            <div style="font-size:.88rem;font-weight:700;margin-bottom:14px;color:var(--text);">💧 تسرّب تيار بمقدار 30mA بسبب خلل في جهاز. ما جهاز الحماية الأنسب لقطع التيار وحماية الأشخاص؟</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="q-opt" style="flex:1;min-width:120px;" onclick="pqAnswer(this,'pq3',true)"><span>○</span> القاطع التفاضلي</button>
+              <button class="q-opt" style="flex:1;min-width:120px;" onclick="pqAnswer(this,'pq3',false)"><span>○</span> المنصهرة</button>
+              <button class="q-opt" style="flex:1;min-width:120px;" onclick="pqAnswer(this,'pq3',false)"><span>○</span> قلم الطور</button>
+            </div>
+            <div class="q-feedback" id="pqfb3"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /simulation -->
+
+
+  <!-- ══ EXERCICES ══ -->
+  <div class="tab-panel" id="tab-exercices">
+
+    <div class="sec-title"><div class="icon">✏️</div><h2>تمارين تقييمية</h2><div class="line"></div></div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 01</div>
+      <div class="q-text">ما العامل الأساسي الذي يحدد خطورة الصعقة الكهربائية على جسم الإنسان؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> قيمة التوتر فقط</button>
+        <button class="q-opt" onclick="answer(this,true,'q1')"><span>○</span> شدة التيار المار في الجسم</button>
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> نوع الجهاز الكهربائي</span></button>
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> لون الأسلاك الكهربائية</button>
+      </div>
+      <div class="q-feedback" id="fb-q1"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 02</div>
+      <div class="q-text">جهاز الحماية الذي يقيس الفرق بين تيار الذهاب وتيار الإياب ويقطع الدارة عند وجود تسرب هو:</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> المنصهرة (الفيوز)</button>
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> التوصيل الأرضي</button>
+        <button class="q-opt" onclick="answer(this,true,'q2')"><span>○</span> القاطع التفاضلي</button>
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> قلم الطور</button>
+      </div>
+      <div class="q-feedback" id="fb-q2"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 03</div>
+      <div class="q-text">ما لون السلك الأرضي في التركيبة الكهربائية المنزلية؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> أحمر أو بني</button>
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> أزرق أو أبيض</button>
+        <button class="q-opt" onclick="answer(this,true,'q3')"><span>○</span> أصفر وأخضر</button>
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> أسود</button>
+      </div>
+      <div class="q-feedback" id="fb-q3"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 04</div>
+      <div class="q-text">عند إصابة شخص بصعقة كهربائية، ما أول إجراء يجب اتخاذه؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> لمس المصعوق فوراً لإبعاده</button>
+        <button class="q-opt" onclick="answer(this,true,'q4')"><span>○</span> قطع التيار الكهربائي فوراً من المصدر</button>
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> رش الماء على المصعوق</button>
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> الاتصال بالشرطة</button>
+      </div>
+      <div class="q-feedback" id="fb-q4"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 05</div>
+      <div class="q-text">تيار بشدة I = 50 mA يمر في جسم إنسان. ما التأثير المتوقع؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q5')"><span>○</span> لا تأثير يُذكر — الشدة منخفضة جداً</button>
+        <button class="q-opt" onclick="answer(this,false,'q5')"><span>○</span> تنميل بسيط فقط</button>
+        <button class="q-opt" onclick="answer(this,true,'q5')"><span>○</span> اضطراب في التنفس — خطر شديد</button>
+        <button class="q-opt" onclick="answer(this,false,'q5')"><span>○</span> رجفان قلبي مؤكد</button>
+      </div>
+      <div class="q-feedback" id="fb-q5"></div>
+    </div>
+
+    <button class="quiz-submit" onclick="submitQuiz()">📊 عرض النتيجة</button>
+    <div class="quiz-score" id="quiz-score">
+      <div class="score-num" id="score-num">0/5</div>
+      <div class="score-msg" id="score-msg"></div>
+    </div>
+
+  </div><!-- /exercices -->
+
+
+  <!-- ══ RESUME ══ -->
+  <div class="tab-panel" id="tab-resume">
+
+    <div class="sec-title"><div class="icon">📋</div><h2>ملخص الكراس</h2><div class="line"></div></div>
+
+    <div class="summary-card">
+      <h3>📓 الأمن الكهربائي — السنة الرابعة متوسط</h3>
+      <ul class="summary-list">
+        <li>
+          <div class="s-icon">⚠️</div>
+          <div><strong>خطر الكهرباء:</strong> جسم الإنسان ناقل للكهرباء. العامل الأساسي في الخطورة هو <strong>شدة التيار</strong> المار في الجسم، وليس التوتر وحده.</div>
+        </li>
+        <li>
+          <div class="s-icon">📊</div>
+          <div><strong>تأثيرات التيار:</strong><br>
+          • I &lt; 10 mA → تنميل (بلا خطر)<br>
+          • 10 ≤ I &lt; 30 mA → تقلص عضلي<br>
+          • 30 ≤ I &lt; 100 mA → اضطراب تنفسي (خطر شديد)<br>
+          • I ≥ 100 mA → رجفان قلبي (خطر الوفاة)</div>
+        </li>
+        <li>
+          <div class="s-icon">🔌</div>
+          <div><strong>المنصهرة:</strong> تحمي الأسلاك من الاحتراق عند تجاوز شدة التيار الحد المسموح به.</div>
+        </li>
+        <li>
+          <div class="s-icon">⚡</div>
+          <div><strong>القاطع التفاضلي:</strong> يقيس الفرق بين تيار الذهاب والإياب. عند تسرب ≥ 30 mA يقطع التيار فوراً لحماية الأشخاص.</div>
+        </li>
+        <li>
+          <div class="s-icon">🌍</div>
+          <div><strong>التوصيل الأرضي:</strong> يوصّل الهياكل المعدنية للأجهزة بالأرض، فعند التسرب يسري التيار للأرض بدلاً من الإنسان.</div>
+        </li>
+        <li>
+          <div class="s-icon">🎨</div>
+          <div><strong>ألوان الأسلاك:</strong><br>
+          • أحمر/بني → الطور (خطير)<br>
+          • أزرق/أبيض → الحيادي<br>
+          • أصفر-أخضر → الأرضي (حماية)</div>
+        </li>
+        <li>
+          <div class="s-icon">🆘</div>
+          <div><strong>عند الحادثة:</strong> 1- قطع التيار فوراً → 2- لا تلمس المصعوق → 3- الاتصال بالإسعاف (14) → 4- الإنعاش إذا لزم.</div>
+        </li>
+      </ul>
+      <button class="print-btn" onclick="window.print()">🖨️ طباعة الملخص</button>
+    </div>
+
+  </div><!-- /resume -->
+
+</div><!-- /content-wrap -->
+
+<script>
+/* TABS */
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+/* SCENARIOS */
+function showScenario(card, type, text){
+  document.querySelectorAll('.scenario-card').forEach(c=>c.classList.remove('selected'));
+  card.classList.add('selected');
+  const res = document.getElementById('scenario-result');
+  const txt = document.getElementById('scenario-text');
+  res.className = 'scenario-result show ' + (type==='danger' ? 'danger-result' : 'safe-result');
+  txt.style.color = type==='danger' ? 'var(--red)' : 'var(--green)';
+  txt.textContent = text;
+  res.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* PROTECTION QUIZ */
+const pqFeedbacks = {
+  pq1:{ correct:'✅ صحيح! المنصهرة تذوب عند تجاوز شدة التيار، فتقطع الدارة وتحمي الأسلاك من الاحتراق.',
+        wrong:'❌ خطأ. المنصهرة هي التي تحمي الأسلاك من الاستقصار.' },
+  pq2:{ correct:'✅ صحيح! التوصيل الأرضي يُوجّه التيار المتسرب نحو الأرض، فيحمي الشخص من الصعقة.',
+        wrong:'❌ خطأ. التوصيل الأرضي هو الذي يحمي الهياكل المعدنية من الخطر.' },
+  pq3:{ correct:'✅ صحيح! القاطع التفاضلي مصمم خصيصاً للكشف عن تسربات التيار (ابتداءً من 30 mA) وحماية الأشخاص.',
+        wrong:'❌ خطأ. القاطع التفاضلي يكشف عن تسربات التيار ≥ 30mA ويقطع الدارة لحماية الأشخاص.' },
+};
+
+function pqAnswer(btn, qId, isCorrect){
+  const parent = document.getElementById(qId);
+  const opts = parent.querySelectorAll('.q-opt');
+  if([...opts].some(o=>o.classList.contains('answered'))) return;
+  opts.forEach(o=>o.classList.add('answered'));
+  btn.classList.add(isCorrect?'correct':'wrong');
+  btn.querySelector('span').textContent = isCorrect?'✓':'✗';
+  const fb = document.getElementById('pqfb'+qId.replace('pq',''));
+  fb.textContent = isCorrect ? pqFeedbacks[qId].correct : pqFeedbacks[qId].wrong;
+  fb.className = 'q-feedback '+(isCorrect?'correct':'wrong')+' show';
+}
+
+/* MAIN QUIZ */
+const feedbacks = {
+  q1:{ correct:'✅ صحيح! شدة التيار هي العامل الأساسي. حتى بتوتر منخفض نسبياً، يمكن لتيار قوي أن يكون قاتلاً.',
+       wrong:'❌ خطأ. العامل الأساسي هو شدة التيار المار في جسم الإنسان وليس التوتر وحده.' },
+  q2:{ correct:'✅ صحيح! القاطع التفاضلي يقيس باستمرار الفرق بين تيار الذهاب والإياب. أي فرق يعني تسرباً فيقطع الدارة.',
+       wrong:'❌ خطأ. هذا هو وصف القاطع التفاضلي — يقيس الفرق بين تياري الذهاب والإياب.' },
+  q3:{ correct:'✅ صحيح! السلك الأرضي دائماً بلونين: أصفر وأخضر. هذا المعيار دولي لسهولة التعرف عليه.',
+       wrong:'❌ خطأ. السلك الأرضي لونه أصفر-أخضر. الأحمر/البني هو الطور والأزرق هو الحيادي.' },
+  q4:{ correct:'✅ صحيح! أول إجراء دائماً هو قطع مصدر التيار. لمس المصعوق قبل ذلك قد يجعلك ضحية ثانية!',
+       wrong:'❌ خطأ. أول إجراء هو قطع التيار فوراً. لمس المصعوق قبل ذلك خطير جداً.' },
+  q5:{ correct:'✅ صحيح! I = 50 mA يقع في النطاق 30-100 mA وهو نطاق اضطراب التنفس والخطر الشديد على الحياة.',
+       wrong:'❌ خطأ. I = 50 mA يقع في النطاق 30-100 mA → اضطراب في التنفس وخطر شديد.' },
+};
+
+let answers={};
+function answer(btn,isCorrect,qId){
+  const opts=btn.closest('.q-card').querySelectorAll('.q-opt');
+  if([...opts].some(o=>o.classList.contains('answered'))) return;
+  opts.forEach(o=>o.classList.add('answered'));
+  btn.classList.add(isCorrect?'correct':'wrong');
+  btn.querySelector('span').textContent=isCorrect?'✓':'✗';
+  const fb=document.getElementById('fb-'+qId);
+  fb.textContent=isCorrect?feedbacks[qId].correct:feedbacks[qId].wrong;
+  fb.className='q-feedback '+(isCorrect?'correct':'wrong')+' show';
+  answers[qId]=isCorrect;
+}
+
+function submitQuiz(){
+  const score=Object.values(answers).filter(Boolean).length;
+  document.getElementById('score-num').textContent=score+'/5';
+  const msgs=['💪 راجع الدرس جيداً.','📖 حسن، راجع النقاط الخاطئة.','📖 جيد! أعد المراجعة.','👍 جيد جداً!','🌟 ممتاز! أتقنت الدرس بالكامل!'];
+  document.getElementById('score-msg').textContent=msgs[score]||msgs[0];
+  const el=document.getElementById('quiz-score');
+  el.classList.add('show');
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+</script>
+</body>
+</html>
