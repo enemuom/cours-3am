@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المقاربة الأولية لمفهوم القوة | السنة الرابعة متوسط</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#0a0f1e; --dark2:#111827; --dark3:#1a2540;
+  --blue:#2563eb; --blue2:#3b82f6; --cyan:#06b6d4;
+  --gold:#f59e0b; --gold2:#fbbf24;
+  --red:#ef4444; --green:#22c55e; --orange:#f97316;
+  --teal:#14b8a6; --purple:#a855f7; --lime:#84cc16;
+  --text:#e2e8f0; --muted:#94a3b8;
+  --border:rgba(255,255,255,.08); --card:rgba(255,255,255,.04);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;overflow-x:hidden;}
+.bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 20% 30%,rgba(132,204,22,.1) 0%,transparent 50%),
+             radial-gradient(ellipse at 80% 70%,rgba(6,182,212,.08) 0%,transparent 50%);}
+
+header{position:relative;z-index:10;background:rgba(10,15,30,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);padding:0 32px;}
+.header-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:18px 0;}
+.back-btn{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:.8rem;font-weight:600;text-decoration:none;padding:6px 12px;border-radius:8px;border:1px solid var(--border);transition:.2s;}
+.back-btn:hover{color:var(--text);border-color:rgba(255,255,255,.2);}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--muted);}
+.breadcrumb span{color:var(--cyan);font-weight:700;}
+.breadcrumb .sep{opacity:.4;}
+.lesson-badge{margin-right:auto;background:linear-gradient(135deg,var(--cyan),var(--blue2));color:#fff;font-size:.72rem;font-weight:700;padding:4px 14px;border-radius:20px;}
+
+.lesson-hero{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:52px 32px 40px;}
+.lesson-num{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;color:var(--cyan);margin-bottom:16px;}
+.lesson-num::before{content:'';width:24px;height:2px;background:var(--cyan);}
+.lesson-hero h1{font-family:'Amiri',serif;font-size:clamp(1.7rem,4vw,2.7rem);color:#fff;line-height:1.25;margin-bottom:16px;}
+.lesson-hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--cyan),var(--lime));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.lesson-meta{display:flex;gap:18px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-bottom:32px;}
+.objectives-box{background:var(--card);border:1px solid var(--border);border-right:3px solid var(--cyan);border-radius:12px;padding:20px 24px;}
+.objectives-box h3{font-size:.78rem;font-weight:700;letter-spacing:.08em;color:var(--cyan);margin-bottom:12px;text-transform:uppercase;}
+.objectives-box ul{list-style:none;}
+.objectives-box li{font-size:.88rem;color:var(--text);padding:5px 0;display:flex;align-items:flex-start;gap:10px;line-height:1.5;}
+.objectives-box li::before{content:'✦';color:var(--teal);font-size:.65rem;margin-top:4px;flex-shrink:0;}
+
+.tabs-nav{position:sticky;top:0;z-index:50;background:rgba(10,15,30,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
+.tabs-inner{max-width:1000px;margin:0 auto;display:flex;padding:0 32px;overflow-x:auto;}
+.tab-btn{padding:16px 22px;border:none;background:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.85rem;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;transition:.2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--cyan);border-bottom-color:var(--cyan);}
+
+.content-wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:40px 32px 80px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.sec-title{display:flex;align-items:center;gap:12px;margin-bottom:24px;margin-top:36px;}
+.sec-title:first-child{margin-top:0;}
+.sec-title .icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--cyan),var(--blue2));display:flex;align-items:center;justify-content:center;font-size:1.1rem; color:white;}
+.sec-title h2{font-size:1.15rem;font-weight:800;color:#fff;}
+.sec-title .line{flex:1;height:1px;background:var(--border);}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;}
+.card h3{font-size:.95rem;font-weight:700;color:var(--lime);margin-bottom:12px;}
+.card p{font-size:.9rem;color:var(--text);line-height:1.8;margin-bottom:10px;}
+.card p:last-child{margin-bottom:0;}
+
+.def-box{background:rgba(6,182,212,.08);border:1px solid rgba(6,182,212,.25);border-radius:10px;padding:16px 20px;margin:12px 0;}
+.def-box .def-title{font-size:.72rem;font-weight:700;letter-spacing:.08em;color:var(--cyan);margin-bottom:8px;text-transform:uppercase;}
+.def-box p{font-size:.88rem;color:var(--text);line-height:1.7;}
+
+.highlight{background:linear-gradient(135deg,rgba(132,204,22,.1),rgba(20,184,166,.07));border:1px solid rgba(132,204,22,.2);border-radius:12px;padding:18px 20px;margin:16px 0;}
+.highlight p{font-size:.9rem;line-height:1.8;}
+
+.formula-box{background:var(--dark3);border:1px solid rgba(6,182,212,.3);border-radius:12px;padding:18px 22px;margin:14px 0;text-align:center;}
+.formula-box .formula{font-size:1.4rem;font-weight:700;color:var(--cyan);letter-spacing:.04em;margin-bottom:8px; display:flex; justify-content:center; align-items:center; gap: 8px;}
+.formula-box .formula-desc{font-size:.85rem;color:var(--muted);}
+
+.info-table{width:100%;border-collapse:collapse;font-size:.85rem;margin:14px 0;}
+.info-table th{background:rgba(6,182,212,.12);color:var(--cyan);font-weight:700;padding:10px 14px;text-align:right;border:1px solid var(--border);}
+.info-table td{padding:10px 14px;border:1px solid var(--border);color:var(--text);line-height:1.5;}
+.info-table tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+
+/* Vector notation styling */
+.vec { position: relative; display: inline-block; padding-top: 10px; font-style: italic; font-family: 'Amiri', serif;}
+.vec::before { content: '→'; position: absolute; top: -5px; left: 50%; transform: translateX(-50%); font-size: 0.8em; font-style: normal; color: inherit;}
+.sub { font-size: 0.6em; vertical-align: sub; font-style: normal; font-family: 'Cairo', sans-serif;}
+
+/* ── REACTION SIMULATOR ── */
+.rxn-wrap{background:var(--dark3);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px;}
+.rxn-head{background:rgba(255,255,255,.04);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:10px;}
+.rxn-head h3{font-size:.88rem;font-weight:700;}
+.sim-badge{font-size:.65rem;background:rgba(6,182,212,.2);color:var(--cyan);border:1px solid rgba(6,182,212,.3);padding:2px 8px;border-radius:6px;font-weight:700;}
+.rxn-body{padding:24px;}
+
+/* Physics Scene */
+.phys-scene{
+  width:100%; height:300px;
+  background:rgba(10,15,30,.7) radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 10%, transparent 80%);
+  border-radius:14px; border:1px solid var(--border);
+  position:relative; overflow:hidden; margin-bottom:16px;
+  display:flex; align-items:center; justify-content:center;
+}
+.floor { position:absolute; bottom:0; left:0; right:0; height:40px; border-top: 2px solid var(--border); background:repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.03) 10px, rgba(255,255,255,0.03) 20px); }
+
+/* Selectors */
+.sel-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;align-items:center;}
+.sel-label{font-size:.78rem;color:var(--muted);font-weight:600;white-space:nowrap;}
+.sel-btn{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:'Cairo',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:.2s;}
+.sel-btn:hover{border-color:var(--cyan);}
+.sel-btn.active{background:rgba(6,182,212,.2);border-color:var(--cyan);color:var(--cyan);}
+
+.run-btn{padding:10px 22px;border-radius:10px;background:linear-gradient(135deg,var(--cyan),var(--blue2));border:none;color:#fff;font-family:'Cairo',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;transition:opacity .2s;}
+.run-btn:hover{opacity:.85;}
+
+/* Result panel */
+.rxn-result{background:rgba(10,15,30,.6);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:14px;display:none;}
+.rxn-result.show{display:block; animation: fadeIn 0.5s ease;}
+@keyframes fadeIn { from {opacity: 0; transform: translateY(-10px);} to {opacity: 1; transform: translateY(0);} }
+.rr-obs{font-size:.85rem;color:var(--text);line-height:1.8;margin-bottom:12px;}
+.rr-eq{padding:10px 14px;border-radius:8px;margin:6px 0;font-size:.88rem;font-weight:700;}
+.rr-eq.info{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.25);color:var(--cyan);}
+
+/* QUIZ */
+.q-card{background:var(--dark3);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;}
+.q-num{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--cyan);margin-bottom:10px;text-transform:uppercase;}
+.q-text{font-size:.95rem;color:var(--text);line-height:1.7;margin-bottom:18px;font-weight:600;}
+.q-options{display:flex;flex-direction:column;gap:8px;}
+.q-opt{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:'Cairo',sans-serif;font-size:.88rem;cursor:pointer;text-align:right;transition:.2s;display:flex;align-items:center;gap:10px;}
+.q-opt:hover:not(.answered){border-color:var(--cyan);}
+.q-opt.correct{border-color:var(--green);background:rgba(34,197,94,.1);color:var(--green);}
+.q-opt.wrong{border-color:var(--red);background:rgba(239,68,68,.1);color:var(--red);}
+.q-feedback{margin-top:12px;padding:12px 16px;border-radius:8px;font-size:.82rem;line-height:1.6;display:none;}
+.q-feedback.correct{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--green);}
+.q-feedback.wrong{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#f87171;}
+.q-feedback.show{display:block;}
+.quiz-submit{width:100%;padding:14px;border-radius:10px;background:linear-gradient(135deg,var(--cyan),var(--blue2));border:none;color:#fff;font-family:'Cairo',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:8px;}
+.quiz-score{background:linear-gradient(135deg,rgba(6,182,212,.15),rgba(37,99,235,.1));border:1px solid rgba(6,182,212,.3);border-radius:14px;padding:24px;text-align:center;display:none; margin-top: 16px;}
+.quiz-score.show{display:block; animation: fadeIn 0.5s ease;}
+.score-num{font-size:3rem;font-weight:900;color:var(--cyan);}
+.score-msg{font-size:.9rem;color:var(--text);margin-top:8px;}
+
+/* SUMMARY */
+.summary-card{background:linear-gradient(135deg,rgba(6,182,212,.1),rgba(37,99,235,.07));border:1px solid rgba(6,182,212,.2);border-radius:16px;padding:28px;}
+.summary-card h3{font-family:'Amiri',serif;font-size:1.3rem;color:#fff;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.summary-list{list-style:none;}
+.summary-list li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.88rem;color:var(--text);line-height:1.6;}
+.summary-list li:last-child{border-bottom:none;}
+.s-icon{width:28px;height:28px;border-radius:7px;background:rgba(6,182,212,.2);border:1px solid rgba(6,182,212,.3);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;margin-top:1px;}
+.print-btn{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:10px 20px;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Cairo',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:.2s;}
+.print-btn:hover{border-color:var(--cyan);color:var(--cyan);}
+
+@media(max-width:600px){
+  .lesson-hero,.content-wrap{padding-left:16px;padding-right:16px;}
+  .tabs-inner{padding:0 16px;}
+  header{padding:0 16px;}
+  .sel-row{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="bg-canvas"></div>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="back-btn">← الفهرس</a>
+    <div class="breadcrumb">
+      <span>س4م</span><span class="sep">›</span>
+      المقطع 3 — الظواهر الميكانيكية<span class="sep">›</span>الدرس 01
+    </div>
+    <div class="lesson-badge">4ème AM</div>
+  </div>
+</header>
+
+<div class="lesson-hero">
+  <div class="lesson-num">الدرس الأول — المقطع 3</div>
+  <h1>المقاربة الأولية <em>لمفهوم القوة</em></h1>
+  <div class="lesson-meta">
+    <span>⚙️ الظواهر الميكانيكية</span>
+    <span>📅 المقطع 3 — فيفري</span>
+    <span>⏱ 120 دقيقة</span>
+    <span>📚 منهاج الجيل الثاني</span>
+  </div>
+  <div class="objectives-box">
+    <h3>🎯 الأهداف التعلمية</h3>
+    <ul>
+      <li>التعرف على الجملة الميكانيكية والفعل الميكانيكي (التلامسي والبعدي).</li>
+      <li>نمذجة الفعل الميكانيكي بقوة شعاعية وتحديد خصائصها الأربعة.</li>
+      <li>التعرف على جهاز القياس (الربيعة) ووحدة قياس القوة (النيوتن).</li>
+      <li>استيعاب وتمثيل مبدأ الفعلين المتبادلين رياضياً وهندسياً.</li>
+    </ul>
+  </div>
+</div>
+
+<nav class="tabs-nav">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="showTab('cours')">📖 الدرس</button>
+    <button class="tab-btn" onclick="showTab('simulation')">🕹️ محاكاة الأشعة</button>
+    <button class="tab-btn" onclick="showTab('exercices')">✏️ تقويم</button>
+    <button class="tab-btn" onclick="showTab('resume')">📋 ملخص الكراس</button>
+  </div>
+</nav>
+
+<div class="content-wrap">
+
+  <!-- ══ COURS ══ -->
+  <div class="tab-panel active" id="tab-cours">
+
+    <div class="sec-title"><div class="icon">⚙️</div><h2>I. الجملة الميكانيكية والفعل الميكانيكي</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>1. الجملة الميكانيكية</h3>
+      <div class="def-box">
+        <div class="def-title">📌 تعريف</div>
+        <p><strong>الجملة الميكانيكية:</strong> هي جسم (صلب، سائل، أو غاز) أو جزء من جسم، أو مجموعة من الأجسام، نحددها قصد دراستها ميكانيكياً. وكل ما لا ينتمي إليها يعتبر <strong>وسطاً خارجياً</strong>.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>2. الفعل الميكانيكي وآثاره</h3>
+      <p>يؤثر الوسط الخارجي على الجملة الميكانيكية بأفعال تُسمى <strong>أفعالاً ميكانيكية</strong>. ولهذا الفعل أثران رئيسيان:</p>
+      <div class="highlight">
+        <p>🏃 <strong>أثر حركي (تحريكي):</strong> تحريك الجملة، أو تغيير مسارها، أو تعديل سرعتها (مثل: ركل كرة، إيقاف حارس لفرملة).</p>
+        <p>🔨 <strong>أثر سكوني (تشوهي):</strong> تغيير شكل الجملة (تشويهها) أو إبقاؤها في حالة توازن (مثل: ضغط نابض، جلوس شخص على كرسي).</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>3. تصنيف الأفعال الميكانيكية</h3>
+      <table class="info-table">
+        <tr>
+          <th>نوع الفعل</th>
+          <th>التعريف</th>
+          <th>أمثلة</th>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--lime)">أفعال تلامسية</strong></td>
+          <td>يحدث عند وجود تلامس مباشر بين الجملة المؤثرة (A) والمتأثرة (B).</td>
+          <td>دفع عربة باليد، جر خيط، ركل كرة، الرياح تدفع شراع القارب.</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--cyan)">أفعال بعدية</strong></td>
+          <td>يحدث عن بعد (دون تلامس) ويكون دائماً <strong>موزعاً</strong> على كامل حجم الجملة.</td>
+          <td>جذب مغناطيس لمسمار حديدي، فعل الأرض على الأجسام (الثقل).</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="sec-title"><div class="icon">🏹</div><h2>II. نمذجة الفعل الميكانيكي بقوة</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>1. مفهوم القوة وتمثيلها</h3>
+      <p>ننمذج (نعبر عن) الفعل الميكانيكي الذي تطبقه الجملة (A) على الجملة (B) بمقدار فيزيائي شعاعي يسمى <strong>القوة</strong>، ونرمز لها بالرمز: <span class="vec" style="color:var(--cyan); font-weight:bold;">F</span><span class="sub">A/B</span>.</p>
+      
+      <div class="def-box">
+        <div class="def-title">📐 خصائص شعاع القوة</div>
+        <ul style="padding-right: 20px; line-height:1.8;">
+          <li><strong>نقطة التأثير:</strong> نقطة التلامس (في التلامسي الموضعي) أو المركز الهندسي (في البعدي).</li>
+          <li><strong>الحامل (المنحى):</strong> الخط المستقيم الذي يمر من نقطة التأثير ويوافق مسار الفعل.</li>
+          <li><strong>الجهة:</strong> من الجملة المؤثرة نحو الجملة المتأثرة (أو حسب أثر الفعل).</li>
+          <li><strong>الشدة (الطويلة):</strong> قيمة القوة، وتُمثل بطول الشعاع باختيار سلم رسم مناسب.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>2. قياس القوة</h3>
+      <div class="highlight" style="display: flex; gap: 15px; align-items: center;">
+        <div style="font-size: 2.5rem;">⚖️</div>
+        <div>
+          <p>تُقاس شدة القوة بجهاز يسمى <strong>الربيعة (الدينامومتر Dynamomètre)</strong>.</p>
+          <p>الوحدة الدولية لقياس القوة هي <strong>النيوتن</strong> ونرمز لها بالحرف <strong>(N)</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-title"><div class="icon">🔄</div><h2>III. مبدأ الفعلين المتبادلين</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>نص المبدأ (القانون الثالث لنيوتن)</h3>
+      <p>إذا أثرت جملة ميكانيكية (A) على جملة ميكانيكية (B) بقوة <span class="vec">F</span><span class="sub">A/B</span>، فإن الجملة (B) تؤثر في نفس الوقت على الجملة (A) بقوة <span class="vec">F</span><span class="sub">B/A</span>.</p>
+      
+      <div class="formula-box">
+        <div class="formula">
+          <span class="vec">F</span><span class="sub">A/B</span> = - <span class="vec">F</span><span class="sub">B/A</span>
+        </div>
+        <div class="formula-desc">التمثيل الرياضي لمبدأ الفعلين المتبادلين</div>
+      </div>
+      
+      <div class="def-box" style="background:rgba(245,158,11,.08); border-color:rgba(245,158,11,.25);">
+        <div class="def-title" style="color:var(--gold2)">💡 خصائص الشعاعين المتبادلين:</div>
+        <p>يتميز هذان الشعاعان بأنهما: <strong>متزامنان</strong> (يحدثان في نفس الوقت)، لهما <strong>نفس الحامل</strong>، لهما <strong>نفس الشدة</strong>، و<strong>متعاكسان في الجهة</strong>.</p>
+      </div>
+    </div>
+
+  </div><!-- /cours -->
+
+
+  <!-- ══ SIMULATION ══ -->
+  <div class="tab-panel" id="tab-simulation">
+
+    <div class="sec-title"><div class="icon">🕹️</div><h2>محاكاة خصائص الأشعة والأفعال</h2><div class="line"></div></div>
+
+    <div class="rxn-wrap">
+      <div class="rxn-head">
+        <h3>مخبر الظواهر الميكانيكية التفاعلي</h3>
+        <span class="sim-badge">تفاعلي</span>
+      </div>
+      <div class="rxn-body">
+
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px;">اختر الحالة الفيزيائية لمشاهدة التمثيل الشعاعي للقوى المؤثرة:</p>
+
+        <!-- Selector -->
+        <div class="sel-row">
+          <span class="sel-label">🔍 الحالة:</span>
+          <button class="sel-btn active" onclick="drawSimulation('push')" id="sim-push">دفع صندوق (فعل تلامسي)</button>
+          <button class="sel-btn" onclick="drawSimulation('magnet')" id="sim-magnet">مغناطيس وكرية (فعل بعدي)</button>
+          <button class="sel-btn" onclick="drawSimulation('mutual')" id="sim-mutual">تجاذب مغناطيسين (فعلين متبادلين)</button>
+        </div>
+
+        <!-- SVG Scene -->
+        <div class="phys-scene" id="svg-container">
+          <!-- The SVG will be injected here via JavaScript -->
+        </div>
+
+        <!-- Controls -->
+        <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap; justify-content:center;">
+          <button class="run-btn" onclick="animateVectors()">▶ عرض الأشعة ببطء</button>
+        </div>
+
+        <!-- Result/Explanation -->
+        <div class="rxn-result show" id="sim-explanation">
+          <div class="rr-eq info" id="sim-title">وصف الحالة</div>
+          <div class="rr-obs" id="sim-desc">...</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /simulation -->
+
+
+  <!-- ══ EXERCICES ══ -->
+  <div class="tab-panel" id="tab-exercices">
+
+    <div class="sec-title"><div class="icon">✏️</div><h2>تقويم الكفاءة</h2><div class="line"></div></div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 01</div>
+      <div class="q-text">ما هو الجهاز المستخدم لقياس شدة القوة وما هي وحدتها في الجملة الدولية؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> الميزان - الكيلوغرام (Kg)</button>
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> المانومتر - الباسكال (Pa)</button>
+        <button class="q-opt" onclick="answer(this,true,'q1')"><span>○</span> الربيعة (الدينامومتر) - النيوتن (N)</button>
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> الفولطمتر - الفولط (V)</button>
+      </div>
+      <div class="q-feedback" id="fb-q1"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 02</div>
+      <div class="q-text">يُصنّف "فعل الأرض على الأجسام" (الثقل) ضمن:</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> الأفعال الميكانيكية التلامسية الموضعية.</button>
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> الأفعال الميكانيكية التلامسية الموزعة.</button>
+        <button class="q-opt" onclick="answer(this,true,'q2')"><span>○</span> الأفعال الميكانيكية البعدية.</button>
+      </div>
+      <div class="q-feedback" id="fb-q2"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 03</div>
+      <div class="q-text">عند نمذجة قوة بشعاع، ماذا تُمثل "نقطة التأثير" في الفعل البعدي؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> نقطة تلامس الجملتين.</button>
+        <button class="q-opt" onclick="answer(this,true,'q3')"><span>○</span> المركز الهندسي للجملة المتأثرة (مركز الثقل).</button>
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> اتجاه حركة الجملة.</button>
+      </div>
+      <div class="q-feedback" id="fb-q3"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 04</div>
+      <div class="q-text">حسب مبدأ الفعلين المتبادلين، الشعاعان <span class="vec">F</span><span class="sub">A/B</span> و <span class="vec">F</span><span class="sub">B/A</span>:</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> لهما نفس الجهة ونفس الشدة.</button>
+        <button class="q-opt" onclick="answer(this,true,'q4')"><span>○</span> متعاكسان في الجهة، لهما نفس الشدة ونفس الحامل.</button>
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> متعاكسان في الجهة، ومختلفان في الشدة.</button>
+      </div>
+      <div class="q-feedback" id="fb-q4"></div>
+    </div>
+
+    <button class="quiz-submit" onclick="submitQuiz()">📊 عرض النتيجة</button>
+    <div class="quiz-score" id="quiz-score">
+      <div class="score-num" id="score-num">0/4</div>
+      <div class="score-msg" id="score-msg"></div>
+    </div>
+
+  </div><!-- /exercices -->
+
+
+  <!-- ══ RESUME ══ -->
+  <div class="tab-panel" id="tab-resume">
+
+    <div class="sec-title"><div class="icon">📋</div><h2>ملخص الكراس</h2><div class="line"></div></div>
+
+    <div class="summary-card">
+      <h3>📓 المقاربة الأولية لمفهوم القوة — س4م</h3>
+      <ul class="summary-list">
+        <li>
+          <div class="s-icon">⚙️</div>
+          <div><strong>الجملة الميكانيكية:</strong> جسم أو مجموعة أجسام نحددها للدراسة. يؤثر عليها الوسط الخارجي بفعل ميكانيكي له أثر حركي أو سكوني (تشوهي).</div>
+        </li>
+        <li>
+          <div class="s-icon">🔗</div>
+          <div><strong>أنواع الأفعال الميكانيكية:</strong><br>
+          • تلامسية (موضعية أو موزعة).<br>
+          • بعدية (تكون دائماً موزعة، مثل تأثير المغناطيس أو الأرض).</div>
+        </li>
+        <li>
+          <div class="s-icon">🏹</div>
+          <div><strong>القوة (<span class="vec">F</span>):</strong> هي نموذج للفعل الميكانيكي، تُمثل بشعاع له 4 خصائص:<br>
+          1. نقطة التأثير (التلامس أو المركز).<br>
+          2. الحامل (المنحى).<br>
+          3. الجهة.<br>
+          4. الشدة (الطويلة).</div>
+        </li>
+        <li>
+          <div class="s-icon">⚖️</div>
+          <div><strong>القياس:</strong> تُقاس شدة القوة بجهاز <strong>الربيعة</strong> ووحدتها <strong>النيوتن (N)</strong>.</div>
+        </li>
+        <li>
+          <div class="s-icon">🔄</div>
+          <div><strong>مبدأ الفعلين المتبادلين:</strong> عندما تؤثر جملة A على جملة B، فإن B تؤثر على A في نفس الوقت بقوة تعاكسها في الجهة وتساويها في الشدة ولها نفس الحامل.<br>
+          رياضياً: <strong><span class="vec">F</span><span class="sub">A/B</span> = - <span class="vec">F</span><span class="sub">B/A</span></strong></div>
+        </li>
+      </ul>
+      <button class="print-btn" onclick="window.print()">🖨️ طباعة الملخص</button>
+    </div>
+
+  </div><!-- /resume -->
+
+</div><!-- /content-wrap -->
+
+<script>
+/* TABS NAVIGATION */
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+/* SVG SIMULATION LOGIC */
+const scenes = {
+  push: {
+    title: "دفع صندوق (فعل تلامسي)",
+    desc: "اليد (الجملة A) تدفع الصندوق (الجملة B). الفعل تلامسي، لذا نقطة تأثير شعاع القوة تبدأ من نقطة التلامس بين اليد والصندوق.",
+    draw: () => `
+      <div class="floor"></div>
+      <g id="scene-elements">
+        <!-- Box B -->
+        <rect x="350" y="110" width="100" height="100" fill="#1e293b" stroke="#3b82f6" stroke-width="3" rx="8"/>
+        <text x="400" y="165" fill="#fff" font-family="Cairo" font-size="20" font-weight="bold" text-anchor="middle">صندوق (B)</text>
+        
+        <!-- Hand A (Simplified as a pushing block/circle) -->
+        <path d="M 270 170 C 270 140, 320 140, 350 160 C 350 180, 320 200, 270 170" fill="#94a3b8"/>
+        <text x="290" y="165" fill="#0f172a" font-family="Cairo" font-size="16" font-weight="bold" text-anchor="middle">يد (A)</text>
+        
+        <!-- Point of application -->
+        <circle cx="350" cy="160" r="5" fill="#ef4444" id="point-1" opacity="0" />
+      </g>
+      <!-- Vector F A/B -->
+      <g id="vector-1" opacity="0">
+        <line x1="350" y1="160" x2="480" y2="160" stroke="#06b6d4" stroke-width="4" marker-end="url(#arrow-cyan)"/>
+        <text x="415" y="145" fill="#06b6d4" font-family="Amiri" font-size="18" font-style="italic">F<tspan dy="-8" dx="-10">→</tspan><tspan dy="12" dx="2" font-size="12" font-family="Cairo" font-style="normal">A/B</tspan></text>
+      </g>
+    `
+  },
+  magnet: {
+    title: "مغناطيس يجذب كرية (فعل بعدي)",
+    desc: "المغناطيس (A) يجذب الكرية الحديدية (B) عن بعد. بما أن الفعل بعدي، فإن نقطة التأثير تكون في المركز الهندسي للكرية.",
+    draw: () => `
+      <g id="scene-elements">
+        <!-- Magnet A -->
+        <rect x="150" y="120" width="80" height="60" fill="#ef4444" rx="4"/>
+        <rect x="230" y="120" width="20" height="60" fill="#cbd5e1" rx="2"/>
+        <text x="190" y="155" fill="#fff" font-family="Cairo" font-size="18" font-weight="bold" text-anchor="middle">مغناطيس (A)</text>
+        
+        <!-- Iron Ball B -->
+        <circle cx="500" cy="150" r="40" fill="#64748b" stroke="#cbd5e1" stroke-width="2"/>
+        <text x="500" y="155" fill="#fff" font-family="Cairo" font-size="18" font-weight="bold" text-anchor="middle">كرية (B)</text>
+        
+        <!-- Point of application (Center) -->
+        <circle cx="500" cy="150" r="5" fill="#ef4444" id="point-1" opacity="0" />
+      </g>
+      <!-- Vector F A/B -->
+      <g id="vector-1" opacity="0">
+        <line x1="500" y1="150" x2="330" y2="150" stroke="#06b6d4" stroke-width="4" marker-end="url(#arrow-cyan)"/>
+        <text x="415" y="135" fill="#06b6d4" font-family="Amiri" font-size="18" font-style="italic">F<tspan dy="-8" dx="-10">→</tspan><tspan dy="12" dx="2" font-size="12" font-family="Cairo" font-style="normal">A/B</tspan></text>
+      </g>
+    `
+  },
+  mutual: {
+    title: "تجاذب مغناطيسين (مبدأ الفعلين المتبادلين)",
+    desc: "المغناطيس (A) يجذب (B)، وفي نفس الوقت (B) يجذب (A). الشعاعان لهما نفس الحامل، نفس الشدة، ومتعاكسان في الجهة. F(A/B) = -F(B/A).",
+    draw: () => `
+      <g id="scene-elements">
+        <!-- Magnet A -->
+        <rect x="150" y="120" width="80" height="60" fill="#ef4444" rx="4"/>
+        <rect x="230" y="120" width="20" height="60" fill="#cbd5e1" rx="2"/>
+        <text x="190" y="155" fill="#fff" font-family="Cairo" font-size="18" font-weight="bold" text-anchor="middle">مغناطيس (A)</text>
+        <circle cx="190" cy="150" r="5" fill="#ef4444" id="point-2" opacity="0" />
+        
+        <!-- Magnet B -->
+        <rect x="470" y="120" width="20" height="60" fill="#cbd5e1" rx="2"/>
+        <rect x="490" y="120" width="80" height="60" fill="#ef4444" rx="4"/>
+        <text x="530" y="155" fill="#fff" font-family="Cairo" font-size="18" font-weight="bold" text-anchor="middle">مغناطيس (B)</text>
+        <circle cx="530" cy="150" r="5" fill="#ef4444" id="point-1" opacity="0" />
+        
+        <!-- Action Line (dotted) -->
+        <line x1="100" y1="150" x2="600" y2="150" stroke="#475569" stroke-width="2" stroke-dasharray="5,5" id="action-line" opacity="0"/>
+      </g>
+      
+      <!-- Vector F A/B (A pulling B) -->
+      <g id="vector-1" opacity="0">
+        <line x1="530" y1="150" x2="380" y2="150" stroke="#06b6d4" stroke-width="4" marker-end="url(#arrow-cyan)"/>
+        <text x="450" y="130" fill="#06b6d4" font-family="Amiri" font-size="18" font-style="italic">F<tspan dy="-8" dx="-10">→</tspan><tspan dy="12" dx="2" font-size="12" font-family="Cairo" font-style="normal">A/B</tspan></text>
+      </g>
+      
+      <!-- Vector F B/A (B pulling A) -->
+      <g id="vector-2" opacity="0">
+        <line x1="190" y1="150" x2="340" y2="150" stroke="#84cc16" stroke-width="4" marker-end="url(#arrow-lime)"/>
+        <text x="250" y="130" fill="#84cc16" font-family="Amiri" font-size="18" font-style="italic">F<tspan dy="-8" dx="-10">→</tspan><tspan dy="12" dx="2" font-size="12" font-family="Cairo" font-style="normal">B/A</tspan></text>
+      </g>
+    `
+  }
+};
+
+let currentSim = 'push';
+
+function drawSimulation(key) {
+  currentSim = key;
+  // Update buttons
+  ['push', 'magnet', 'mutual'].forEach(k => {
+    document.getElementById('sim-'+k).classList.toggle('active', k === key);
+  });
+  
+  // Update Texts
+  document.getElementById('sim-title').textContent = scenes[key].title;
+  document.getElementById('sim-desc').textContent = scenes[key].desc;
+  
+  // Draw SVG base
+  const svgContainer = document.getElementById('svg-container');
+  svgContainer.innerHTML = `
+    <svg width="100%" height="100%" viewBox="0 0 700 300" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <marker id="arrow-cyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#06b6d4" />
+        </marker>
+        <marker id="arrow-lime" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#84cc16" />
+        </marker>
+      </defs>
+      ${scenes[key].draw()}
+    </svg>
+  `;
+}
+
+function animateVectors() {
+  // Reset all opacities first
+  const v1 = document.getElementById('vector-1');
+  const v2 = document.getElementById('vector-2');
+  const p1 = document.getElementById('point-1');
+  const p2 = document.getElementById('point-2');
+  const line = document.getElementById('action-line');
+  
+  if(v1) v1.style.opacity = '0';
+  if(v2) v2.style.opacity = '0';
+  if(p1) p1.style.opacity = '0';
+  if(p2) p2.style.opacity = '0';
+  if(line) line.style.opacity = '0';
+
+  // Animation sequence
+  setTimeout(() => {
+    if(p1) { p1.style.transition = "opacity 0.5s"; p1.style.opacity = '1'; }
+    if(p2) { p2.style.transition = "opacity 0.5s"; p2.style.opacity = '1'; }
+  }, 300);
+
+  setTimeout(() => {
+    if(line) { line.style.transition = "opacity 0.5s"; line.style.opacity = '1'; }
+  }, 1000);
+
+  setTimeout(() => {
+    if(v1) { v1.style.transition = "opacity 1s ease-in-out"; v1.style.opacity = '1'; }
+    if(v2) { v2.style.transition = "opacity 1s ease-in-out"; v2.style.opacity = '1'; }
+  }, 1800);
+}
+
+// Initialize default simulation
+window.onload = () => drawSimulation('push');
+
+
+/* QUIZ LOGIC */
+const feedbacks={
+  q1:{correct:'✅ صحيح! الربيعة هي الأداة، والنيوتن (N) هو الوحدة الدولية.',
+      wrong:'❌ خطأ. الميزان يقيس الكتلة. الأداة الصحيحة للقوة هي الربيعة والوحدة هي النيوتن.'},
+  q2:{correct:'✅ صحيح! الأرض تؤثر على الأجسام عن بعد (جاذبية)، والفعل يتوزع على كامل حجم الجسم.',
+      wrong:'❌ خطأ. فعل الأرض لا يحتاج إلى تلامس، بل هو فعل بعدي موزع.'},
+  q3:{correct:'✅ صحيح! في الأفعال البعدية (كالثقل والمغناطيس)، نقطة التأثير هي المركز الهندسي (مركز الثقل) للجملة المتأثرة.',
+      wrong:'❌ خطأ. بما أن الفعل بعدي فلا يوجد تلامس. نقطة التأثير تكون في المركز الهندسي للجملة.'},
+  q4:{correct:'✅ صحيح! حسب مبدأ الفعلين المتبادلين، الشعاعان متعاكسان في الجهة، متساويان في الشدة، ولهما نفس الحامل.',
+      wrong:'❌ خطأ. تذكر القانون: F(A/B) = -F(B/A)، إشارة الناقص تعني التعاكس في الجهة، والتساوي في المقدار.'},
+};
+let answers={};
+
+function answer(btn,isCorrect,qId){
+  const opts=btn.closest('.q-card').querySelectorAll('.q-opt');
+  if([...opts].some(o=>o.classList.contains('answered'))) return; // Prevent changing answer
+  
+  opts.forEach(o=>o.classList.add('answered'));
+  btn.classList.add(isCorrect?'correct':'wrong');
+  btn.querySelector('span').textContent=isCorrect?'✓':'✗';
+  
+  const fb=document.getElementById('fb-'+qId);
+  fb.textContent=isCorrect?feedbacks[qId].correct:feedbacks[qId].wrong;
+  fb.className='q-feedback '+(isCorrect?'correct':'wrong')+' show';
+  
+  answers[qId]=isCorrect;
+}
+
+function submitQuiz(){
+  const score=Object.values(answers).filter(Boolean).length;
+  document.getElementById('score-num').textContent=score+'/4';
+  const msgs=['💪 يجب مراجعة الدرس جيداً.','📖 لا بأس، راجع النقاط الخاطئة.','👍 جيد! أعد المراجعة لتثبيت المعلومات.','🌟 ممتاز! أنت مستوعب لمفهوم القوة بامتياز!'];
+  
+  // Handle case if not all answered
+  if(Object.keys(answers).length < 4) {
+      alert("الرجاء الإجابة على جميع الأسئلة أولاً!");
+      return;
+  }
+
+  document.getElementById('score-msg').textContent=msgs[score===4 ? 3 : (score===3 ? 2 : (score>=1 ? 1 : 0))];
+  const el=document.getElementById('quiz-score');
+  el.classList.add('show');
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+</script>
+</body>
+</html>
