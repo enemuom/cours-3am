@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مفهوم الثقل | السنة الرابعة متوسط</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#0a0f1e; --dark2:#111827; --dark3:#1a2540;
+  --blue:#2563eb; --blue2:#3b82f6; --cyan:#06b6d4;
+  --gold:#f59e0b; --gold2:#fbbf24;
+  --red:#ef4444; --green:#22c55e; --orange:#f97316;
+  --teal:#14b8a6; --purple:#a855f7; --lime:#84cc16;
+  --text:#e2e8f0; --muted:#94a3b8;
+  --border:rgba(255,255,255,.08); --card:rgba(255,255,255,.04);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;overflow-x:hidden;}
+.bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 20% 30%,rgba(132,204,22,.1) 0%,transparent 50%),
+             radial-gradient(ellipse at 80% 70%,rgba(239,68,68,.08) 0%,transparent 50%);}
+
+header{position:relative;z-index:10;background:rgba(10,15,30,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);padding:0 32px;}
+.header-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:18px 0;}
+.back-btn{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:.8rem;font-weight:600;text-decoration:none;padding:6px 12px;border-radius:8px;border:1px solid var(--border);transition:.2s;}
+.back-btn:hover{color:var(--text);border-color:rgba(255,255,255,.2);}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--muted);}
+.breadcrumb span{color:var(--gold2);font-weight:700;}
+.breadcrumb .sep{opacity:.4;}
+.lesson-badge{margin-right:auto;background:linear-gradient(135deg,var(--gold2),var(--orange));color:#fff;font-size:.72rem;font-weight:700;padding:4px 14px;border-radius:20px;}
+
+.lesson-hero{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:52px 32px 40px;}
+.lesson-num{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;color:var(--gold2);margin-bottom:16px;}
+.lesson-num::before{content:'';width:24px;height:2px;background:var(--gold2);}
+.lesson-hero h1{font-family:'Amiri',serif;font-size:clamp(1.7rem,4vw,2.7rem);color:#fff;line-height:1.25;margin-bottom:16px;}
+.lesson-hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--gold2),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.lesson-meta{display:flex;gap:18px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-bottom:32px;}
+.objectives-box{background:var(--card);border:1px solid var(--border);border-right:3px solid var(--gold2);border-radius:12px;padding:20px 24px;}
+.objectives-box h3{font-size:.78rem;font-weight:700;letter-spacing:.08em;color:var(--gold2);margin-bottom:12px;text-transform:uppercase;}
+.objectives-box ul{list-style:none;}
+.objectives-box li{font-size:.88rem;color:var(--text);padding:5px 0;display:flex;align-items:flex-start;gap:10px;line-height:1.5;}
+.objectives-box li::before{content:'✦';color:var(--orange);font-size:.65rem;margin-top:4px;flex-shrink:0;}
+
+.tabs-nav{position:sticky;top:0;z-index:50;background:rgba(10,15,30,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
+.tabs-inner{max-width:1000px;margin:0 auto;display:flex;padding:0 32px;overflow-x:auto;}
+.tab-btn{padding:16px 22px;border:none;background:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.85rem;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;transition:.2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--gold2);border-bottom-color:var(--gold2);}
+
+.content-wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:40px 32px 80px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.sec-title{display:flex;align-items:center;gap:12px;margin-bottom:24px;margin-top:36px;}
+.sec-title:first-child{margin-top:0;}
+.sec-title .icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold2),var(--orange));display:flex;align-items:center;justify-content:center;font-size:1.1rem; color:white;}
+.sec-title h2{font-size:1.15rem;font-weight:800;color:#fff;}
+.sec-title .line{flex:1;height:1px;background:var(--border);}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;}
+.card h3{font-size:.95rem;font-weight:700;color:var(--gold2);margin-bottom:12px;}
+.card p{font-size:.9rem;color:var(--text);line-height:1.8;margin-bottom:10px;}
+.card p:last-child{margin-bottom:0;}
+
+.def-box{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:16px 20px;margin:12px 0;}
+.def-box .def-title{font-size:.72rem;font-weight:700;letter-spacing:.08em;color:var(--gold2);margin-bottom:8px;text-transform:uppercase;}
+.def-box p{font-size:.88rem;color:var(--text);line-height:1.7;}
+
+.highlight{background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(239,68,68,.07));border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:18px 20px;margin:16px 0;}
+.highlight p{font-size:.9rem;line-height:1.8;}
+
+.formula-box{background:var(--dark3);border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:18px 22px;margin:14px 0;text-align:center;}
+.formula-box .formula{font-size:1.6rem;font-weight:700;color:var(--gold2);letter-spacing:.04em;margin-bottom:8px; display:flex; justify-content:center; align-items:center; gap: 8px;}
+.formula-box .formula-desc{font-size:.85rem;color:var(--muted);}
+
+.info-table{width:100%;border-collapse:collapse;font-size:.85rem;margin:14px 0;}
+.info-table th{background:rgba(245,158,11,.12);color:var(--gold2);font-weight:700;padding:10px 14px;text-align:right;border:1px solid var(--border);}
+.info-table td{padding:10px 14px;border:1px solid var(--border);color:var(--text);line-height:1.5;}
+.info-table tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+
+/* Vector notation styling */
+.vec { position: relative; display: inline-block; padding-top: 10px; font-style: italic; font-family: 'Amiri', serif;}
+.vec::before { content: '→'; position: absolute; top: -5px; left: 50%; transform: translateX(-50%); font-size: 0.8em; font-style: normal; color: inherit;}
+.sub { font-size: 0.6em; vertical-align: sub; font-style: normal; font-family: 'Cairo', sans-serif;}
+
+/* ── REACTION SIMULATOR ── */
+.rxn-wrap{background:var(--dark3);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px;}
+.rxn-head{background:rgba(255,255,255,.04);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:10px;}
+.rxn-head h3{font-size:.88rem;font-weight:700;}
+.sim-badge{font-size:.65rem;background:rgba(245,158,11,.2);color:var(--gold2);border:1px solid rgba(245,158,11,.3);padding:2px 8px;border-radius:6px;font-weight:700;}
+.rxn-body{padding:24px;}
+
+/* Physics Scene */
+.phys-scene{
+  width:100%; height:320px;
+  background:rgba(10,15,30,.7) radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 10%, transparent 80%);
+  border-radius:14px; border:1px solid var(--border);
+  position:relative; overflow:hidden; margin-bottom:16px;
+  display:flex; align-items:center; justify-content:center;
+  transition: background 0.5s ease;
+}
+.floor { position:absolute; bottom:0; left:0; right:0; height:40px; border-top: 2px solid var(--border); background:repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.03) 10px, rgba(255,255,255,0.03) 20px); transition: background 0.5s ease;}
+
+/* Selectors */
+.sel-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;align-items:center;}
+.sel-label{font-size:.78rem;color:var(--muted);font-weight:600;white-space:nowrap;}
+.sel-btn{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:'Cairo',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:.2s;}
+.sel-btn:hover{border-color:var(--gold2);}
+.sel-btn.active{background:rgba(245,158,11,.2);border-color:var(--gold2);color:var(--gold2);}
+
+/* Range Slider */
+.slider-container { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; background: var(--card); padding: 15px; border-radius: 10px; border: 1px solid var(--border); }
+input[type=range] { flex: 1; accent-color: var(--gold2); }
+.mass-value { font-weight: bold; color: var(--gold2); min-width: 60px; }
+
+/* Result panel */
+.rxn-result{background:rgba(10,15,30,.6);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:14px; display:flex; justify-content:space-around; text-align:center;}
+.stat-box h4 { font-size: 0.75rem; color: var(--muted); margin-bottom: 5px;}
+.stat-box .val { font-size: 1.2rem; font-weight: 900; color: #fff;}
+.stat-box .val span { font-size: 0.8rem; color: var(--gold2);}
+
+/* QUIZ */
+.q-card{background:var(--dark3);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;}
+.q-num{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--gold2);margin-bottom:10px;text-transform:uppercase;}
+.q-text{font-size:.95rem;color:var(--text);line-height:1.7;margin-bottom:18px;font-weight:600;}
+.q-options{display:flex;flex-direction:column;gap:8px;}
+.q-opt{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:'Cairo',sans-serif;font-size:.88rem;cursor:pointer;text-align:right;transition:.2s;display:flex;align-items:center;gap:10px;}
+.q-opt:hover:not(.answered){border-color:var(--gold2);}
+.q-opt.correct{border-color:var(--green);background:rgba(34,197,94,.1);color:var(--green);}
+.q-opt.wrong{border-color:var(--red);background:rgba(239,68,68,.1);color:var(--red);}
+.q-feedback{margin-top:12px;padding:12px 16px;border-radius:8px;font-size:.82rem;line-height:1.6;display:none;}
+.q-feedback.correct{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--green);}
+.q-feedback.wrong{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#f87171;}
+.q-feedback.show{display:block;}
+.quiz-submit{width:100%;padding:14px;border-radius:10px;background:linear-gradient(135deg,var(--gold2),var(--orange));border:none;color:#fff;font-family:'Cairo',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:8px;}
+.quiz-score{background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(239,68,68,.1));border:1px solid rgba(245,158,11,.3);border-radius:14px;padding:24px;text-align:center;display:none; margin-top: 16px;}
+.quiz-score.show{display:block; animation: fadeIn 0.5s ease;}
+.score-num{font-size:3rem;font-weight:900;color:var(--gold2);}
+.score-msg{font-size:.9rem;color:var(--text);margin-top:8px;}
+@keyframes fadeIn { from {opacity: 0; transform: translateY(-10px);} to {opacity: 1; transform: translateY(0);} }
+
+/* SUMMARY */
+.summary-card{background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(239,68,68,.07));border:1px solid rgba(245,158,11,.2);border-radius:16px;padding:28px;}
+.summary-card h3{font-family:'Amiri',serif;font-size:1.3rem;color:#fff;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.summary-list{list-style:none;}
+.summary-list li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.88rem;color:var(--text);line-height:1.6;}
+.summary-list li:last-child{border-bottom:none;}
+.s-icon{width:28px;height:28px;border-radius:7px;background:rgba(245,158,11,.2);border:1px solid rgba(245,158,11,.3);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;margin-top:1px;}
+.print-btn{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:10px 20px;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Cairo',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:.2s;}
+.print-btn:hover{border-color:var(--gold2);color:var(--gold2);}
+
+@media(max-width:600px){
+  .lesson-hero,.content-wrap{padding-left:16px;padding-right:16px;}
+  .tabs-inner{padding:0 16px;}
+  header{padding:0 16px;}
+  .sel-row{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="bg-canvas"></div>
+
+<header>
+  <div class="header-inner">
+    <!-- الزر يوجه إلى الفهرس كما طلب المستخدم -->
+    <a href="index.html" class="back-btn">← الفهرس</a>
+    <div class="breadcrumb">
+      <span>س4م</span><span class="sep">›</span>
+      المقطع 3 — الظواهر الميكانيكية<span class="sep">›</span>الدرس 02
+    </div>
+    <div class="lesson-badge">4ème AM</div>
+  </div>
+</header>
+
+<div class="lesson-hero">
+  <div class="lesson-num">الدرس الثاني — المقطع 3</div>
+  <h1>فعل الأرض على جملة ميكانيكية <em>(الثقل)</em></h1>
+  <div class="lesson-meta">
+    <span>⚙️ الظواهر الميكانيكية</span>
+    <span>📅 المقطع 3 — فيفري</span>
+    <span>⏱ 60 دقيقة</span>
+    <span>📚 منهاج الجيل الثاني</span>
+  </div>
+  <div class="objectives-box">
+    <h3>🎯 الأهداف التعلمية</h3>
+    <ul>
+      <li>التعرف على مفهوم الثقل كقوة جذب الأرض للأجسام.</li>
+      <li>تحديد الخصائص الأربعة لشعاع الثقل وتمثيله.</li>
+      <li>اكتشاف العلاقة الرياضية بين الثقل والكتلة والجاذبية (P = m.g).</li>
+      <li>التمييز بين انحفاظ الكتلة وتغير الثقل بتغير المكان.</li>
+    </ul>
+  </div>
+</div>
+
+<nav class="tabs-nav">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="showTab('cours')">📖 الدرس</button>
+    <button class="tab-btn" onclick="showTab('simulation')">⚖️ مخبر الجاذبية</button>
+    <button class="tab-btn" onclick="showTab('exercices')">✏️ تقويم</button>
+    <button class="tab-btn" onclick="showTab('resume')">📋 ملخص الكراس</button>
+  </div>
+</nav>
+
+<div class="content-wrap">
+
+  <!-- ══ COURS ══ -->
+  <div class="tab-panel active" id="tab-cours">
+
+    <div class="sec-title"><div class="icon">🌍</div><h2>I. مفهوم الثقل</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>ما هو الثقل؟</h3>
+      <p>الأشياء تسقط دائماً نحو سطح الأرض عند تركها حرة، وذلك بسبب جاذبية الأرض لها.</p>
+      <div class="def-box">
+        <div class="def-title">📌 تعريف الثقل</div>
+        <p><strong>الثقل:</strong> هو القوة التي تجذب بها الأرض (أو أي كوكب آخر) جملة ميكانيكية ذات كتلة (m) موجودة في محيطها. نرمز له بالرمز <span class="vec" style="color:var(--gold2); font-weight:bold;">P</span> (من الكلمة الفرنسية Poids).</p>
+      </div>
+      <p>يُعتبر الثقل <strong>فعلاً ميكانيكياً بعدياً (موزعاً)</strong>، ويُقاس بجهاز <strong>الربيعة</strong>، ووحدته هي <strong>النيوتن (N)</strong>.</p>
+    </div>
+
+    <div class="sec-title"><div class="icon">📐</div><h2>II. خصائص شعاع الثقل</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>كيف نمثل الثقل؟</h3>
+      <p>بما أن الثقل هو قوة، فإننا ننمذجه بشعاع <span class="vec">P</span> يتميز بأربع خصائص ثابتة (على سطح الأرض):</p>
+      
+      <div class="highlight" style="display:flex; gap:20px; align-items:center;">
+        <ul style="flex:1; padding-right: 20px; line-height:1.8;">
+          <li><strong>نقطة التأثير:</strong> المركز الهندسي للجسم (ويسمى <strong>مركز الثقل G</strong>).</li>
+          <li><strong>الحامل (المنحى):</strong> الخط <strong>الشاقولي</strong> (العمودي على السطح الأفقي) المار بمركز الثقل.</li>
+          <li><strong>الجهة:</strong> دائماً نحو <strong>الأسفل</strong> (نحو مركز الأرض).</li>
+          <li><strong>الشدة:</strong> تُقاس بالربيعة وتُحسب بالعلاقة الرياضية، وتمثل بطول الشعاع باختيار سلم رسم.</li>
+        </ul>
+        <div style="width:120px; height:120px; background:var(--dark3); border-radius:10px; display:flex; justify-content:center; align-items:center; border:1px solid var(--border); position:relative;">
+          <div style="width:50px; height:50px; background:#64748b; border-radius:8px;"></div>
+          <div style="position:absolute; width:6px; height:6px; background:#ef4444; border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%);"></div>
+          <svg style="position:absolute; top:50%; left:50%; overflow:visible; width:2px; height:2px;">
+            <line x1="0" y1="0" x2="0" y2="40" stroke="#f59e0b" stroke-width="3" marker-end="url(#arrow-head)"/>
+            <text x="10" y="30" fill="#f59e0b" font-family="Amiri" font-style="italic" font-size="16">P</text>
+            <defs>
+              <marker id="arrow-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#f59e0b" />
+              </marker>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-title"><div class="icon">🔢</div><h2>III. العلاقة بين الثقل والكتلة</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>القانون الرياضي للثقل</h3>
+      <p>ترتبط شدة الثقل (P) بكتلة الجسم (m) ومقدار الجاذبية في المكان (g) بالعلاقة التالية:</p>
+      
+      <div class="formula-box">
+        <div class="formula">
+          P = m × g
+        </div>
+        <div class="formula-desc" style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:10px;">
+          <span><strong>P:</strong> الثقل (بالنيوتن N)</span>
+          <span><strong>m:</strong> الكتلة (بالكيلوغرام kg)</span>
+          <span><strong>g:</strong> الجاذبية (N/kg)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>الفرق بين الكتلة والثقل (مهم جداً)</h3>
+      <table class="info-table">
+        <tr>
+          <th>المقدار</th>
+          <th>الكتلة (m)</th>
+          <th>الثقل (P)</th>
+        </tr>
+        <tr>
+          <td><strong>المفهوم</strong></td>
+          <td>مقدار المادة التي يحتويها الجسم</td>
+          <td>قوة جذب الكوكب للجسم</td>
+        </tr>
+        <tr>
+          <td><strong>القياس والأداة</strong></td>
+          <td>تُقاس بـ <strong>الميزان</strong></td>
+          <td>يُقاس بـ <strong>الربيعة (الدينامومتر)</strong></td>
+        </tr>
+        <tr>
+          <td><strong>الوحدة الدولية</strong></td>
+          <td>الكيلوغرام (Kg)</td>
+          <td>النيوتن (N)</td>
+        </tr>
+        <tr>
+          <td><strong>التغير بتغير المكان</strong></td>
+          <td><strong style="color:var(--green)">مقدار ثابت لا يتغير</strong> (محفوظة)</td>
+          <td><strong style="color:var(--red)">يتغير</strong> بتغير المكان (الارتفاع، خط العرض، الكوكب) لتغير الجاذبية g.</td>
+        </tr>
+      </table>
+    </div>
+
+  </div><!-- /cours -->
+
+
+  <!-- ══ SIMULATION ══ -->
+  <div class="tab-panel" id="tab-simulation">
+
+    <div class="sec-title"><div class="icon">⚖️</div><h2>مخبر الجاذبية التفاعلي</h2><div class="line"></div></div>
+
+    <div class="rxn-wrap">
+      <div class="rxn-head">
+        <h3>تأثير المكان على الثقل (P = m.g)</h3>
+        <span class="sim-badge">تفاعلي</span>
+      </div>
+      <div class="rxn-body">
+
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px;">غيّر كتلة الصندوق، ثم انقله بين الكواكب لتلاحظ انحفاظ الكتلة وتغيّر الثقل (طول الشعاع يتغير حسب القوة).</p>
+
+        <!-- Selectors -->
+        <div class="sel-row" style="justify-content:center;">
+          <span class="sel-label">🪐 اختر الكوكب:</span>
+          <button class="sel-btn active" onclick="changePlanet('earth')" id="pl-earth">الأرض (g = 9.8 N/kg)</button>
+          <button class="sel-btn" onclick="changePlanet('moon')" id="pl-moon">القمر (g = 1.6 N/kg)</button>
+          <button class="sel-btn" onclick="changePlanet('jupiter')" id="pl-jupiter">المشتري (g = 24.8 N/kg)</button>
+        </div>
+
+        <div class="slider-container">
+          <label for="mass-slider" class="sel-label">📦 الكتلة (m):</label>
+          <input type="range" id="mass-slider" min="1" max="50" value="10" oninput="updateSimulation()">
+          <span class="mass-value"><span id="mass-display">10</span> Kg</span>
+        </div>
+
+        <!-- SVG Scene -->
+        <div class="phys-scene" id="gravity-scene">
+          <div class="floor" id="planet-floor"></div>
+          
+          <svg width="100%" height="100%" viewBox="0 0 400 320" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <marker id="arrow-gold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#f59e0b" />
+              </marker>
+              <pattern id="box-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="20" y2="20" stroke="#334155" stroke-width="2"/>
+              </pattern>
+            </defs>
+            
+            <!-- Dynamometer Mount -->
+            <rect x="180" y="0" width="40" height="20" fill="#475569" rx="4"/>
+            <line x1="200" y1="20" x2="200" y2="40" stroke="#94a3b8" stroke-width="4"/>
+            
+            <!-- Dynamometer Body -->
+            <rect x="185" y="40" width="30" height="80" fill="#1e293b" stroke="#cbd5e1" stroke-width="2" rx="5"/>
+            <!-- Spring -->
+            <path id="spring" d="M 200 120 Q 185 130 200 140 T 200 160 T 200 180" fill="transparent" stroke="#94a3b8" stroke-width="3"/>
+            
+            <!-- The Mass (Box) -->
+            <g id="mass-group" transform="translate(0, 180)">
+              <rect x="160" y="0" width="80" height="80" fill="#64748b" stroke="#cbd5e1" stroke-width="3" rx="8"/>
+              <text x="200" y="45" fill="#fff" font-family="Cairo" font-size="20" font-weight="bold" text-anchor="middle" id="box-mass-text">10 kg</text>
+              
+              <!-- Center of Gravity Point -->
+              <circle cx="200" cy="40" r="5" fill="#ef4444" />
+              
+              <!-- Weight Vector P -->
+              <line x1="200" y1="40" x2="200" y2="100" stroke="#f59e0b" stroke-width="4" marker-end="url(#arrow-gold)" id="vector-p"/>
+              <text x="215" y="90" fill="#f59e0b" font-family="Amiri" font-style="italic" font-size="20" id="text-p">P</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Real-time Stats -->
+        <div class="rxn-result show">
+          <div class="stat-box">
+            <h4>الكتلة (m) - بالميزان</h4>
+            <div class="val" id="stat-m">10 <span>Kg</span></div>
+          </div>
+          <div class="stat-box">
+            <h4>الجاذبية (g)</h4>
+            <div class="val" id="stat-g">9.8 <span>N/Kg</span></div>
+          </div>
+          <div class="stat-box" style="border-right: 2px solid var(--border); padding-right:15px;">
+            <h4>الثقل (P) - بالربيعة</h4>
+            <div class="val" style="color:var(--gold2)" id="stat-p">98 <span>N</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /simulation -->
+
+
+  <!-- ══ EXERCICES ══ -->
+  <div class="tab-panel" id="tab-exercices">
+
+    <div class="sec-title"><div class="icon">✏️</div><h2>تقويم الكفاءة</h2><div class="line"></div></div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 01</div>
+      <div class="q-text">ما هي خصائص الحامل (المنحى) والجهة لشعاع الثقل على التوالي؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> أفقي - نحو اليمين.</button>
+        <button class="q-opt" onclick="answer(this,true,'q1')"><span>○</span> شاقولي (عمودي) - نحو الأسفل.</button>
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> مائل - نحو مركز الأرض.</button>
+      </div>
+      <div class="q-feedback" id="fb-q1"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 02</div>
+      <div class="q-text">رائد فضاء كتلته على الأرض 80 Kg، كم ستكون كتلته على سطح القمر؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> ستنقص كتلته لتصبح سدس قيمتها لأن جاذبية القمر ضعيفة.</button>
+        <button class="q-opt" onclick="answer(this,true,'q2')"><span>○</span> ستبقى كتلته 80 Kg لأن الكتلة مقدار محفوظ لا يتغير بتغير المكان.</button>
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> ستصبح 0 Kg لأنه سيطفو في الفضاء.</button>
+      </div>
+      <div class="q-feedback" id="fb-q2"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 03</div>
+      <div class="q-text">جسم ثقله P = 49 N على سطح الأرض (حيث g = 9.8 N/kg). ما هي كتلته؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,true,'q3')"><span>○</span> 5 Kg (لأن m = P ÷ g)</button>
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> 480 Kg (لأن m = P × g)</button>
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> 49 Kg (الكتلة تساوي الثقل)</button>
+      </div>
+      <div class="q-feedback" id="fb-q3"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 04</div>
+      <div class="q-text">الأداة المستعملة لقياس الثقل هي ............ ووحدته هي ............</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> الميزان - الكيلوغرام.</button>
+        <button class="q-opt" onclick="answer(this,true,'q4')"><span>○</span> الربيعة (الدينامومتر) - النيوتن.</button>
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> الربيعة - الكيلوغرام.</button>
+      </div>
+      <div class="q-feedback" id="fb-q4"></div>
+    </div>
+
+    <button class="quiz-submit" onclick="submitQuiz()">📊 عرض النتيجة</button>
+    <div class="quiz-score" id="quiz-score">
+      <div class="score-num" id="score-num">0/4</div>
+      <div class="score-msg" id="score-msg"></div>
+    </div>
+
+  </div><!-- /exercices -->
+
+
+  <!-- ══ RESUME ══ -->
+  <div class="tab-panel" id="tab-resume">
+
+    <div class="sec-title"><div class="icon">📋</div><h2>ملخص الكراس</h2><div class="line"></div></div>
+
+    <div class="summary-card">
+      <h3>📓 فعل الأرض على الجملة الميكانيكية (الثقل) — س4م</h3>
+      <ul class="summary-list">
+        <li>
+          <div class="s-icon">🌍</div>
+          <div><strong>الثقل (<span class="vec">P</span>):</strong> هو قوة جذب الأرض للأجسام ذات كتلة، وهو فعل ميكانيكي بعدي موزع.</div>
+        </li>
+        <li>
+          <div class="s-icon">📐</div>
+          <div><strong>خصائص شعاع الثقل:</strong><br>
+          1. <strong>نقطة التأثير:</strong> مركز ثقل الجسم (G).<br>
+          2. <strong>الحامل:</strong> الشاقول (الخط العمودي).<br>
+          3. <strong>الجهة:</strong> نحو الأسفل (مركز الأرض).<br>
+          4. <strong>الشدة:</strong> تقاس بالربيعة (N).</div>
+        </li>
+        <li>
+          <div class="s-icon">⚖️</div>
+          <div><strong>الفرق بين الكتلة والثقل:</strong><br>
+          • <strong>الكتلة (m):</strong> كمية المادة، تقاس بالميزان (Kg)، وهي <strong>مقدار ثابت</strong> لا يتغير المكان.<br>
+          • <strong>الثقل (P):</strong> قوة جذب، يقاس بالربيعة (N)، وهو <strong>مقدار متغير</strong> يتغير بتغير الجاذبية.</div>
+        </li>
+        <li>
+          <div class="s-icon">🔢</div>
+          <div><strong>العلاقة الرياضية:</strong><br>
+          لحساب الثقل نطبق القانون: <strong>P = m × g</strong><br>
+          (P: الثقل بالنيوتن | m: الكتلة بالكيلوغرام | g: الجاذبية بـ N/kg).</div>
+        </li>
+      </ul>
+      <button class="print-btn" onclick="window.print()">🖨️ طباعة الملخص</button>
+    </div>
+
+  </div><!-- /resume -->
+
+</div><!-- /content-wrap -->
+
+<script>
+/* TABS NAVIGATION */
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+/* SIMULATION LOGIC */
+const planets = {
+  earth: { g: 9.8, bg: 'rgba(10,15,30,.7) radial-gradient(circle at 50% 50%, rgba(59,130,246,0.1) 10%, transparent 80%)', floor: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(59,130,246,0.1) 10px, rgba(59,130,246,0.1) 20px)' },
+  moon: { g: 1.6, bg: 'rgba(10,15,30,.7) radial-gradient(circle at 50% 50%, rgba(203,213,225,0.1) 10%, transparent 80%)', floor: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(203,213,225,0.1) 10px, rgba(203,213,225,0.1) 20px)' },
+  jupiter: { g: 24.8, bg: 'rgba(10,15,30,.7) radial-gradient(circle at 50% 50%, rgba(245,158,11,0.1) 10%, transparent 80%)', floor: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(245,158,11,0.1) 10px, rgba(245,158,11,0.1) 20px)' }
+};
+
+let currentPlanet = 'earth';
+
+function changePlanet(planet) {
+  currentPlanet = planet;
+  
+  // Update buttons
+  document.getElementById('pl-earth').classList.remove('active');
+  document.getElementById('pl-moon').classList.remove('active');
+  document.getElementById('pl-jupiter').classList.remove('active');
+  document.getElementById('pl-' + planet).classList.add('active');
+  
+  // Update scenery
+  document.getElementById('gravity-scene').style.background = planets[planet].bg;
+  document.getElementById('planet-floor').style.background = planets[planet].floor;
+  
+  updateSimulation();
+}
+
+function updateSimulation() {
+  const m = parseFloat(document.getElementById('mass-slider').value);
+  const g = planets[currentPlanet].g;
+  const p = m * g;
+  
+  // Update displays
+  document.getElementById('mass-display').textContent = m;
+  document.getElementById('box-mass-text').textContent = m + ' kg';
+  document.getElementById('stat-m').innerHTML = m + ' <span>Kg</span>';
+  document.getElementById('stat-g').innerHTML = g + ' <span>N/Kg</span>';
+  document.getElementById('stat-p').innerHTML = p.toFixed(1) + ' <span>N</span>';
+  
+  // Animate SVG Elements based on Force
+  // Map force (min: 1*1.6=1.6, max: 50*24.8=1240) to a visual stretch
+  // Max stretch amount = 80px
+  const maxForce = 50 * 24.8;
+  const stretchRatio = p / maxForce;
+  const springStretch = 20 + (stretchRatio * 60); // Spring length
+  
+  // Move the mass group down
+  const boxY = 130 + springStretch;
+  document.getElementById('mass-group').setAttribute('transform', `translate(0, ${boxY})`);
+  
+  // Redraw Spring path
+  const springPath = `M 200 120 Q 185 ${120 + springStretch*0.25} 200 ${120 + springStretch*0.5} T 200 ${120 + springStretch*0.75} T 200 ${120 + springStretch}`;
+  document.getElementById('spring').setAttribute('d', springPath);
+  
+  // Adjust vector length (Visual representation)
+  // Base length 30, max length 140
+  const vectorLength = 30 + (stretchRatio * 110);
+  document.getElementById('vector-p').setAttribute('y2', 40 + vectorLength);
+  document.getElementById('text-p').setAttribute('y', 40 + vectorLength - 10);
+}
+
+// Init simulation
+window.onload = () => updateSimulation();
+
+
+/* QUIZ LOGIC */
+const feedbacks={
+  q1:{correct:'✅ أحسنت! الثقل يؤثر دائماً بشكل عمودي (شاقولي) نحو مركز الأرض (الأسفل).',
+      wrong:'❌ خطأ. تذكر أن الأشياء تسقط دائماً عمودياً نحو الأسفل.'},
+  q2:{correct:'✅ صحيح! الكتلة هي كمية المادة وهي محفوظة ولا تتغير بتغير المكان. الثقل هو الذي سيتغير.',
+      wrong:'❌ خطأ. لقد خلطت بين الكتلة والثقل. الكتلة (بالكيلوغرام) تبقى ثابتة دائماً، أما الثقل (بالنيوتن) فهو الذي يتغير.'},
+  q3:{correct:'✅ صحيح جداً! من المثلث الرياضي للقانون P = m.g نستنتج أن m = P/g. أي 49 تقسيم 9.8 يساوي 5 Kg.',
+      wrong:'❌ خطأ. لحساب الكتلة نقوم بالقسمة وليس الضرب (m = P ÷ g).'},
+  q4:{correct:'✅ صحيح! الأداة هي الربيعة (الدينامومتر) والوحدة الدولية هي النيوتن (N).',
+      wrong:'❌ خطأ. الميزان يقيس الكتلة. الأداة المخصصة لقياس القوة والثقل هي الربيعة ووحدتها النيوتن.'},
+};
+let answers={};
+
+function answer(btn,isCorrect,qId){
+  const opts=btn.closest('.q-card').querySelectorAll('.q-opt');
+  if([...opts].some(o=>o.classList.contains('answered'))) return; // Prevent changing answer
+  
+  opts.forEach(o=>o.classList.add('answered'));
+  btn.classList.add(isCorrect?'correct':'wrong');
+  btn.querySelector('span').textContent=isCorrect?'✓':'✗';
+  
+  const fb=document.getElementById('fb-'+qId);
+  fb.textContent=isCorrect?feedbacks[qId].correct:feedbacks[qId].wrong;
+  fb.className='q-feedback '+(isCorrect?'correct':'wrong')+' show';
+  
+  answers[qId]=isCorrect;
+}
+
+function submitQuiz(){
+  const score=Object.values(answers).filter(Boolean).length;
+  document.getElementById('score-num').textContent=score+'/4';
+  const msgs=['💪 يجب مراجعة الدرس جيداً والتركيز على الفرق بين الكتلة والثقل.','📖 لا بأس، أعد قراءة القوانين وحاول مجدداً.','👍 جيد! أعد المراجعة لتثبيت المفاهيم.','🌟 ممتاز! أنت تفرق جيداً بين الكتلة والثقل!'];
+  
+  if(Object.keys(answers).length < 4) {
+      alert("الرجاء الإجابة على جميع الأسئلة أولاً!");
+      return;
+  }
+
+  document.getElementById('score-msg').textContent=msgs[score===4 ? 3 : (score===3 ? 2 : (score>=1 ? 1 : 0))];
+  const el=document.getElementById('quiz-score');
+  el.classList.add('show');
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+</script>
+</body>
+</html>
