@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تفاعل محلول حمضي مع معدن | السنة الرابعة متوسط</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#0a0f1e; --dark2:#111827; --dark3:#1a2540;
+  --blue:#2563eb; --blue2:#3b82f6; --cyan:#06b6d4;
+  --gold:#f59e0b; --gold2:#fbbf24;
+  --red:#ef4444; --green:#22c55e; --orange:#f97316;
+  --teal:#14b8a6; --purple:#a855f7; --lime:#84cc16;
+  --text:#e2e8f0; --muted:#94a3b8;
+  --border:rgba(255,255,255,.08); --card:rgba(255,255,255,.04);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;overflow-x:hidden;}
+.bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 20% 30%,rgba(132,204,22,.1) 0%,transparent 50%),
+             radial-gradient(ellipse at 80% 70%,rgba(239,68,68,.08) 0%,transparent 50%);}
+
+header{position:relative;z-index:10;background:rgba(10,15,30,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);padding:0 32px;}
+.header-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:18px 0;}
+.back-btn{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:.8rem;font-weight:600;text-decoration:none;padding:6px 12px;border-radius:8px;border:1px solid var(--border);transition:.2s;}
+.back-btn:hover{color:var(--text);border-color:rgba(255,255,255,.2);}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--muted);}
+.breadcrumb span{color:var(--lime);font-weight:700;}
+.breadcrumb .sep{opacity:.4;}
+.lesson-badge{margin-right:auto;background:linear-gradient(135deg,var(--lime),var(--teal));color:var(--dark);font-size:.72rem;font-weight:700;padding:4px 14px;border-radius:20px;}
+
+.lesson-hero{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:52px 32px 40px;}
+.lesson-num{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;color:var(--lime);margin-bottom:16px;}
+.lesson-num::before{content:'';width:24px;height:2px;background:var(--lime);}
+.lesson-hero h1{font-family:'Amiri',serif;font-size:clamp(1.7rem,4vw,2.7rem);color:#fff;line-height:1.25;margin-bottom:16px;}
+.lesson-hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--lime),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.lesson-meta{display:flex;gap:18px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-bottom:32px;}
+.objectives-box{background:var(--card);border:1px solid var(--border);border-right:3px solid var(--lime);border-radius:12px;padding:20px 24px;}
+.objectives-box h3{font-size:.78rem;font-weight:700;letter-spacing:.08em;color:var(--lime);margin-bottom:12px;text-transform:uppercase;}
+.objectives-box ul{list-style:none;}
+.objectives-box li{font-size:.88rem;color:var(--text);padding:5px 0;display:flex;align-items:flex-start;gap:10px;line-height:1.5;}
+.objectives-box li::before{content:'✦';color:var(--teal);font-size:.65rem;margin-top:4px;flex-shrink:0;}
+
+.tabs-nav{position:sticky;top:0;z-index:50;background:rgba(10,15,30,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
+.tabs-inner{max-width:1000px;margin:0 auto;display:flex;padding:0 32px;overflow-x:auto;}
+.tab-btn{padding:16px 22px;border:none;background:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.85rem;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;transition:.2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--lime);border-bottom-color:var(--lime);}
+
+.content-wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:40px 32px 80px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.sec-title{display:flex;align-items:center;gap:12px;margin-bottom:24px;margin-top:36px;}
+.sec-title:first-child{margin-top:0;}
+.sec-title .icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--lime),var(--teal));display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.sec-title h2{font-size:1.15rem;font-weight:800;color:#fff;}
+.sec-title .line{flex:1;height:1px;background:var(--border);}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;}
+.card h3{font-size:.95rem;font-weight:700;color:var(--cyan);margin-bottom:12px;}
+.card p{font-size:.9rem;color:var(--text);line-height:1.8;margin-bottom:10px;}
+.card p:last-child{margin-bottom:0;}
+
+.def-box{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:16px 20px;margin:12px 0;}
+.def-box .def-title{font-size:.72rem;font-weight:700;letter-spacing:.08em;color:var(--gold2);margin-bottom:8px;text-transform:uppercase;}
+.def-box p{font-size:.88rem;color:var(--text);line-height:1.7;}
+
+.highlight{background:linear-gradient(135deg,rgba(132,204,22,.1),rgba(20,184,166,.07));border:1px solid rgba(132,204,22,.2);border-radius:12px;padding:18px 20px;margin:16px 0;}
+.highlight p{font-size:.9rem;line-height:1.8;}
+
+.warn-box{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.25);border-radius:10px;padding:16px 20px;margin:12px 0;}
+.warn-box .w-title{font-size:.72rem;font-weight:700;letter-spacing:.08em;color:var(--red);margin-bottom:8px;text-transform:uppercase;}
+.warn-box p{font-size:.88rem;color:var(--text);line-height:1.7;}
+
+.formula-box{background:var(--dark3);border:1px solid rgba(132,204,22,.3);border-radius:12px;padding:18px 22px;margin:14px 0;text-align:center;}
+.formula-box .formula{font-size:1.1rem;font-weight:700;color:var(--lime);letter-spacing:.04em;margin-bottom:8px;}
+.formula-box .formula-desc{font-size:.78rem;color:var(--muted);}
+
+.info-table{width:100%;border-collapse:collapse;font-size:.85rem;margin:14px 0;}
+.info-table th{background:rgba(132,204,22,.12);color:var(--lime);font-weight:700;padding:10px 14px;text-align:right;border:1px solid var(--border);}
+.info-table td{padding:10px 14px;border:1px solid var(--border);color:var(--text);line-height:1.5;}
+.info-table tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+
+/* ── REACTION SIMULATOR ── */
+.rxn-wrap{background:var(--dark3);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px;}
+.rxn-head{background:rgba(255,255,255,.04);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:10px;}
+.rxn-head h3{font-size:.88rem;font-weight:700;}
+.sim-badge{font-size:.65rem;background:rgba(132,204,22,.2);color:var(--lime);border:1px solid rgba(132,204,22,.3);padding:2px 8px;border-radius:6px;font-weight:700;}
+.rxn-body{padding:24px;}
+
+/* Beaker */
+.rxn-scene{
+  width:100%; height:260px;
+  background:rgba(10,15,30,.7);
+  border-radius:14px; border:1px solid var(--border);
+  position:relative; overflow:hidden; margin-bottom:16px;
+}
+.rxn-liquid{
+  position:absolute; bottom:0; left:20px; right:20px; height:55%;
+  border-radius:0 0 10px 10px; transition:background 1s;
+}
+.rxn-metal{
+  position:absolute; bottom:55%;
+  width:30px; border-radius:4px 4px 0 0;
+  transition:height 1.5s ease, opacity 1.5s;
+  left:50%; transform:translateX(-50%);
+  display:flex;align-items:flex-end;justify-content:center;
+}
+.rxn-metal-label{
+  position:absolute; top:-24px; left:50%; transform:translateX(-50%);
+  font-size:.65rem; font-weight:700; color:var(--text);
+  white-space:nowrap; background:rgba(10,15,30,.8);
+  padding:2px 6px; border-radius:4px;
+}
+/* bubbles */
+.h2-bubble{
+  position:absolute; border-radius:50%;
+  background:rgba(100,200,255,.5);
+  animation:h2-rise 1.5s ease-in infinite;
+  opacity:0;
+}
+@keyframes h2-rise{
+  0%{opacity:.8;transform:translateY(0);}
+  100%{opacity:0;transform:translateY(-60px);}
+}
+/* deposit */
+.metal-deposit{
+  position:absolute; bottom:55%; left:20px; right:20px; height:0;
+  background:linear-gradient(180deg,rgba(180,130,50,.6),rgba(150,100,30,.8));
+  transition:height 1.5s ease; border-radius:0;
+}
+
+/* Metal / Acid selector */
+.sel-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;align-items:center;}
+.sel-label{font-size:.78rem;color:var(--muted);font-weight:600;white-space:nowrap;}
+.sel-btn{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:'Cairo',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:.2s;}
+.sel-btn:hover{border-color:var(--lime);}
+.sel-btn.active{background:rgba(132,204,22,.2);border-color:var(--lime);color:var(--lime);}
+
+.run-btn{padding:10px 22px;border-radius:10px;background:linear-gradient(135deg,var(--lime),var(--teal));border:none;color:var(--dark);font-family:'Cairo',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;transition:opacity .2s;}
+.run-btn:hover{opacity:.85;}
+.reset-btn{padding:10px 18px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:'Cairo',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;}
+
+/* Result panel */
+.rxn-result{background:rgba(10,15,30,.6);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:14px;display:none;}
+.rxn-result.show{display:block;}
+.rr-obs{font-size:.85rem;color:var(--text);line-height:1.8;margin-bottom:12px;}
+.rr-eq{padding:10px 14px;border-radius:8px;margin:6px 0;font-size:.88rem;font-weight:700;}
+.rr-eq.ionic{background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.25);color:var(--blue2);}
+.rr-eq.global{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);color:var(--green);}
+
+/* QUIZ */
+.q-card{background:var(--dark3);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;}
+.q-num{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--lime);margin-bottom:10px;text-transform:uppercase;}
+.q-text{font-size:.95rem;color:var(--text);line-height:1.7;margin-bottom:18px;font-weight:600;}
+.q-options{display:flex;flex-direction:column;gap:8px;}
+.q-opt{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:'Cairo',sans-serif;font-size:.88rem;cursor:pointer;text-align:right;transition:.2s;display:flex;align-items:center;gap:10px;}
+.q-opt:hover:not(.answered){border-color:var(--lime);}
+.q-opt.correct{border-color:var(--green);background:rgba(34,197,94,.1);color:var(--green);}
+.q-opt.wrong{border-color:var(--red);background:rgba(239,68,68,.1);color:var(--red);}
+.q-feedback{margin-top:12px;padding:12px 16px;border-radius:8px;font-size:.82rem;line-height:1.6;display:none;}
+.q-feedback.correct{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--green);}
+.q-feedback.wrong{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#f87171;}
+.q-feedback.show{display:block;}
+.quiz-submit{width:100%;padding:14px;border-radius:10px;background:linear-gradient(135deg,var(--lime),var(--teal));border:none;color:var(--dark);font-family:'Cairo',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:8px;}
+.quiz-score{background:linear-gradient(135deg,rgba(132,204,22,.15),rgba(20,184,166,.1));border:1px solid rgba(132,204,22,.3);border-radius:14px;padding:24px;text-align:center;display:none;}
+.quiz-score.show{display:block;}
+.score-num{font-size:3rem;font-weight:900;color:var(--gold2);}
+.score-msg{font-size:.9rem;color:var(--text);margin-top:8px;}
+
+/* SUMMARY */
+.summary-card{background:linear-gradient(135deg,rgba(132,204,22,.1),rgba(20,184,166,.07));border:1px solid rgba(132,204,22,.2);border-radius:16px;padding:28px;}
+.summary-card h3{font-family:'Amiri',serif;font-size:1.3rem;color:#fff;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.summary-list{list-style:none;}
+.summary-list li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.88rem;color:var(--text);line-height:1.6;}
+.summary-list li:last-child{border-bottom:none;}
+.s-icon{width:28px;height:28px;border-radius:7px;background:rgba(132,204,22,.2);border:1px solid rgba(132,204,22,.3);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;margin-top:1px;}
+.print-btn{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:10px 20px;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Cairo',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:.2s;}
+.print-btn:hover{border-color:var(--lime);color:var(--lime);}
+
+@media(max-width:600px){
+  .lesson-hero,.content-wrap{padding-left:16px;padding-right:16px;}
+  .tabs-inner{padding:0 16px;}
+  header{padding:0 16px;}
+  .sel-row{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="bg-canvas"></div>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="back-btn">← الفهرس</a>
+    <div class="breadcrumb">
+      <span>س4م</span><span class="sep">›</span>
+      المقطع 2 — المادة وتحولها<span class="sep">›</span>الدرس 03
+    </div>
+    <div class="lesson-badge">4ème AM</div>
+  </div>
+</header>
+
+<div class="lesson-hero">
+  <div class="lesson-num">الدرس الثالث — المقطع 2</div>
+  <h1>تفاعل محلول حمضي <em>مع معدن</em></h1>
+  <div class="lesson-meta">
+    <span>⚗️ المادة وتحولها</span>
+    <span>📅 المقطع 2 — يناير</span>
+    <span>⏱ 60 دقيقة</span>
+    <span>📚 منهاج الجيل الثاني 2025/2026</span>
+  </div>
+  <div class="objectives-box">
+    <h3>🎯 الأهداف التعلمية</h3>
+    <ul>
+      <li>وصف تجربة تفاعل محلول حمض كلور الماء HCl مع معادن (Zn, Al, Fe)</li>
+      <li>الكشف عن نواتج التفاعل (غاز H₂ والشاردة المعدنية)</li>
+      <li>كتابة معادلة التفاعل الكيميائي الإجمالية والشاردية</li>
+      <li>تطبيق قواعد الأمن الكيميائي عند التعامل مع المحاليل الحمضية</li>
+    </ul>
+  </div>
+</div>
+
+<nav class="tabs-nav">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="showTab('cours')">📖 الدرس</button>
+    <button class="tab-btn" onclick="showTab('simulation')">🧪 محاكاة التفاعل</button>
+    <button class="tab-btn" onclick="showTab('exercices')">✏️ تمارين</button>
+    <button class="tab-btn" onclick="showTab('resume')">📋 ملخص الكراس</button>
+  </div>
+</nav>
+
+<div class="content-wrap">
+
+  <!-- ══ COURS ══ -->
+  <div class="tab-panel active" id="tab-cours">
+
+    <div class="sec-title"><div class="icon">🧪</div><h2>I. وصف التجربة</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>🔬 تجربة تفاعل HCl مع الزنك Zn</h3>
+      <p>نُضيف قطعة من معدن الزنك إلى محلول حمض كلور الماء (HCl). نلاحظ مباشرةً:</p>
+      <div class="highlight">
+        <p>🫧 <strong>تصاعد فقاعات غاز</strong> من سطح المعدن — هذا الغاز هو <strong>غاز الهيدروجين H₂</strong></p>
+        <p>🌡️ <strong>ارتفاع درجة حرارة</strong> المحلول — التفاعل طارد للحرارة</p>
+        <p>🔵 <strong>ذوبان المعدن تدريجياً</strong> — يتناقص حجم قطعة الزنك مع الزمن</p>
+        <p>🟦 <strong>تحوّل المحلول</strong> — يصبح محلولاً يحتوي على شوارد Zn²⁺</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🔍 الكشف عن غاز الهيدروجين H₂</h3>
+      <p>نقترب بعود ثقاب مشتعل من فوهة الأنبوب الذي يتصاعد منه الغاز:</p>
+      <div class="def-box">
+        <div class="def-title">📌 اختبار غاز H₂</div>
+        <p>غاز الهيدروجين يُنتج <strong>فرقعة خافتة</strong> عند اقتراب لهب منه. هذا الاحتراق يثبت وجود H₂:</p>
+        <p style="text-align:center;margin-top:8px;"><strong style="color:var(--lime);">2H₂ + O₂ → 2H₂O</strong></p>
+      </div>
+    </div>
+
+    <div class="sec-title"><div class="icon">⚗️</div><h2>II. كتابة معادلة التفاعل</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>📝 تفاعل HCl مع الزنك Zn</h3>
+      <p>محلول HCl يحتوي على: [H⁺ , Cl⁻]<br>
+      الشوارد المتفاعلة هي H⁺ فقط (Cl⁻ لا تتفاعل مع الزنك — تبقى متفرجة):</p>
+      <div class="formula-box">
+        <div class="formula">المعادلة الشاردية: &nbsp; Zn + 2H⁺ → Zn²⁺ + H₂↑</div>
+        <div class="formula-desc">الزنك يتفاعل مع شوارد H⁺ فينتج شوارد Zn²⁺ وغاز H₂</div>
+      </div>
+      <div class="formula-box" style="border-color:rgba(34,197,94,.3);">
+        <div class="formula" style="color:var(--green);">المعادلة الإجمالية: &nbsp; Zn + 2HCl → ZnCl₂ + H₂↑</div>
+        <div class="formula-desc">التحقق: Zn(1=1)✓ | H(2=2)✓ | Cl(2=2)✓</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📋 تفاعلات المعادن الأخرى مع HCl</h3>
+      <table class="info-table">
+        <tr>
+          <th>المعدن</th>
+          <th>المعادلة الشاردية</th>
+          <th>المعادلة الإجمالية</th>
+          <th>ملاحظة</th>
+        </tr>
+        <tr>
+          <td><strong style="color:#94a3b8">الزنك Zn</strong></td>
+          <td>Zn + 2H⁺ → Zn²⁺ + H₂↑</td>
+          <td style="color:var(--lime)">Zn + 2HCl → ZnCl₂ + H₂↑</td>
+          <td>محلول عديم اللون</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#d1d5db">الألومنيوم Al</strong></td>
+          <td>2Al + 6H⁺ → 2Al³⁺ + 3H₂↑</td>
+          <td style="color:var(--lime)">2Al + 6HCl → 2AlCl₃ + 3H₂↑</td>
+          <td>تفاعل أسرع</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fca5a5">الحديد Fe</strong></td>
+          <td>Fe + 2H⁺ → Fe²⁺ + H₂↑</td>
+          <td style="color:var(--lime)">Fe + 2HCl → FeCl₂ + H₂↑</td>
+          <td>محلول أخضر فاتح</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#a5b4fc">الماغنيزيوم Mg</strong></td>
+          <td>Mg + 2H⁺ → Mg²⁺ + H₂↑</td>
+          <td style="color:var(--lime)">Mg + 2HCl → MgCl₂ + H₂↑</td>
+          <td>تفاعل قوي جداً</td>
+        </tr>
+      </table>
+      <div class="highlight">
+        <p>💡 <strong>القاعدة العامة:</strong> معدن + حمض كلور الماء → ملح + غاز هيدروجين<br>
+        الشاردة H⁺ هي المسؤولة عن التفاعل في كل الأحماض المائية.</p>
+      </div>
+    </div>
+
+    <div class="sec-title"><div class="icon">🔬</div><h2>III. الاحتياطات الأمنية</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>⚠️ قواعد الأمن الكيميائي</h3>
+      <div class="warn-box">
+        <div class="w-title">⚠️ احتياطات إلزامية</div>
+        <p>
+          🥽 ارتداء نظارات الحماية دائماً عند التجارب<br>
+          🧤 ارتداء القفازات عند التعامل مع الأحماض<br>
+          🌬️ إجراء التجارب في مكان جيد التهوية (H₂ غاز قابل للاشتعال)<br>
+          🚫 عدم اقتراب لهب النار من الأحماض المركّزة<br>
+          💧 عند إراقة حمض على الجلد: غسل فوري بكميات كبيرة من الماء<br>
+          🔬 لا تُضاف المعادن النشيطة (Mg, Na) إلى الأحماض المركّزة
+        </p>
+      </div>
+    </div>
+
+    <div class="sec-title"><div class="icon">📊</div><h2>IV. نشاط الأحماض — المقارنة</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>📈 نشاط المعادن مع الأحماض</h3>
+      <p>ليست كل المعادن تتفاعل مع الأحماض بنفس الطريقة. بعض المعادن لا تتفاعل أصلاً:</p>
+      <table class="info-table">
+        <tr><th>المعدن</th><th>التفاعل مع HCl</th><th>السبب</th></tr>
+        <tr><td>الماغنيزيوم Mg</td><td style="color:var(--green)">✅ تفاعل قوي جداً</td><td>معدن نشيط جداً</td></tr>
+        <tr><td>الألومنيوم Al</td><td style="color:var(--green)">✅ تفاعل قوي</td><td>معدن نشيط</td></tr>
+        <tr><td>الزنك Zn</td><td style="color:var(--green)">✅ تفاعل متوسط</td><td>معدن نشيط نسبياً</td></tr>
+        <tr><td>الحديد Fe</td><td style="color:var(--gold2)">⚠️ تفاعل بطيء</td><td>معدن أقل نشاطاً</td></tr>
+        <tr><td>النحاس Cu</td><td style="color:var(--red)">❌ لا تفاعل</td><td>معدن غير نشيط مع HCl</td></tr>
+        <tr><td>الفضة Ag</td><td style="color:var(--red)">❌ لا تفاعل</td><td>معدن نبيل — لا يتفاعل</td></tr>
+      </table>
+    </div>
+
+  </div><!-- /cours -->
+
+
+  <!-- ══ SIMULATION ══ -->
+  <div class="tab-panel" id="tab-simulation">
+
+    <div class="sec-title"><div class="icon">🧪</div><h2>محاكاة تفاعل الحمض مع المعدن</h2><div class="line"></div></div>
+
+    <div class="rxn-wrap">
+      <div class="rxn-head">
+        <h3>تجربة تفاعلية — حمض + معدن</h3>
+        <span class="sim-badge">تفاعلي</span>
+      </div>
+      <div class="rxn-body">
+
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px;">اختر المعدن ثم اضغط "أجرِ التفاعل" لمشاهدة النتيجة</p>
+
+        <!-- Metal selector -->
+        <div class="sel-row">
+          <span class="sel-label">🔩 المعدن:</span>
+          <button class="sel-btn active" onclick="selectMetal('Zn')" id="m-Zn">الزنك Zn</button>
+          <button class="sel-btn" onclick="selectMetal('Al')" id="m-Al">الألومنيوم Al</button>
+          <button class="sel-btn" onclick="selectMetal('Fe')" id="m-Fe">الحديد Fe</button>
+          <button class="sel-btn" onclick="selectMetal('Cu')" id="m-Cu">النحاس Cu</button>
+        </div>
+
+        <!-- Scene -->
+        <div class="rxn-scene" id="rxn-scene">
+          <div class="rxn-liquid" id="rxn-liquid" style="background:rgba(200,230,100,.2);"></div>
+          <div class="rxn-metal" id="rxn-metal" style="height:80px;background:linear-gradient(180deg,#94a3b8,#64748b);">
+            <div class="rxn-metal-label" id="metal-label">Zn</div>
+          </div>
+          <div class="metal-deposit" id="metal-deposit"></div>
+          <div id="h2-bubbles"></div>
+
+          <!-- Labels -->
+          <div style="position:absolute;bottom:8px;left:12px;font-size:.65rem;color:rgba(200,230,100,.6);font-weight:600;" id="acid-label">محلول HCl — [H⁺, Cl⁻]</div>
+          <div style="position:absolute;top:12px;right:12px;font-size:.65rem;color:var(--muted);background:rgba(10,15,30,.7);padding:3px 8px;border-radius:6px;" id="state-label">قبل التفاعل</div>
+        </div>
+
+        <!-- Controls -->
+        <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+          <button class="run-btn" onclick="runReaction()" id="run-btn">⚗️ أجرِ التفاعل</button>
+          <button class="reset-btn" onclick="resetReaction()">🔄 إعادة</button>
+        </div>
+
+        <!-- Result -->
+        <div class="rxn-result" id="rxn-result">
+          <div class="rr-obs" id="rr-obs"></div>
+          <div class="rr-eq ionic" id="rr-ionic"></div>
+          <div class="rr-eq global" id="rr-global"></div>
+        </div>
+
+        <!-- No reaction warning -->
+        <div id="no-rxn-msg" style="display:none;padding:14px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:10px;font-size:.88rem;color:var(--red);margin-top:10px;">
+          ❌ لا يحدث تفاعل! النحاس لا يتفاعل مع محلول HCl لأنه معدن غير نشيط بما يكفي لإزاحة H⁺.
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /simulation -->
+
+
+  <!-- ══ EXERCICES ══ -->
+  <div class="tab-panel" id="tab-exercices">
+
+    <div class="sec-title"><div class="icon">✏️</div><h2>تمارين تقييمية</h2><div class="line"></div></div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 01</div>
+      <div class="q-text">ما الغاز المتصاعد عند تفاعل الزنك مع محلول HCl؟ وكيف نكشف عنه؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> غاز الكلور Cl₂ — يُبيّض ورق العبّاد</button>
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> غاز الأكسجين O₂ — يُحيي جمرة خامدة</button>
+        <button class="q-opt" onclick="answer(this,true,'q1')"><span>○</span> غاز الهيدروجين H₂ — يُحدث فرقعة خافتة مع لهب</button>
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> غاز ثاني أكسيد الكربون CO₂ — يُعكّر ماء الجير</button>
+      </div>
+      <div class="q-feedback" id="fb-q1"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 02</div>
+      <div class="q-text">ما المعادلة الإجمالية الصحيحة لتفاعل الألومنيوم Al مع HCl؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> Al + HCl → AlCl + H₂↑</button>
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> Al + 3HCl → AlCl₃ + H₂↑</button>
+        <button class="q-opt" onclick="answer(this,true,'q2')"><span>○</span> 2Al + 6HCl → 2AlCl₃ + 3H₂↑</button>
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> Al + 2HCl → AlCl₂ + H₂↑</button>
+      </div>
+      <div class="q-feedback" id="fb-q2"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 03</div>
+      <div class="q-text">أيّ المعادن التالية لا تتفاعل مع محلول حمض كلور الماء HCl؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> الزنك Zn</button>
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> الحديد Fe</button>
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> الألومنيوم Al</button>
+        <button class="q-opt" onclick="answer(this,true,'q3')"><span>○</span> النحاس Cu</button>
+      </div>
+      <div class="q-feedback" id="fb-q3"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 04</div>
+      <div class="q-text">في تفاعل Fe + 2HCl → FeCl₂ + H₂↑، ما الشاردة المتفرجة (غير المتفاعلة)؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> H⁺</button>
+        <button class="q-opt" onclick="answer(this,true,'q4')"><span>○</span> Cl⁻</button>
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> Fe²⁺</button>
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> H₂</button>
+      </div>
+      <div class="q-feedback" id="fb-q4"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 05</div>
+      <div class="q-text">ما الاحتياط الأمني الواجب اتخاذه عند إجراء تجربة تفاعل حمض مع معدن؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q5')"><span>○</span> إجراء التجربة في مكان مغلق لمنع انتشار الغاز</button>
+        <button class="q-opt" onclick="answer(this,true,'q5')"><span>○</span> ارتداء النظارات والقفازات والعمل في مكان جيد التهوية</button>
+        <button class="q-opt" onclick="answer(this,false,'q5')"><span>○</span> إضافة الحمض بسرعة كبيرة للمعدن</button>
+        <button class="q-opt" onclick="answer(this,false,'q5')"><span>○</span> اقتراب اللهب لإسراع التفاعل</button>
+      </div>
+      <div class="q-feedback" id="fb-q5"></div>
+    </div>
+
+    <button class="quiz-submit" onclick="submitQuiz()">📊 عرض النتيجة</button>
+    <div class="quiz-score" id="quiz-score">
+      <div class="score-num" id="score-num">0/5</div>
+      <div class="score-msg" id="score-msg"></div>
+    </div>
+
+  </div><!-- /exercices -->
+
+
+  <!-- ══ RESUME ══ -->
+  <div class="tab-panel" id="tab-resume">
+
+    <div class="sec-title"><div class="icon">📋</div><h2>ملخص الكراس</h2><div class="line"></div></div>
+
+    <div class="summary-card">
+      <h3>📓 تفاعل محلول حمضي مع معدن — السنة الرابعة متوسط</h3>
+      <ul class="summary-list">
+        <li>
+          <div class="s-icon">🧪</div>
+          <div><strong>التجربة:</strong> إضافة معدن (Zn, Al, Fe) إلى محلول HCl يُنتج:<br>
+          • تصاعد فقاعات غاز H₂ (فرقعة خافتة مع اللهب)<br>
+          • ذوبان المعدن تدريجياً<br>
+          • ارتفاع درجة حرارة المحلول</div>
+        </li>
+        <li>
+          <div class="s-icon">⚗️</div>
+          <div><strong>تفاعل Zn مع HCl:</strong><br>
+          شاردية: Zn + 2H⁺ → Zn²⁺ + H₂↑<br>
+          إجمالية: Zn + 2HCl → ZnCl₂ + H₂↑</div>
+        </li>
+        <li>
+          <div class="s-icon">⚗️</div>
+          <div><strong>تفاعل Al مع HCl:</strong><br>
+          شاردية: 2Al + 6H⁺ → 2Al³⁺ + 3H₂↑<br>
+          إجمالية: 2Al + 6HCl → 2AlCl₃ + 3H₂↑</div>
+        </li>
+        <li>
+          <div class="s-icon">⚗️</div>
+          <div><strong>تفاعل Fe مع HCl:</strong><br>
+          شاردية: Fe + 2H⁺ → Fe²⁺ + H₂↑<br>
+          إجمالية: Fe + 2HCl → FeCl₂ + H₂↑</div>
+        </li>
+        <li>
+          <div class="s-icon">💡</div>
+          <div><strong>القاعدة العامة:</strong><br>
+          معدن نشيط + HCl → ملح + H₂↑<br>
+          الشاردة H⁺ هي المسؤولة عن التفاعل — Cl⁻ متفرجة</div>
+        </li>
+        <li>
+          <div class="s-icon">❌</div>
+          <div><strong>معادن لا تتفاعل مع HCl:</strong> النحاس Cu والفضة Ag (معادن غير نشيطة)</div>
+        </li>
+        <li>
+          <div class="s-icon">⚠️</div>
+          <div><strong>الأمن الكيميائي:</strong> نظارات + قفازات + تهوية جيدة + إبعاد اللهب عن H₂</div>
+        </li>
+      </ul>
+      <button class="print-btn" onclick="window.print()">🖨️ طباعة الملخص</button>
+    </div>
+
+  </div><!-- /resume -->
+
+</div><!-- /content-wrap -->
+
+<script>
+/* TABS */
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+/* METAL DATA */
+const metals = {
+  Zn:{
+    color:'linear-gradient(180deg,#94a3b8,#64748b)',
+    solColor:'rgba(200,230,100,.25)',
+    reacts:true,
+    obs:'🫧 تصاعد فقاعات H₂ — ذوبان الزنك تدريجياً — ارتفاع حرارة المحلول',
+    ionic:'المعادلة الشاردية: &nbsp; Zn + 2H⁺ → Zn²⁺ + H₂↑',
+    global:'المعادلة الإجمالية: &nbsp; Zn + 2HCl → ZnCl₂ + H₂↑',
+  },
+  Al:{
+    color:'linear-gradient(180deg,#d1d5db,#9ca3af)',
+    solColor:'rgba(200,230,150,.2)',
+    reacts:true,
+    obs:'🫧🫧 تصاعد سريع لفقاعات H₂ — ذوبان سريع للألومنيوم — حرارة كبيرة',
+    ionic:'المعادلة الشاردية: &nbsp; 2Al + 6H⁺ → 2Al³⁺ + 3H₂↑',
+    global:'المعادلة الإجمالية: &nbsp; 2Al + 6HCl → 2AlCl₃ + 3H₂↑',
+  },
+  Fe:{
+    color:'linear-gradient(180deg,#fca5a5,#f87171)',
+    solColor:'rgba(100,200,100,.2)',
+    reacts:true,
+    obs:'🫧 تصاعد بطيء لفقاعات H₂ — ذوبان بطيء للحديد — المحلول يتحول للأخضر الفاتح (Fe²⁺)',
+    ionic:'المعادلة الشاردية: &nbsp; Fe + 2H⁺ → Fe²⁺ + H₂↑',
+    global:'المعادلة الإجمالية: &nbsp; Fe + 2HCl → FeCl₂ + H₂↑',
+  },
+  Cu:{
+    color:'linear-gradient(180deg,#f97316,#c2410c)',
+    solColor:'rgba(200,230,100,.2)',
+    reacts:false,
+    obs:'',ionic:'',global:'',
+  }
+};
+
+let currentMetal = 'Zn';
+let reacting = false;
+let bubInterval = null;
+
+function selectMetal(key){
+  currentMetal = key;
+  Object.keys(metals).forEach(k=>{
+    document.getElementById('m-'+k).classList.toggle('active',k===key);
+  });
+  const m = metals[key];
+  document.getElementById('rxn-metal').style.background = m.color;
+  document.getElementById('rxn-metal').style.height = '80px';
+  document.getElementById('rxn-metal').style.opacity = '1';
+  document.getElementById('metal-label').textContent = key;
+  resetReaction();
+}
+
+function runReaction(){
+  if(reacting) return;
+  const m = metals[currentMetal];
+  document.getElementById('no-rxn-msg').style.display = 'none';
+  document.getElementById('rxn-result').classList.remove('show');
+
+  if(!m.reacts){
+    document.getElementById('no-rxn-msg').style.display = 'block';
+    document.getElementById('state-label').textContent = 'لا تفاعل';
+    return;
+  }
+
+  reacting = true;
+  document.getElementById('run-btn').textContent = '⏳ يتفاعل...';
+  document.getElementById('state-label').textContent = 'جارٍ التفاعل...';
+  document.getElementById('rxn-liquid').style.background = m.solColor;
+
+  // dissolve metal
+  const metal = document.getElementById('rxn-metal');
+  setTimeout(()=>{ metal.style.height='20px'; metal.style.opacity='.4'; },400);
+
+  // bubbles
+  const scene = document.getElementById('rxn-scene');
+  const metalRect = metal.getBoundingClientRect();
+  const sceneRect = scene.getBoundingClientRect();
+  const bx = sceneRect.width/2;
+  const by = sceneRect.height * 0.45;
+
+  bubInterval = setInterval(()=>{
+    const b = document.createElement('div');
+    b.className = 'h2-bubble';
+    const sz = 5+Math.random()*8;
+    b.style.cssText=`width:${sz}px;height:${sz}px;left:${bx+(Math.random()-0.5)*30}px;top:${by}px;animation-duration:${1+Math.random()}s;`;
+    scene.appendChild(b);
+    setTimeout(()=>b.remove(),2000);
+  },currentMetal==='Al'?150:300);
+
+  // show result
+  setTimeout(()=>{
+    document.getElementById('rr-obs').textContent = m.obs;
+    document.getElementById('rr-ionic').innerHTML = m.ionic;
+    document.getElementById('rr-global').innerHTML = m.global;
+    document.getElementById('rxn-result').classList.add('show');
+    document.getElementById('state-label').textContent = 'اكتمل التفاعل ✓';
+    document.getElementById('run-btn').textContent = '✅ اكتمل';
+  },1500);
+}
+
+function resetReaction(){
+  reacting = false;
+  if(bubInterval){clearInterval(bubInterval);bubInterval=null;}
+  document.getElementById('run-btn').textContent = '⚗️ أجرِ التفاعل';
+  document.getElementById('state-label').textContent = 'قبل التفاعل';
+  document.getElementById('rxn-result').classList.remove('show');
+  document.getElementById('no-rxn-msg').style.display='none';
+  document.getElementById('rxn-metal').style.height='80px';
+  document.getElementById('rxn-metal').style.opacity='1';
+  document.getElementById('rxn-liquid').style.background='rgba(200,230,100,.2)';
+  document.querySelectorAll('.h2-bubble').forEach(b=>b.remove());
+}
+
+/* QUIZ */
+const feedbacks={
+  q1:{correct:'✅ صحيح! غاز H₂ يُحدث فرقعة خافتة (انفجار صغير) عند اقتراب اللهب منه، وهذا أبسط وأشهر اختبار له.',
+      wrong:'❌ خطأ. الغاز المتصاعد هو H₂ ويُكشف عنه بالفرقعة الخافتة عند اقتراب اللهب.'},
+  q2:{correct:'✅ صحيح! 2Al + 6HCl → 2AlCl₃ + 3H₂↑. تحقق: Al(2=2)✓ H(6=6)✓ Cl(6=6)✓',
+      wrong:'❌ خطأ. المعادلة الصحيحة: 2Al + 6HCl → 2AlCl₃ + 3H₂↑. Al ثلاثي الشحنة يحتاج 3 Cl⁻.'},
+  q3:{correct:'✅ صحيح! النحاس Cu معدن غير نشيط بما يكفي لإزاحة H⁺ من محلول HCl، لذلك لا يتفاعل.',
+      wrong:'❌ خطأ. النحاس Cu لا يتفاعل مع HCl لأنه معدن أقل نشاطاً من الهيدروجين.'},
+  q4:{correct:'✅ صحيح! Cl⁻ هي الشاردة المتفرجة — لا تتفاعل مع الحديد. الشاردة H⁺ فقط هي التي تتفاعل مع Fe.',
+      wrong:'❌ خطأ. Cl⁻ هي الشاردة المتفرجة التي لا تشارك في التفاعل — تبقى في المحلول.'},
+  q5:{correct:'✅ صحيح! ارتداء نظارات الحماية والقفازات والعمل في مكان جيد التهوية هي الاحتياطات الأساسية لهذه التجربة.',
+      wrong:'❌ خطأ. الاحتياطات الصحيحة: نظارات + قفازات + تهوية جيدة وإبعاد اللهب (H₂ قابل للاشتعال).'},
+};
+let answers={};
+function answer(btn,isCorrect,qId){
+  const opts=btn.closest('.q-card').querySelectorAll('.q-opt');
+  if([...opts].some(o=>o.classList.contains('answered'))) return;
+  opts.forEach(o=>o.classList.add('answered'));
+  btn.classList.add(isCorrect?'correct':'wrong');
+  btn.querySelector('span').textContent=isCorrect?'✓':'✗';
+  const fb=document.getElementById('fb-'+qId);
+  fb.textContent=isCorrect?feedbacks[qId].correct:feedbacks[qId].wrong;
+  fb.className='q-feedback '+(isCorrect?'correct':'wrong')+' show';
+  answers[qId]=isCorrect;
+}
+function submitQuiz(){
+  const score=Object.values(answers).filter(Boolean).length;
+  document.getElementById('score-num').textContent=score+'/5';
+  const msgs=['💪 راجع الدرس جيداً.','📖 حسن، راجع النقاط الخاطئة.','📖 جيد! أعد المراجعة.','👍 جيد جداً!','🌟 ممتاز! أتقنت الدرس!'];
+  document.getElementById('score-msg').textContent=msgs[score]||msgs[0];
+  const el=document.getElementById('quiz-score');
+  el.classList.add('show');
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+</script>
+</body>
+</html>
