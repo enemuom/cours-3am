@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مجال المرآة المستوية - السنة الرابعة متوسط</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark: #0a0f1e;
+            --dark2: #111827;
+            --dark3: #1a2540;
+            --blue: #2563eb;
+            --blue2: #3b82f6;
+            --cyan: #06b6d4;
+            --gold: #f59e0b;
+            --gold2: #fbbf24;
+            --red: #ef4444;
+            --green: #22c55e;
+            --orange: #f97316;
+            --indigo: #6366f1;
+            --purple: #a855f7;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.8;
+            direction: rtl;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Amiri', serif; font-weight: 700; }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .main-header {
+            background: var(--dark2);
+            border-bottom: 1px solid var(--dark3);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .back-btn {
+            color: var(--cyan);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .back-btn:hover { color: var(--blue2); }
+
+        .breadcrumbs {
+            color: var(--muted);
+            font-size: 0.9rem;
+            flex: 1;
+            text-align: center;
+        }
+
+        .breadcrumbs span {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .level-badge {
+            background: linear-gradient(135deg, var(--blue), var(--indigo));
+            color: white;
+            padding: 0.35rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--dark2) 0%, var(--dark3) 100%);
+            padding: 3rem 0 2.5rem;
+            border-bottom: 1px solid var(--dark3);
+        }
+
+        .lesson-meta {
+            color: var(--cyan);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .lesson-title {
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .lesson-title em {
+            color: var(--gold);
+            font-style: normal;
+            position: relative;
+        }
+
+        .lesson-title em::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--orange));
+            border-radius: 2px;
+        }
+
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: rgba(37, 99, 235, 0.15);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            color: var(--blue2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .objectives-box {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .objectives-box h3 {
+            color: var(--gold2);
+            margin-bottom: 0.75rem;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.1rem;
+        }
+
+        .objectives-box ul {
+            list-style: none;
+        }
+
+        .objectives-box li {
+            padding: 0.3rem 0;
+            padding-right: 1.5rem;
+            position: relative;
+            color: var(--text);
+        }
+
+        .objectives-box li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .tab-nav {
+            position: sticky;
+            top: 0;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--dark3);
+            z-index: 100;
+            padding: 0.75rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-container::-webkit-scrollbar { display: none; }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn:hover {
+            color: var(--text);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .tab-btn.active {
+            color: var(--cyan);
+            background: rgba(6, 182, 212, 0.1);
+            border-bottom-color: var(--cyan);
+        }
+
+        .main-content {
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--dark3);
+        }
+
+        .sec-icon { font-size: 1.4rem; }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .def-box {
+            background: rgba(245, 158, 11, 0.08);
+            border-right: 4px solid var(--gold);
+            padding: 1.25rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        .def-box strong { color: var(--gold2); }
+
+        .formula-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.1));
+            border: 1px solid var(--indigo);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .formula {
+            font-family: 'Amiri', serif;
+            font-size: 2.5rem;
+            color: var(--text);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .formula-desc { text-align: right; }
+
+        .formula-desc ul {
+            list-style: none;
+            margin: 0.5rem 0;
+        }
+
+        .formula-desc li {
+            padding: 0.25rem 0;
+            color: var(--muted);
+        }
+
+        .formula-desc strong { color: var(--blue2); }
+
+        .formula-note {
+            text-align: center;
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 0.5rem;
+        }
+
+        .steps-box {
+            background: var(--dark2);
+            border: 1px solid var(--dark3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .steps-box h4 {
+            color: var(--cyan);
+            margin-bottom: 1rem;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.15rem;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: flex-start;
+        }
+
+        .step-num {
+            background: linear-gradient(135deg, var(--blue), var(--indigo));
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        .step-text {
+            color: var(--text);
+            line-height: 1.7;
+            padding-top: 0.2rem;
+        }
+
+        .terms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .term-card {
+            background: var(--dark2);
+            border: 1px solid var(--dark3);
+            border-radius: 10px;
+            padding: 1rem;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .term-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--blue);
+        }
+
+        .term-card h4 {
+            color: var(--cyan);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .term-card p {
+            font-size: 0.95rem;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--dark2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .info-table th {
+            background: var(--dark3);
+            color: var(--gold);
+            padding: 1rem;
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .info-table td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid var(--dark3);
+            color: var(--text);
+        }
+
+        .info-table tr:hover { background: rgba(255,255,255,0.03); }
+
+        .info-table tr:last-child td { border-bottom: none; }
+
+        .sim-container {
+            background: var(--dark2);
+            border: 1px solid var(--dark3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .sim-title {
+            color: var(--cyan);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-family: 'Amiri', serif;
+        }
+
+        .canvas-wrapper {
+            background: var(--dark);
+            border-radius: 12px;
+            border: 1px solid var(--dark3);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            cursor: crosshair;
+        }
+
+        .sim-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            background: var(--dark3);
+            padding: 1rem 1.25rem;
+            border-radius: 10px;
+        }
+
+        .sim-controls label {
+            color: var(--text);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .sim-controls input[type="range"] {
+            flex: 1;
+            min-width: 200px;
+            accent-color: var(--cyan);
+        }
+
+        .value-display {
+            background: var(--dark);
+            color: var(--cyan);
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-weight: 700;
+            min-width: 100px;
+            text-align: center;
+            border: 1px solid var(--dark3);
+        }
+
+        .sim-info {
+            background: rgba(6, 182, 212, 0.08);
+            border-right: 4px solid var(--cyan);
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .sim-info strong { color: var(--text); }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .status-in {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+
+        .status-out {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--red);
+            border: 1px solid var(--red);
+        }
+
+        .quiz-header { margin-bottom: 2rem; }
+
+        .quiz-header h2 {
+            color: var(--text);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-header p { color: var(--muted); }
+
+        .question-card {
+            background: var(--dark2);
+            border: 1px solid var(--dark3);
+            border-radius: 14px;
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s;
+        }
+
+        .question-card:hover { border-color: rgba(255,255,255,0.1); }
+
+        .q-text {
+            color: var(--text);
+            font-size: 1.15rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.6;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .options { display: grid; gap: 0.75rem; }
+
+        .option {
+            background: var(--dark);
+            border: 2px solid var(--dark3);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .option:hover {
+            border-color: var(--blue);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .option.correct {
+            border-color: var(--green);
+            background: rgba(34, 197, 94, 0.15);
+            cursor: default;
+        }
+
+        .option.wrong {
+            border-color: var(--red);
+            background: rgba(239, 68, 68, 0.15);
+            cursor: default;
+        }
+
+        .option.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .q-feedback {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(37, 99, 235, 0.1);
+            border-right: 4px solid var(--blue);
+            border-radius: 8px;
+            color: var(--text);
+            line-height: 1.7;
+            animation: slideDown 0.3s ease;
+        }
+
+        .q-feedback.show { display: block; }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--dark3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--blue), var(--indigo));
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .score-result {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: none;
+        }
+
+        .score-result.show { display: block; }
+
+        .score-excellent {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+
+        .score-good {
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--cyan);
+            border: 1px solid var(--cyan);
+        }
+
+        .score-average {
+            background: rgba(249, 115, 22, 0.15);
+            color: var(--orange);
+            border: 1px solid var(--orange);
+        }
+
+        .score-low {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--red);
+            border: 1px solid var(--red);
+        }
+
+        .summary-card {
+            background: var(--dark2);
+            border: 1px solid var(--dark3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .summary-card h2 {
+            text-align: center;
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-intro {
+            text-align: center;
+            color: var(--muted);
+            margin-bottom: 2rem;
+        }
+
+        .summary-section {
+            margin-bottom: 1.75rem;
+        }
+
+        .summary-section h4 {
+            color: var(--cyan);
+            font-size: 1.15rem;
+            margin-bottom: 0.75rem;
+            font-family: 'Cairo', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .summary-section ul { list-style: none; }
+
+        .summary-section li {
+            padding: 0.4rem 0;
+            padding-right: 1.5rem;
+            position: relative;
+            color: var(--text);
+        }
+
+        .summary-section li::before {
+            content: '✦';
+            position: absolute;
+            right: 0;
+            color: var(--gold);
+        }
+
+        .summary-section strong { color: var(--gold2); }
+
+        .print-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 2rem auto 0;
+            background: linear-gradient(135deg, var(--blue), var(--cyan));
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
+        }
+
+        .main-footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--dark3);
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-title { font-size: 1.8rem; }
+            .header-content { flex-direction: column; align-items: flex-start; }
+            .breadcrumbs { text-align: right; width: 100%; }
+            .formula { font-size: 2rem; }
+            .sim-controls { flex-direction: column; align-items: stretch; }
+            .summary-card { padding: 1.5rem; }
+        }
+
+        @media print {
+            body { background: white !important; color: black !important; }
+            .main-header, .tab-nav, .hero, .main-footer, .btn-primary, .tab-panel { display: none !important; }
+            #summary.tab-panel {
+                display: block !important;
+                animation: none !important;
+            }
+            .summary-card {
+                background: white !important;
+                border: 1px solid #ccc !important;
+                color: black !important;
+                box-shadow: none !important;
+            }
+            .summary-card h2, .summary-section h4, .summary-section strong { color: black !important; }
+            .summary-section li { color: black !important; }
+            .summary-section li::before { color: black !important; }
+            .print-btn { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-content">
+            <a href="#" class="back-btn">← العودة للفهرس</a>
+            <div class="breadcrumbs">
+                <span>س4م</span> / <span>المقطع: الظواهر الضوئية</span>
+            </div>
+            <span class="level-badge">الجيل الثاني</span>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="lesson-meta">الدرس الثالث: مجال المرآة المستوية</div>
+            <h1 class="lesson-title"><em>مجال</em> المرآة المستوية</h1>
+            <div class="meta-tags">
+                <span class="tag">المقطع: الظواهر الضوئية</span>
+                <span class="tag">الشهر: فبراير - مارس</span>
+                <span class="tag">المدة: 3 ساعات</span>
+                <span class="tag">منهاج الجيل الثاني</span>
+            </div>
+            <div class="objectives-box">
+                <h3>🎯 الأهداف التعلمية</h3>
+                <ul>
+                    <li>تعريف مجال المرآة المستوية وتحديده بيانياً</li>
+                    <li>استغلال خصائص الصورة في المرآة المستوية لتحديد المجال</li>
+                    <li>رسم الأشعة الضوئية لتحديد منطقة رؤية الصورة</li>
+                    <li>التمييز بين المجال والصورة في المرآة المستوية</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <nav class="tab-nav">
+        <div class="container nav-container">
+            <button class="tab-btn active" data-tab="lesson">📖 الدرس</button>
+            <button class="tab-btn" data-tab="sim">🎯 محاكاة تفاعلية</button>
+            <button class="tab-btn" data-tab="quiz">✏️ تمارين</button>
+            <button class="tab-btn" data-tab="summary">📋 ملخص الكراس</button>
+        </div>
+    </nav>
+
+    <main class="container main-content">
+
+        <!-- TAB 1: الدرس -->
+        <div id="lesson" class="tab-panel active">
+            <div class="section">
+                <h2 class="section-title"><span class="sec-icon">💡</span> I. مقدمة وتعريف المجال</h2>
+                <div class="def-box">
+                    <strong>مجال المرآة المستوية:</strong> هو الجزء من الفضاء الذي يجب أن تتواجد فيه عين المشاهد لكي يرى صورة جسم ما في المرآة المستوية.
+                </div>
+                <p>عندما نضع جسمًا أمام مرآة مستوية، فإن صورته تتشكل خلف المرآة. لكن هل يمكن لأي شخص واقف في أي مكان أمام المرآة أن يرى هذه الصورة؟ <strong>لا</strong>، بل يجب أن تكون عين المشاهد داخل <strong>مجال</strong> معين من الفضاء حتى تصلها الأشعة المنعكسة من الجسم.</p>
+                <div class="terms-grid">
+                    <div class="term-card">
+                        <h4>المجال (Champ)</h4>
+                        <p>المنطقة الهندسية في الفضاء الأمامي للمرآة التي يمكن منها رؤية الصورة.</p>
+                    </div>
+                    <div class="term-card">
+                        <h4>الأشعة الظاهرية</h4>
+                        <p>أشعة ضوئية وهمية تبدو وكأنها قادمة من الصورة الخيالية خلف المرآة.</p>
+                    </div>
+                    <div class="term-card">
+                        <h4>الأشعة المنعكسة</h4>
+                        <p>الأشعة الحقيقية التي ترتد من سطح المرآة وتدخل إلى عين المشاهد.</p>
+                    </div>
+                    <div class="term-card">
+                        <h4>الأشعة القصوى</h4>
+                        <p>الأشعة المنعكسة القادمة من حافتي المرآة والتي تحددان حدود المجال.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title"><span class="sec-icon">📐</span> II. طريقة تحديد المجال</h2>
+                <p>لتحديد مجال مرآة مستوية نتبع الخطوات البيانية التالية:</p>
+                <div class="steps-box">
+                    <h4>🔧 خطوات الرسم</h4>
+                    <div class="step-item">
+                        <div class="step-num">1</div>
+                        <div class="step-text">نرسم المرآة المستوية على شكل قطعة مستقيمة (M<sub>1</sub>M<sub>2</sub>) ونحدد حافتيها.</div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">2</div>
+                        <div class="step-text">نحدد موضع الجسم (A) أمام المرآة، ثم نبني صورته (A') بالنظرية: <strong>الصورة متناظرة مع الجسم بالنسبة للمرآة</strong> (نفس البعد، نفس الارتفاع).</div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">3</div>
+                        <div class="step-text">نربط الصورة (A') بحافتي المرآة (M<sub>1</sub> و M<sub>2</sub>) بخطين متقطعين (أشعة ظاهرية).</div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">4</div>
+                        <div class="step-text">نمد الخطين السابقين إلى الأمام (جهة الجسم) لتعطينا <strong>الأشعة المنعكسة القصوى</strong> التي تحددان حدود المجال.</div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">5</div>
+                        <div class="step-text">المساحة المحصورة بين هذين الشعاعين في الجهة الأمامية للمرآة تمثل <strong>مجال المرآة</strong>.</div>
+                    </div>
+                </div>
+                <div class="formula-box">
+                    <div class="formula">A' = sym(A) / مِرْآة</div>
+                    <div class="formula-desc">
+                        <p><strong>الشروط الهندسية:</strong></p>
+                        <ul>
+                            <li><strong>d'</strong> = <strong>d</strong> (بعد الصورة يساوي بعد الجسم عن المرآة)</li>
+                            <li><strong>h'</strong> = <strong>h</strong> (ارتفاع الصورة يساوي ارتفاع الجسم)</li>
+                            <li>الصورة <strong>خيالية</strong> و<strong>معتدلة</strong> و<strong>متساوية الحجم</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title"><span class="sec-icon">📊</span> III. العوامل المؤثرة في المجال</h2>
+                <p>يتأثر حجم وشكل مجال المرآة المستوية بعدة عوامل:</p>
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>العامل</th>
+                            <th>التأثير على المجال</th>
+                            <th>الملاحظة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>بعد الجسم عن المرآة</td>
+                            <td>كلما ابتعد الجسم، ضاق المجال</td>
+                            <td>الزاوية المرئية تتناقص</td>
+                        </tr>
+                        <tr>
+                            <td>ارتفاع المرآة</td>
+                            <td>كلما زاد ارتفاع المرآة، اتسع المجال</td>
+                            <td>الأشعة القصوى تبتعد عن بعضها</td>
+                        </tr>
+                        <tr>
+                            <td>موضع الجسم</td>
+                            <td>يتحول المجال مع تحرك الجسم</td>
+                            <td>المجال يتبع الجسم دائماً</td>
+                        </tr>
+                        <tr>
+                            <td>موضع العين</td>
+                            <td>يجب أن تكون داخل المجال</td>
+                            <td>خارجه = لا رؤية للصورة</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title"><span class="sec-icon">🔄</span> IV. تمييز المجال عن الصورة</h2>
+                <div class="def-box" style="border-color: var(--cyan); background: rgba(6,182,212,0.1);">
+                    <strong>تنبيه مهم:</strong> لا يجب الخلط بين <strong>الصورة</strong> (A') وهي نقطة خيالية خلف المرآة، وبين <strong>المجال</strong> وهو منطقة فضائية أمام المرآة. الصورة تنتمي إلى الفضاء الخلفي، بينما المجال ينتمي إلى الفضاء الأمامي.
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: محاكاة تفاعلية -->
+        <div id="sim" class="tab-panel">
+            <div class="sim-container">
+                <h3 class="sim-title">🔬 المحاكاة الأولى: تحديد مجال المرآة المستوية</h3>
+                <div class="canvas-wrapper">
+                    <canvas id="sim1Canvas" width="600" height="420"></canvas>
+                </div>
+                <div class="sim-info">
+                    <p><strong>التعليمات:</strong> اسحب <strong>الجسم البرتقالي</strong> لتحريكه أمام المرآة. اسحب <strong>العين البيضاء</strong> لاختبار مواضع مختلفة. إذا وضعت العين داخل المنطقة الخضراء (المجال)، ستظهر رسالة <span style="color:var(--green)">يمكن رؤية الصورة</span>. إذا كانت خارجها، ستظهر <span style="color:var(--red)">لا يمكن رؤية الصورة</span>.</p>
+                    <div id="sim1Status" class="status-badge status-out">اسحب العين لاختبار المجال</div>
+                </div>
+            </div>
+
+            <div class="sim-container">
+                <h3 class="sim-title">🪞 المحاكاة الثانية: تأثير بعد الجسم على المجال</h3>
+                <div class="canvas-wrapper">
+                    <canvas id="sim2Canvas" width="600" height="420"></canvas>
+                </div>
+                <div class="sim-controls">
+                    <label for="distSlider">بعد الجسم عن المرآة:</label>
+                    <input type="range" id="distSlider" min="60" max="220" value="120">
+                    <span id="distValue" class="value-display">120 بكسل</span>
+                </div>
+                <div class="sim-info">
+                    <p>حرك شريط التمرير لتغيير بعد الجسم عن المرآة. لاحظ أن <strong>زاوية المجال</strong> تتغير: كلما ابتعد الجسم عن المرآة، <strong>ضاق المجال</strong> (أصبحت الزاوية أصغر). وكلما اقترب الجسم، <strong>اتسع المجال</strong>. المنطقة المظللة بالأخضر تمثل مجال الرؤية.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: تمارين -->
+        <div id="quiz" class="tab-panel">
+            <div class="quiz-header">
+                <h2>✏️ تمارين تفاعلية</h2>
+                <p>اختبر فهمك لدرس مجال المرآة المستوية من خلال هذه الأسئلة:</p>
+            </div>
+
+            <div class="question-card" data-q="1">
+                <h4 class="q-text">1. ما هو تعريف مجال المرآة المستوية؟</h4>
+                <div class="options">
+                    <div class="option">أ. المساحة التي تشغلها المرآة على الحائط</div>
+                    <div class="option" data-correct="true">ب. الجزء من الفضاء الذي يجب أن تتواجد فيه العين لرؤية الصورة</div>
+                    <div class="option">ج. المسافة بين الجسم والمرآة</div>
+                    <div class="option">د. الزاوية المحصورة بين الشعاع الساقط والشعاع المنعكس</div>
+                </div>
+                <div class="q-feedback">
+                    <strong>الإجابة الصحيحة:</strong> ب. المجال هو المنطقة الهندسية في الفضاء الأمامي للمرآة التي يمكن منها رؤية صورة الجسم.
+                </div>
+            </div>
+
+            <div class="question-card" data-q="2">
+                <h4="q-text">2. لتحديد مجال مرآة مستوية، نربط الصورة (A') بـ:</h4>
+                <div class="options">
+                    <div class="option">أ. مركز المرآة فقط</div>
+                    <div class="option" data-correct="true">ب. حافتي المرآة (M<sub>1</sub> و M<sub>2</sub>)</div>
+                    <div class="option">ج. الجسم نفسه</div>
+                    <div class="option">د. العمود المقام على نقطة السقوط</div>
+                </div>
+                <div class="q-feedback">
+                    <strong>الإجابة الصحيحة:</strong> ب. نربط الصورة الخيالية بحافتي المرآة، ثم نمد الخطين إلى الأمام لتحديد حدود المجال.
+                </div>
+            </div>
+
+            <div class="question-card" data-q="3">
+                <h4 class="q-text">3. إذا ابتعد جسم عن مرآة مستوية، فإن مجال رؤيته:</h4>
+                <div class="options">
+                    <div class="option">أ. يتسع</div>
+                    <div class="option" data-correct="true">ب. يضيق</div>
+                    <div class="option">ج. يبقى ثابتاً</div>
+                    <div class="option">د. يختفي تماماً</div>
+                </div>
+                <div class="q-feedback">
+                    <strong>الإجابة الصحيحة:</strong> ب. كلما ابتعد الجسم عن المرآة، تقترب الأشعة الظاهرية من بعضها، فتضيق زاوية المجال.
+                </div>
+            </div>
+
+            <div class="question-card" data-q="4">
+                <h4 class="q-text">4. الصورة في المرآة المستوية تكون:</h4>
+                <div class="options">
+                    <div class="option">أ. حقيقية ومتساوية الحجم</div>
+                    <div class="option">ب. حقيقية ومكبرة</div>
+                    <div class="option" data-correct="true">ج. خيالية ومتساوية الحجم ومعتدلة</div>
+                    <div class="option">د. خيالية ومقلوبة</div>
+                </div>
+                <div class="q-feedback">
+                    <strong>الإجابة الصحيحة:</strong> ج. صورة المرآة المستوية خيالية (لا تتلقى على شاشة)، متساوية الحجم مع الجسم، معتدلة (مستقيمة)، ومنقلبة جانبياً.
+                </div>
+            </div>
+
+            <div class="question-card" data-q="5">
+                <h4 class="q-text">5. إذا وضعت عينك خارج مجال مرآة مستوية، فإنك:</h4>
+                <div class="options">
+                    <div class="option">أ. ترى صورة مكبرة</div>
+                    <div class="option">ب. ترى صورة مقلوبة</div>
+                    <div class="option" data-correct="true">ج. لا ترى الصورة نهائياً</div>
+                    <div class="option">د. ترى صورة حقيقية</div>
+                </div>
+                <div class="q-feedback">
+                    <strong>الإجابة الصحيحة:</strong> ج. إذا كانت العين خارج المجال، فإن الأشعة المنعكسة القصوى لا تصل إليها، وبالتالي لا يمكن رؤية الصورة.
+                </div>
+            </div>
+
+            <div class="quiz-footer">
+                <button id="showScoreBtn" class="btn-primary">عرض النتيجة</button>
+                <div id="scoreResult" class="score-result"></div>
+            </div>
+        </div>
+
+        <!-- TAB 4: ملخص الكراس -->
+        <div id="summary" class="tab-panel">
+            <div class="summary-card">
+                <h2>📋 ملخص درس مجال المرآة المستوية</h2>
+                <p class="summary-intro">انسخ هذا الملخص في كراسك للمراجعة:</p>
+
+                <div class="summary-section">
+                    <h4>🔑 التعريف</h4>
+                    <ul>
+                        <li><strong>مجال المرآة المستوية:</strong> الجزء من الفضاء الأمامي للمرآة الذي يجب أن تتواجد فيه العين لرؤية صورة الجسم.</li>
+                    </ul>
+                </div>
+
+                <div class="summary-section">
+                    <h4>📐 خطوات تحديد المجال</h4>
+                    <ul>
+                        <li>رسم المرآة وتحديد حافتيها (M<sub>1</sub> و M<sub>2</sub>).</li>
+                        <li>بناء الصورة (A') بالتناظر بالنسبة للمرآة: <strong>d' = d</strong> و <strong>h' = h</strong>.</li>
+                        <li>ربط الصورة (A') بحافتي المرآة بخطين متقطعين (أشعة ظاهرية).</li>
+                        <li>تمديد الخطين إلى الأمام لتحديد <strong>الأشعة المنعكسة القصوى</strong>.</li>
+                        <li>المساحة بين الشعاعين في الجهة الأمامية = <strong>المجال</strong>.</li>
+                    </ul>
+                </div>
+
+                <div class="summary-section">
+                    <h4>🪞 خصائص الصورة (للاستغلال في المجال)</h4>
+                    <ul>
+                        <li>صورة <strong>خيالية</strong> (خلف المرآة).</li>
+                        <li><strong>متساوية الحجم</strong> مع الجسم.</li>
+                        <li><strong>معتدلة</strong> (مستقيمة).</li>
+                        <li>بعدها <strong>يساوي</strong> بعد الجسم.</li>
+                        <li><strong>منقلبة جانبياً</strong>.</li>
+                    </ul>
+                </div>
+
+                <div class="summary-section">
+                    <h4>📊 العوامل المؤثرة</h4>
+                    <ul>
+                        <li>بعد الجسم: كلما ابتعد الجسم <strong>ضاق المجال</strong>.</li>
+                        <li>ارتفاع المرآة: كلما زاد الارتفاع <strong>اتسع المجال</strong>.</li>
+                        <li>يجب أن تكون العين <strong>داخل المجال</strong> لرؤية الصورة.</li>
+                    </ul>
+                </div>
+
+                <div class="summary-section">
+                    <h4>⚠️ تنبيه</h4>
+                    <ul>
+                        <li>لا تخلط بين <strong>الصورة</strong> (نقطة خيالية خلف المرآة) و <strong>المجال</strong> (منطقة أمام المرآة).</li>
+                    </ul>
+                </div>
+
+                <button class="print-btn" onclick="window.print()">🖨️ طباعة الملخص</button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="main-footer">
+        <p>الفيزياء - السنة الرابعة متوسط - منهاج الجيل الثاني - الجزائر</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Tab Switching ---
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = btn.dataset.tab;
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabPanels.forEach(p => p.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.getElementById(target).classList.add('active');
+                    if (target === 'sim') {
+                        drawSim1();
+                        drawSim2();
+                    }
+                });
+            });
+
+            // --- Simulation 1: Field of Plane Mirror (Interactive) ---
+            const canvas1 = document.getElementById('sim1Canvas');
+            const ctx1 = canvas1.getContext('2d');
+            const statusDiv = document.getElementById('sim1Status');
+
+            // State
+            const mirror = { x: 300, y1: 80, y2: 340 };
+            let objPos = { x: 150, y: 210 };
+            let eyePos = { x: 120, y: 120 };
+            let dragging = null;
+
+            function getMousePos(canvas, evt) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                return {
+                    x: (evt.clientX - rect.left) * scaleX,
+                    y: (evt.clientY - rect.top) * scaleY
+                };
+            }
+
+            function dist(p1, p2) {
+                return Math.sqrt((p1.x - p2.x)**2 + (p1.y - p2.y)**2);
+            }
+
+            function isInsideField(px, py) {
+                const imgX = mirror.x + (mirror.x - objPos.x);
+                const imgY = objPos.y;
+
+                // Vectors from image to mirror edges
+                const v1x = mirror.x - imgX;
+                const v1y = mirror.y1 - imgY;
+                const v2x = mirror.x - imgX;
+                const v2y = mirror.y2 - imgY;
+
+                // Line 1 (through m1, direction v1): check side containing m2
+                // Using cross product: v1x*(py - m1y) - v1y*(px - m1x)
+                // At m2: v1x*(m2y - m1y) - v1y*(m2x - m1x) = v1x*(mirror.y2 - mirror.y1) - 0 = positive if v1x > 0
+                // But we want the side where the field is. For point in front of mirror (px < mirror.x),
+                // we want it to be on the same side as m2 relative to line1, and same side as m1 relative to line2.
+                const s1 = v1x * (py - mirror.y1) - v1y * (px - mirror.x);
+                const s1ref = v1x * (mirror.y2 - mirror.y1); // value at m2
+
+                const s2 = v2x * (py - mirror.y2) - v2y * (px - mirror.x);
+                const s2ref = v2x * (mirror.y1 - mirror.y2); // value at m1
+
+                // Must be in front of mirror
+                if (px >= mirror.x - 5) return false;
+
+                // Same sign as reference
+                return (s1 * s1ref >= -1) && (s2 * s2ref >= -1);
+            }
+
+            function drawSim1() {
+                const w = canvas1.width;
+                const h = canvas1.height;
+                ctx1.clearRect(0, 0, w, h);
+
+                // Grid
+                ctx1.strokeStyle = 'rgba(255,255,255,0.03)';
+                ctx1.lineWidth = 1;
+                for (let x = 0; x < w; x += 40) {
+                    ctx1.beginPath(); ctx1.moveTo(x, 0); ctx1.lineTo(x, h); ctx1.stroke();
+                }
+                for (let y = 0; y < h; y += 40) {
+                    ctx1.beginPath(); ctx1.moveTo(0, y); ctx1.lineTo(w, y); ctx1.stroke();
+                }
+
+                // Compute image
+                const imgX = mirror.x + (mirror.x - objPos.x);
+                const imgY = objPos.y;
+
+                // Field polygon (shade region)
+                const dir1x = mirror.x - imgX;
+                const dir1y = mirror.y1 - imgY;
+                const dir2x = mirror.x - imgX;
+                const dir2y = mirror.y2 - imgY;
+
+                // Draw field
+                ctx1.beginPath();
+                ctx1.moveTo(mirror.x, mirror.y1);
+                ctx1.lineTo(mirror.x + 4 * dir1x, mirror.y1 + 4 * dir1y);
+                ctx1.lineTo(mirror.x + 4 * dir2x, mirror.y2 + 4 * dir2y);
+                ctx1.lineTo(mirror.x, mirror.y2);
+                ctx1.closePath();
+                ctx1.fillStyle = 'rgba(34, 197, 94, 0.12)';
+                ctx1.fill();
+                ctx1.strokeStyle = 'rgba(34, 197, 94, 0.4)';
+                ctx1.lineWidth = 1;
+                ctx1.stroke();
+
+                // Mirror
+                ctx1.strokeStyle = '#94a3b8';
+                ctx1.lineWidth = 4;
+                ctx1.beginPath();
+                ctx1.moveTo(mirror.x, mirror.y1);
+                ctx1.lineTo(mirror.x, mirror.y2);
+                ctx1.stroke();
+
+                // Mirror hatching
+                ctx1.strokeStyle = 'rgba(148,163,184,0.5)';
+                ctx1.lineWidth = 1;
+                for (let y = mirror.y1; y < mirror.y2; y += 12) {
+                    ctx1.beginPath();
+                    ctx1.moveTo(mirror.x, y);
+                    ctx1.lineTo(mirror.x + 10, y + 6);
+                    ctx1.stroke();
+                }
+
+                ctx1.fillStyle = '#94a3b8';
+                ctx1.font = 'bold 13px Cairo';
+                ctx1.textAlign = 'center';
+                ctx1.fillText('مرآة مستوية', mirror.x, mirror.y1 - 12);
+
+                // Virtual rays (dashed, behind mirror)
+                ctx1.strokeStyle = 'rgba(6, 182, 212, 0.5)';
+                ctx1.lineWidth = 2;
+                ctx1.setLineDash([6, 4]);
+                ctx1.beginPath();
+                ctx1.moveTo(imgX, imgY);
+                ctx1.lineTo(mirror.x, mirror.y1);
+                ctx1.stroke();
+                ctx1.beginPath();
+                ctx1.moveTo(imgX, imgY);
+                ctx1.lineTo(mirror.x, mirror.y2);
+                ctx1.stroke();
+                ctx1.setLineDash([]);
+
+                // Reflected rays (solid, in front)
+                ctx1.strokeStyle = '#fbbf24';
+                ctx1.lineWidth = 3;
+                ctx1.beginPath();
+                ctx1.moveTo(mirror.x, mirror.y1);
+                ctx1.lineTo(mirror.x + 3 * dir1x, mirror.y1 + 3 * dir1y);
+                ctx1.stroke();
+                ctx1.beginPath();
+                ctx1.moveTo(mirror.x, mirror.y2);
+                ctx1.lineTo(mirror.x + 3 * dir2x, mirror.y2 + 3 * dir2y);
+                ctx1.stroke();
+
+                // Arrowheads on reflected rays
+                drawArrowOnLine(ctx1, mirror.x + 2.5*dir1x, mirror.y1 + 2.5*dir1y, mirror.x, mirror.y1, '#fbbf24');
+                drawArrowOnLine(ctx1, mirror.x + 2.5*dir2x, mirror.y2 + 2.5*dir2y, mirror.x, mirror.y2, '#fbbf24');
+
+                // Image point
+                ctx1.fillStyle = '#06b6d4';
+                ctx1.beginPath();
+                ctx1.arc(imgX, imgY, 6, 0, Math.PI * 2);
+                ctx1.fill();
+                ctx1.fillStyle = '#06b6d4';
+                ctx1.font = 'bold 12px Cairo';
+                ctx1.textAlign = 'center';
+                ctx1.fillText("A'", imgX, imgY - 12);
+
+                // Object point
+                ctx1.fillStyle = '#f97316';
+                ctx1.beginPath();
+                ctx1.arc(objPos.x, objPos.y, 8, 0, Math.PI * 2);
+                ctx1.fill();
+                ctx1.fillStyle = '#f97316';
+                ctx1.font = 'bold 12px Cairo';
+                ctx1.fillText('A', objPos.x, objPos.y + 22);
+
+                // Eye point
+                const inField = isInsideField(eyePos.x, eyePos.y);
+                ctx1.fillStyle = inField ? '#22c55e' : '#ef4444';
+                ctx1.beginPath();
+                ctx1.arc(eyePos.x, eyePos.y, 9, 0, Math.PI * 2);
+                ctx1.fill();
+                ctx1.fillStyle = '#fff';
+                ctx1.beginPath();
+                ctx1.arc(eyePos.x - 2, eyePos.y - 1, 3, 0, Math.PI * 2);
+                ctx1.fill();
+                ctx1.beginPath();
+                ctx1.arc(eyePos.x + 2, eyePos.y - 1, 3, 0, Math.PI * 2);
+                ctx1.fill();
+
+                // Ray from object to mirror edge to eye (if in field, show one ray)
+                if (inField) {
+                    ctx1.strokeStyle = 'rgba(251, 191, 36, 0.6)';
+                    ctx1.lineWidth = 2;
+                    ctx1.setLineDash([4, 3]);
+                    ctx1.beginPath();
+                    ctx1.moveTo(objPos.x, objPos.y);
+                    ctx1.lineTo(mirror.x, (mirror.y1 + mirror.y2)/2);
+                    ctx1.lineTo(eyePos.x, eyePos.y);
+                    ctx1.stroke();
+                    ctx1.setLineDash([]);
+                }
+
+                // Status
+                if (inField) {
+                    statusDiv.textContent = '✓ العين داخل المجال: يمكن رؤية الصورة';
+                    statusDiv.className = 'status-badge status-in';
+                } else {
+                    statusDiv.textContent = '✗ العين خارج المجال: لا يمكن رؤية الصورة';
+                    statusDiv.className = 'status-badge status-out';
+                }
+
+                // Labels M1, M2
+                ctx1.fillStyle = '#94a3b8';
+                ctx1.font = '11px Cairo';
+                ctx1.textAlign = 'left';
+                ctx1.fillText('M₁', mirror.x + 5, mirror.y1 + 15);
+                ctx1.fillText('M₂', mirror.x + 5, mirror.y2 - 5);
+            }
+
+            function drawArrowOnLine(ctx, toX, toY, fromX, fromY, color) {
+                const headlen = 10;
+                const dx = toX - fromX;
+                const dy = toY - fromY;
+                const angle = Math.atan2(dy, dx);
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.moveTo(toX, toY);
+                ctx.lineTo(toX - headlen * Math.cos(angle - Math.PI/6), toY - headlen * Math.sin(angle - Math.PI/6));
+                ctx.lineTo(toX - headlen * Math.cos(angle + Math.PI/6), toY - headlen * Math.sin(angle + Math.PI/6));
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            // Mouse events for canvas1
+            canvas1.addEventListener('mousedown', function(e) {
+                const pos = getMousePos(canvas1, e);
+                if (dist(pos, objPos) < 20) dragging = 'obj';
+                else if (dist(pos, eyePos) < 20) dragging = 'eye';
+            });
+
+            canvas1.addEventListener('mousemove', function(e) {
+                if (!dragging) return;
+                const pos = getMousePos(canvas1, e);
+                if (dragging === 'obj') {
+                    objPos.x = Math.max(20, Math.min(mirror.x - 30, pos.x));
+                    objPos.y = Math.max(40, Math.min(380, pos.y));
+                } else if (dragging === 'eye') {
+                    eyePos.x = Math.max(20, Math.min(mirror.x - 10, pos.x));
+                    eyePos.y = Math.max(20, Math.min(400, pos.y));
+                }
+                drawSim1();
+            });
+
+            window.addEventListener('mouseup', () => dragging = null);
+
+            // Touch support
+            canvas1.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const rect = canvas1.getBoundingClientRect();
+                const pos = {
+                    x: (touch.clientX - rect.left) * (canvas1.width / rect.width),
+                    y: (touch.clientY - rect.top) * (canvas1.height / rect.height)
+                };
+                if (dist(pos, objPos) < 25) dragging = 'obj';
+                else if (dist(pos, eyePos) < 25) dragging = 'eye';
+            }, {passive: false});
+
+            canvas1.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+                if (!dragging) return;
+                const touch = e.touches[0];
+                const rect = canvas1.getBoundingClientRect();
+                const pos = {
+                    x: (touch.clientX - rect.left) * (canvas1.width / rect.width),
+                    y: (touch.clientY - rect.top) * (canvas1.height / rect.height)
+                };
+                if (dragging === 'obj') {
+                    objPos.x = Math.max(20, Math.min(mirror.x - 30, pos.x));
+                    objPos.y = Math.max(40, Math.min(380, pos.y));
+                } else if (dragging === 'eye') {
+                    eyePos.x = Math.max(20, Math.min(mirror.x - 10, pos.x));
+                    eyePos.y = Math.max(20, Math.min(400, pos.y));
+                }
+                drawSim1();
+            }, {passive: false});
+
+            canvas1.addEventListener('touchend', () => dragging = null);
+
+            // --- Simulation 2: Effect of Distance ---
+            const canvas2 = document.getElementById('sim2Canvas');
+            const ctx2 = canvas2.getContext('2d');
+            const distSlider = document.getElementById('distSlider');
+            const distValue = document.getElementById('distValue');
+
+            function drawSim2() {
+                const w = canvas2.width;
+                const h = canvas2.height;
+                const mirrorX = 320;
+                const mirrorY1 = 80;
+                const mirrorY2 = 340;
+                const dist = parseInt(distSlider.value);
+                const objX = mirrorX - dist;
+                const objY = 210;
+                const imgX = mirrorX + dist;
+                const imgY = objY;
+
+                ctx2.clearRect(0, 0, w, h);
+
+                // Grid
+                ctx2.strokeStyle = 'rgba(255,255,255,0.03)';
+                ctx2.lineWidth = 1;
+                for (let x = 0; x < w; x += 40) {
+                    ctx2.beginPath(); ctx2.moveTo(x, 0); ctx2.lineTo(x, h); ctx2.stroke();
+                }
+                for (let y = 0; y < h; y += 40) {
+                    ctx2.beginPath(); ctx2.moveTo(0, y); ctx2.lineTo(w, y); ctx2.stroke();
+                }
+
+                // Directions
+                const dir1x = mirrorX - imgX;
+                const dir1y = mirrorY1 - imgY;
+                const dir2x = mirrorX - imgX;
+                const dir2y = mirrorY2 - imgY;
+
+                // Field shade
+                ctx2.beginPath();
+                ctx2.moveTo(mirrorX, mirrorY1);
+                ctx2.lineTo(mirrorX + 3.5 * dir1x, mirrorY1 + 3.5 * dir1y);
+                ctx2.lineTo(mirrorX + 3.5 * dir2x, mirrorY2 + 3.5 * dir2y);
+                ctx2.lineTo(mirrorX, mirrorY2);
+                ctx2.closePath();
+                ctx2.fillStyle = 'rgba(34, 197, 94, 0.12)';
+                ctx2.fill();
+                ctx2.strokeStyle = 'rgba(34, 197, 94, 0.4)';
+                ctx2.lineWidth = 1;
+                ctx2.stroke();
+
+                // Mirror
+                ctx2.strokeStyle = '#94a3b8';
+                ctx2.lineWidth = 4;
+                ctx2.beginPath();
+                ctx2.moveTo(mirrorX, mirrorY1);
+                ctx2.lineTo(mirrorX, mirrorY2);
+                ctx2.stroke();
+
+                ctx2.strokeStyle = 'rgba(148,163,184,0.5)';
+                ctx2.lineWidth = 1;
+                for (let y = mirrorY1; y < mirrorY2; y += 12) {
+                    ctx2.beginPath();
+                    ctx2.moveTo(mirrorX, y);
+                    ctx2.lineTo(mirrorX + 10, y + 6);
+                    ctx2.stroke();
+                }
+
+                // Virtual rays (dashed)
+                ctx2.strokeStyle = 'rgba(6, 182, 212, 0.5)';
+                ctx2.lineWidth = 2;
+                ctx2.setLineDash([6, 4]);
+                ctx2.beginPath();
+                ctx2.moveTo(imgX, imgY);
+                ctx2.lineTo(mirrorX, mirrorY1);
+                ctx2.stroke();
+                ctx2.beginPath();
+                ctx2.moveTo(imgX, imgY);
+                ctx2.lineTo(mirrorX, mirrorY2);
+                ctx2.stroke();
+                ctx2.setLineDash([]);
+
+                // Reflected rays
+                ctx2.strokeStyle = '#fbbf24';
+                ctx2.lineWidth = 3;
+                ctx2.beginPath();
+                ctx2.moveTo(mirrorX, mirrorY1);
+                ctx2.lineTo(mirrorX + 3 * dir1x, mirrorY1 + 3 * dir1y);
+                ctx2.stroke();
+                ctx2.beginPath();
+                ctx2.moveTo(mirrorX, mirrorY2);
+                ctx2.lineTo(mirrorX + 3 * dir2x, mirrorY2 + 3 * dir2y);
+                ctx2.stroke();
+
+                drawArrowOnLine(ctx2, mirrorX + 2.5*dir1x, mirrorY1 + 2.5*dir1y, mirrorX, mirrorY1, '#fbbf24');
+                drawArrowOnLine(ctx2, mirrorX + 2.5*dir2x, mirrorY2 + 2.5*dir2y, mirrorX, mirrorY2, '#fbbf24');
+
+                // Object
+                ctx2.fillStyle = '#f97316';
+                ctx2.beginPath();
+                ctx2.arc(objX, objY, 8, 0, Math.PI * 2);
+                ctx2.fill();
+                ctx2.fillStyle = '#f97316';
+                ctx2.font = 'bold 12px Cairo';
+                ctx2.textAlign = 'center';
+                ctx2.fillText('A', objX, objY + 22);
+
+                // Image
+                ctx2.fillStyle = '#06b6d4';
+                ctx2.beginPath();
+                ctx2.arc(imgX, imgY, 6, 0, Math.PI * 2);
+                ctx2.fill();
+                ctx2.fillStyle = '#06b6d4';
+                ctx2.fillText("A'", imgX, imgY - 12);
+
+                // Distance label
+                ctx2.strokeStyle = '#f59e0b';
+                ctx2.lineWidth = 1;
+                ctx2.setLineDash([4, 4]);
+                ctx2.beginPath();
+                ctx2.moveTo(objX, objY + 35);
+                ctx2.lineTo(mirrorX, objY + 35);
+                ctx2.stroke();
+                ctx2.setLineDash([]);
+                ctx2.fillStyle = '#f59e0b';
+                ctx2.font = '12px Cairo';
+                ctx2.fillText('d = ' + dist, (objX + mirrorX)/2, objY + 52);
+
+                // Angle arc at image (to show field angle)
+                const ang1 = Math.atan2(mirrorY1 - imgY, mirrorX - imgX);
+                const ang2 = Math.atan2(mirrorY2 - imgY, mirrorX - imgX);
+                ctx2.strokeStyle = '#22c55e';
+                ctx2.lineWidth = 2;
+                ctx2.beginPath();
+                ctx2.arc(imgX, imgY, 40, ang1, ang2);
+                ctx2.stroke();
+                ctx2.fillStyle = '#22c55e';
+                ctx2.font = '11px Cairo';
+                const midAng = (ang1 + ang2) / 2;
+                ctx2.fillText('زاوية المجال', imgX + 55 * Math.cos(midAng), imgY + 55 * Math.sin(midAng));
+
+                // Labels
+                ctx2.fillStyle = '#94a3b8';
+                ctx2.font = '11px Cairo';
+                ctx2.textAlign = 'left';
+                ctx2.fillText('M₁', mirrorX + 5, mirrorY1 + 15);
+                ctx2.fillText('M₂', mirrorX + 5, mirrorY2 - 5);
+            }
+
+            distSlider.addEventListener('input', function() {
+                distValue.textContent = this.value + ' بكسل';
+                drawSim2();
+            });
+
+            // --- Quiz Logic ---
+            const questionCards = document.querySelectorAll('.question-card');
+            let score = 0;
+            let answeredCount = 0;
+            const totalQuestions = questionCards.length;
+
+            questionCards.forEach(card => {
+                const options = card.querySelectorAll('.option');
+                const feedback = card.querySelector('.q-feedback');
+
+                options.forEach(opt => {
+                    opt.addEventListener('click', function() {
+                        if (card.classList.contains('answered')) return;
+                        card.classList.add('answered');
+                        answeredCount++;
+
+                        const isCorrect = this.dataset.correct === 'true';
+                        if (isCorrect) {
+                            this.classList.add('correct');
+                            score++;
+                        } else {
+                            this.classList.add('wrong');
+                            options.forEach(o => {
+                                if (o.dataset.correct === 'true') o.classList.add('correct');
+                            });
+                        }
+
+                        options.forEach(o => o.classList.add('disabled'));
+                        feedback.classList.add('show');
+                    });
+                });
+            });
+
+            document.getElementById('showScoreBtn').addEventListener('click', function() {
+                const resultDiv = document.getElementById('scoreResult');
+                let msg = '';
+                let cls = '';
+
+                if (score === 5) {
+                    msg = '🌟 ممتاز! أتقنت درس مجال المرآة المستوية. (5/5)';
+                    cls = 'score-excellent';
+                } else if (score === 4) {
+                    msg = '👏 جيد جدا! فهمك قوي، راجع النقطة التي أخطأت فيها. (4/5)';
+                    cls = 'score-good';
+                } else if (score === 3) {
+                    msg = '👍 جيد. يحتاج الأمر بعض المراجعة. راجع ملخص الدرس. (3/5)';
+                    cls = 'score-average';
+                } else {
+                    msg = `📚 تحتاج لمراجعة الدرس من جديد. لا تيأس، حاول مرة أخرى! (${score}/5)`;
+                    cls = 'score-low';
+                }
+
+                resultDiv.textContent = msg;
+                resultDiv.className = 'score-result show ' + cls;
+            });
+
+            // Initial draws
+            drawSim1();
+            drawSim2();
+        });
+    </script>
+</body>
+</html>
