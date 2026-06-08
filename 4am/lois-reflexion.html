@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قانون الإنعكاس - السنة الرابعة متوسط</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark: #0a0f1e;
+            --dark2: #111827;
+            --dark3: #1a2540;
+            --blue: #2563eb;
+            --blue2: #3b82f6;
+            --cyan: #06b6d4;
+            --gold: #f59e0b;
+            --gold2: #fbbf24;
+            --red: #ef4444;
+            --green: #22c55e;
+            --orange: #f97316;
+            --indigo: #6366f1;
+            --purple: #a855f7;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.8;
+            direction: rtl;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Amiri', serif; font-weight: 700; }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header */
+        .main-header {
+            background: var(--dark2);
+            border-bottom: 1px solid var(--dark3);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .back-btn {
+            color: var(--cyan);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .back-btn:hover { color: var(--blue2); }
+
+        .breadcrumbs {
+            color: var(--muted);
+            font-size: 0.9rem;
+            flex: 1;
+            text-align: center;
+        }
+
+        .breadcrumbs span {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .level-badge {
+            background: linear-gradient(135deg, var(--blue), var(--indigo));
+            color: white;
+            padding: 0.35rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--dark2) 0%, var(--dark3) 100%);
+            padding: 3rem 0 2.5rem;
+            border-bottom: 1px solid var(--dark3);
+        }
+
+        .lesson-meta {
+            color: var(--cyan);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .lesson-title {
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .lesson-title em {
+            color: var(--gold);
+            font-style: normal;
+            position: relative;
+        }
+
+        .lesson-title em::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--orange));
+            border-radius: 2px;
+        }
+
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: rgba(37, 99, 235, 0.15);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            color: var(--blue2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .objectives-box {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .objectives-box h3 {
+            color: var(--gold2);
+            margin-bottom: 0.75rem;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.1rem;
+        }
+
+        .objectives-box ul {
+            list-style: none;
+        }
+
+        .objectives-box li {
+            padding: 0.3rem 0;
+            padding-right: 1.5rem;
+            position: relative;
+            color: var(--text);
+        }
+
+        .objectives-box li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        /* Nav */
+        .tab-nav {
+            position: sticky;
+            top: 0;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--dark3);
+            z-index: 100;
+            padding: 0.75rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-container::-webkit-scrollbar { display: none; }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn:hover {
+            color: var(--text);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .tab-btn.active {
+            color: var(--cyan);
+            background: rgba(6, 182, 212, 0.1);
+            border-bottom-color: var(--cyan);
+        }
+
+        /* Main & Tabs */
+        .main-content {
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--dark3);
+        }
+
+        .sec-icon { font-size: 1.4rem; }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        /* Definition Box */
+        .def-box {
+            background: rgba(245, 158, 11, 0.08);
+            border-right: 4px solid var(--gold);
+            padding: 1.25rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        .def-box strong { color: var(--gold2); }
+
+        /* Formula Box */
+        .formula-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.1));
+            border: 1px solid var(--indigo);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .formula {
+            font-family: 'Amiri', serif;
+            font-size: 2.5rem;
+            color: var(--text);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .formula-desc { text-align: right; }
+
+        .formula-desc ul {
+            list-style: none;
+            margin: 0.5rem 0;
+        }
+
+        .formula-desc li {
+            padding: 0.25rem 0;
+            color: var(--muted);
+        }
+
+        .formula-desc strong { color: var(--blue2); }
+
+        .formula-note {
+            text-align: center;
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 0.5rem;
+        }
+
+        /* Terms Grid */
+        .terms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .term-card {
+            background: var(--dark2);
+            border: 1px solid var(--dark3);
+            border-radius: 10px;
+            padding: 1rem;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .term-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--blue);
+        }
+
+        .term-card h4 {
+            color: var(--cyan);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .term-card p {
+            font-size: 0.95rem;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        /* Table */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--dark2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .info-table th {
+            background: var(--dark3);
+            color: var(--gold);
+            padding: 1rem;
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .info-table td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid var(--dark3);
+            color: var(--text);
+        }
+
+        .info-table tr:hover { background: rgba(255,255,255,0.03); }
+
+        .info-table tr:last-child td { border-bottom: none; }
+
+        /* Types Comparison */
+        .types-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .type-box {
+            background: var(--dark2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-top: 4px solid var(--blue);
+        }
+
+        .type-box:last-child { border-top-color: var(--orange); }
+
+        .type-box h4 {
+            color: var(--text);
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .type-box p { color: var(--muted); margin: 0; }
+
+        /* Simulations */
+        .sim-container {
+            background: var(--dark2);
+            border: 1px solid var(--dark3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .sim-title {
+            color: var(--cyan);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-family: 'Amiri', serif;
+        }
+
+        .canvas-wrapper {
+            background: var(--dark);
+            border-radius: 12px;
+            border: 1px solid var(--dark3);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .sim-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            background: var(--dark3);
+            padding: 1rem 1.25rem;
+            border-radius: 10px;
+        }
+
+        .sim-controls label {
+            color: var(--text);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .sim-controls input[type="range"] {
+            flex: 1;
+            min-width: 200px;
+            accent-color: var(--cyan);
+        }
+
+        .value-display {
+            background: var(--dark);
+            color: var(--cyan);
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-weight: 700;
+            min-width: 100px;
+            text-align: center;
+            border: 1px solid var(--dark3);
+        }
+
+        .sim-info {
+            background: rgba(6, 182, 212, 0.08);
+            border-right: 4px solid var(--cyan);
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .sim-info strong { color: var(--text); }
+
+        /* Quiz */
+        .quiz-header { margin-bottom: 2rem; }
+
+        .quiz-header h2 {
+            color: var(--text);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-header p { color: var(--muted); }
+
+        .question-card {
+            background: var(--dark2);
+            border: 1px solid var(--dark3);
+            border-radius: 14px;
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s;
+        }
+
+        .question-card:hover { border-color: rgba(255,255,255,0.1); }
+
+        .q-text {
+            color: var(--text);
+            font-size: 1.15rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.6;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .options { display: grid; gap: 0.75rem; }
+
+        .option {
+            background: var(--dark);
+            border: 2px solid var(--dark3);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .option:hover {
+            border-color: var(--blue);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .option.correct {
+            border-color: var(--green);
+            background: rgba(34, 197, 94, 0.15);
+            cursor: default;
+        }
+
+        .option.wrong {
+            border-color: var(--red);
+            background: rgba(239, 68, 68, 0.15);
+            cursor: default;
+        }
+
+        .option.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .q-feedback {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(37, 99, 235, 0.1);
+            border-right: 4px solid var(--blue);
+            border-radius: 8px;
+            color: var(--text);
+            line-height: 1.7;
+            animation: slideDown 0.3s ease;
+        }
+
+        .q-feedback.show { display: block; }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--dark3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--blue), var(--indigo));
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .score-result {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: none;
+        }
+
+        .score-result.show { display: block; }
+
+        .score-excellent {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+
+        .score-good {
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--cyan);
+            border: 1px solid var(--cyan);
+        }
+
+        .score-average {
+            background: rgba(249, 115, 22, 0.15);
+            color: var(--orange);
+            border: 1px solid var(--orange);
+        }
+
+        .score-low {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--red);
+            border: 1px solid var(--red);
+        }
+
+        /* Summary */
+        .summary-card {
+            background: var(--dark2);
+            border: 1px solid var(--dark3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .summary-card h2 {
+            text-align: center;
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-intro {
+            text-align: center;
+            color: var(--muted);
+            margin-bottom: 2rem;
+        }
+
+        .summary-section {
+            margin-bottom: 1.75rem;
+        }
+
+        .summary-section h4 {
+            color: var(--cyan);
+            font-size: 1.15rem;
+            margin-bottom: 0.75rem;
+            font-family: 'Cairo', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .summary-section ul { list-style: none; }
+
+        .summary-section li {
+            padding: 0.4rem 0;
+            padding-right: 1.5rem;
+            position: relative;
+            color: var(--text);
+        }
+
+        .summary-section li::before {
+            content: '✦';
+            position: absolute;
+            right: 0;
+            color: var(--gold);
+        }
+
+        .summary-section strong { color: var(--gold2); }
+
+        .print-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 2rem auto 0;
+            background: linear-gradient(135deg, var(--blue), var(--cyan));
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
+        }
+
+        /* Footer */
+        .main-footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--dark3);
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .lesson-title { font-size: 1.8rem; }
+            .header-content { flex-direction: column; align-items: flex-start; }
+            .breadcrumbs { text-align: right; width: 100%; }
+            .formula { font-size: 2rem; }
+            .sim-controls { flex-direction: column; align-items: stretch; }
+            .summary-card { padding: 1.5rem; }
+        }
+
+        /* Print Styles */
+        @media print {
+            body { background: white !important; color: black !important; }
+            .main-header, .tab-nav, .hero, .main-footer, .btn-primary, .tab-panel { display: none !important; }
+            #summary.tab-panel {
+                display: block !important;
+                animation: none !important;
+            }
+            .summary-card {
+                background: white !important;
+                border: 1px solid #ccc !important;
+                color: black !important;
+                box-shadow: none !important;
+            }
+            .summary-card h2, .summary-section h4, .summary-section strong { color: black !important; }
+            .summary-section li { color: black !important; }
+            .summary-section li::before { color: black !important; }
+            .print-btn { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container header-content">
+            <a href="#" class="back-btn">← العودة للفهرس</a>
+            <div class="breadcrumbs">
+                <span>س4م</span> / <span>المقطع: الظواهر الضوئية</span>
+            </div>
+            <span class="level-badge">الجيل الثاني</span>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="lesson-meta">الدرس الثاني: قانون الانعكاس</div>
+            <h1 class="lesson-title">قانون <em>الانعكاس</em> والمرآة المستوية</h1>
+            <div class="meta-tags">
+                <span class="tag">المقطع: الظواهر الضوئية</span>
+                <span class="tag">الشهر: فبراير</span>
+                <span class="tag">المدة: 3 ساعات</span>
+                <span class="tag">منهاج الجيل الثاني</span>
+            </div>
+            <div class="objectives-box">
+                <h3>🎯 الأهداف التعلمية</h3>
+                <ul>
+                    <li>تعريف ظاهرة الانعكاس والتمييز بين أنواعه</li>
+                    <li>استنتاج قانون الانعكاس (زاوية السقوط = زاوية الانعكاس)</li>
+                    <li>تحديد خصائص الصورة المتكونة في المرآة المستوية</li>
+                    <li>حل مسائل تطبيقية باستخدام قانون الانعكاس</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <nav class="tab-nav">
+        <div class="container nav-container">
+            <button class="tab-btn active" data-tab="lesson">📖 الدرس</button>
+            <button class="tab-btn" data-tab="sim">🎯 محاكاة تفاعلية</button>
+            <button class="tab-btn" data-tab="quiz">✏️ تمارين</button>
+            <button class="tab-btn" data-tab="summary">📋 ملخص الكراس</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container main-content">
+
+        <!-- TAB 1: الدرس -->
+        <div id="lesson" class="tab-panel active">
+            <div class="section">
+                <h2 class="section-title"><span class="sec-icon">💡</span> I. مقدمة وتعريفات</h2>
+                <div class="def-box">
+                    <strong>الانعكاس:</strong> هو تغير اتجاه انتشار الضوء عند اصطدامه بسطح فاصل بين وسطين مختلفين (مثل الهواء والزجاج).
+                </div>
+                <p>عندما يصطدم شعاع ضوئي بسطح ما، فإنه يرتد عن هذا السطح وتسمى هذه الظاهرة <strong>الانعكاس</strong>. ولكي ندرس هذه الظاهرة بدقة، يجب أن نعرف بعض المصطلحات الأساسية:</p>
+                <div class="terms-grid">
+                    <div class="term-card">
+                        <h4>الشعاع الساقط</h4>
+                        <p>الشعاع الضوئي القادم من المصدر ويصطدم بالسطح العاكس.</p>
+                    </div>
+                    <div class="term-card">
+                        <h4>الشعاع المنعكس</h4>
+                        <p>الشعاع الضوئي الذي يرتد عن السطح العاكس بعد الاصطدام.</p>
+                    </div>
+                    <div class="term-card">
+                        <h4>نقطة السقوط</h4>
+                        <p>النقطة التي يصطدم عندها الشعاع الساقط بالسطح العاكس.</p>
+                    </div>
+                    <div class="term-card">
+                        <h4>العمود المقام</h4>
+                        <p>الخط العمودي على السطح العاكس عند نقطة السقوط.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title"><span class="sec-icon">📐</span> II. قانون الانعكاس</h2>
+                <p>بعد دراسة ظاهرة الانعكاس، نستنتج القانون التالي:</p>
+                <div class="formula-box">
+                    <div class="formula">i = r</div>
+                    <div class="formula-desc">
+                        <p><strong>حيث:</strong></p>
+                        <ul>
+                            <li><strong>i</strong> : زاوية السقوط (الزاوية بين الشعاع الساقط والعمود المقام)</li>
+                            <li><strong>r</strong> : زاوية الانعكاس (الزاوية بين الشعاع المنعكس والعمود المقام)</li>
+                        </ul>
+                        <p class="formula-note">الوحدة: الدرجة (°)</p>
+                    </div>
+                </div>
+                <div class="def-box" style="border-color: var(--cyan); background: rgba(6,182,212,0.1);">
+                    <strong>القانون الكامل للانعكاس:</strong>
+                    <ul style="margin-top: 0.5rem; padding-right: 1.2rem;">
+                        <li>الشعاع الساقط والشعاع المنعكس والعمود المقام على نقطة السقوط تقع في نفس المستوى.</li>
+                        <li>زاوية السقوط تساوي زاوية الانعكاس ( i = r ).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title"><span class="sec-icon">🪞</span> III. الانعكاس على المرآة المستوية</h2>
+                <p>المرآة المستوية هي سطح أملس وعاكس (مثل المرآة العادية). عندما نضع جسمًا أمام مرآة مستوية، تتكون <strong>صورة</strong> خلف المرآة.</p>
+                <h3 style="color: var(--cyan); margin: 1.5rem 0 1rem; font-family: 'Cairo', sans-serif;">خصائص الصورة في المرآة المستوية:</h3>
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>الخاصية</th>
+                            <th>الوصف</th>
+                            <th>الرمز/القيمة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>طبيعة الصورة</td>
+                            <td>خيالية (لا يمكن تلقيها على شاشة)</td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td>الاتجاه</td>
+                            <td>معتدلة (مستقيمة، غير مقلوبة رأسيًا)</td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td>الحجم</td>
+                            <td>متساوٍ مع حجم الجسم</td>
+                            <td>h' = h</td>
+                        </tr>
+                        <tr>
+                            <td>البعد</td>
+                            <td>يساوي بعد الجسم عن المرآة</td>
+                            <td>d' = d</td>
+                        </tr>
+                        <tr>
+                            <td>الانقلاب</td>
+                            <td>منقلبة جانبياً (يمين ويسار معكوسان)</td>
+                            <td>—</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title"><span class="sec-icon">🔄</span> IV. أنواع الانعكاس</h2>
+                <div class="types-comparison">
+                    <div class="type-box">
+                        <h4>الانعكاس النظامي (المنتظم)</h4>
+                        <p>يحدث على <strong>سطح أملس</strong> (مثل المرآة). تنعكس الأشعة بشكل موازٍ وتبقى متوازية بعد الانعكاس.</p>
+                    </div>
+                    <div class="type-box">
+                        <h4>الانعكاس غير النظامي (المنتشر)</h4>
+                        <p>يحدث على <strong>سطح خشن</strong> (مثل الورق أو الجدار). تنعكس الأشعة في اتجاهات مختلفة مما يسمح برؤية الأجسام من مختلف الزوايا.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: محاكاة تفاعلية -->
+        <div id="sim" class="tab-panel">
+            <div class="sim-container">
+                <h3 class="sim-title">🔬 المحاكاة الأولى: قانون الانعكاس (i = r)</h3>
+                <div class="canvas-wrapper">
+                    <canvas id="sim1Canvas" width="600" height="400"></canvas>
+                </div>
+                <div class="sim-controls">
+                    <label for="angleSlider">زاوية السقوط (i):</label>
+                    <input type="range" id="angleSlider" min="0" max="85" value="40">
+                    <span id="angleValue" class="value-display">40°</span>
+                </div>
+                <div class="sim-info">
+                    <p>حرك شريط التمرير لتغيير زاوية السقوط. لاحظ أن <strong>زاوية الانعكاس (r)</strong> تتغير لتبقى دائمًا مساوية لزاوية السقوط (i). كما لاحظ أن الشعاع الساقط والشعاع المنعكس والعمود المقام يقعان في نفس المستوى.</p>
+                </div>
+            </div>
+
+            <div class="sim-container">
+                <h3 class="sim-title">🪞 المحاكاة الثانية: الصورة في المرآة المستوية</h3>
+                <div class="canvas-wrapper">
+                    <canvas id="sim2Canvas" width="600" height="400"></canvas>
+                </div>
+                <div class="sim-controls">
+                    <label for="distSlider">بعد الجسم عن المرآة:</label>
+                    <input type="range" id="distSlider" min="50" max="200" value="100">
+                    <span id="distValue" class="value-display">100 بكسل</span>
+                </div>
+                <div class="sim-info">
+                    <p>حرك شريط التمرير لتحريك الجسم أمام المرآة. لاحظ أن <strong>الصورة</strong> تتشكل خلف المرآة بنفس البعد، وأنها <strong>خيالية</strong> (ممتدة خلف المرآة) و<strong>معتدلة</strong> و<strong>متساوية الحجم</strong>. الخطوط المنقطة تمثل الأشعة الظاهرية التي تدخل العين.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: تمارين -->
+        <div id="quiz" class="tab-panel">
+            <div class="quiz-header">
+                <h2>✏️ تمارين تفاعلية</h2>
+                <p>اختبر فهمك لدرس قانون الانعكاس من خلال هذه الأسئلة:</p>
+            </div>
+
+            <div class="question-card" data-q="1">
+                <h4 class="q-text">1. ما هو تعريف ظاهرة الانعكاس الضوئي؟</h4>
+                <div class="options">
+                    <div class="option" data-correct="true">أ. تغير اتجاه انتشار الضوء عند اصطدامه بسطح فاصل بين وسطين</div>
+                    <div class="option">ب. انحناء الضوء عند مروره من وسط شفاف لآخر</div>
+                    <div class="option">ج. تجزؤ الضوء الأبيض إلى ألوانه الطيفية</div>
+                    <div class="option">د. اختراق الضوء للأجسام المعتمة</div>
+                </div>
+                <div class="q-feedback">
+                    <strong>الإجابة الصحيحة:</strong> أ. الانعكاس هو تغير اتجاه انتشار الضوء عند اصطدامه بسطح فاصل بين وسطين مختلفين (مثل الهواء والزجاج).
+                </div>
+            </div>
+
+            <div class="question-card" data-q="2">
+                <h4 class="q-text">2. وفق قانون الانعكاس، فإن: (حيث i هي زاوية السقوط، و r هي زاوية الانعكاس)</h4>
+                <div class="options">
+                    <div class="option">أ. i > r</div>
+                    <div class="option">ب. i < r</div>
+                    <div class="option" data-correct="true">ج. i = r</div>
+                    <div class="option">د. i + r = 180°</div>
+                </div>
+                <div class="q-feedback">
+                    <strong>الإجابة الصحيحة:</strong> ج. ينص قانون الانعكاس على أن زاوية السقوط تساوي زاوية الانعكاس دائمًا.
+                </div>
+            </div>
+
+            <div class="question-card" data-q="3">
+                <h4 class="q-text">3. إذا كانت زاوية السقوط على سطح عاكس تساوي 35°، فإن زاوية الانعكاس تساوي:</h4>
+                <div class="options">
+                    <div class="option">أ. 55°</div>
+                    <div class="option" data-correct="true">ب. 35°</div>
+                    <div class="option">ج. 70°</div>
+                    <div class="option">د. 90°</div>
+                </div>
+                <div class="q-feedback">
+                    <strong>الإجابة الصحيحة:</strong> ب. طبقًا لقانون الانعكاس i = r، إذا كانت i = 35° فإن r = 35° أيضًا.
+                </div>
+            </div>
+
+            <div class="question-card" data-q="4">
+                <h4 class="q-text">4. الزاوية المحصورة بين الشعاع الساقط والشعاع المنعكس عندما تكون زاوية السقوط 40° تساوي:</h4>
+                <div class="options">
+                    <div class="option">أ. 40°</div>
+                    <div class="option">ب. 50°</div>
+                    <div class="option" data-correct="true">ج. 80°</div>
+                    <div class="option">د. 140°</div>
+                </div>
+                <div class="q-feedback">
+                    <strong>الإجابة الصحيحة:</strong> ج. الزاوية بين الشعاعين = i + r = 40° + 40° = 80°.
+                </div>
+            </div>
+
+            <div class="question-card" data-q="5">
+                <h4 class="q-text">5. أي من الخصائص التالية <strong>لا</strong> تنطبق على الصورة المتكونة في المرآة المستوية؟</h4>
+                <div class="options">
+                    <div class="option">أ. الصورة خيالية</div>
+                    <div class="option">ب. الصورة معتدلة (مستقيمة)</div>
+                    <div class="option" data-correct="true">ج. الصورة مكبرة</div>
+                    <div class="option">د. بعد الصورة يساوي بعد الجسم</div>
+                </div>
+                <div class="q-feedback">
+                    <strong>الإجابة الصحيحة:</strong> ج. الصورة في المرآة المستوية متساوية الحجم مع الجسم (h' = h)، وليست مكبرة. أما باقي الخصائص فهي صحيحة.
+                </div>
+            </div>
+
+            <div class="quiz-footer">
+                <button id="showScoreBtn" class="btn-primary">عرض النتيجة</button>
+                <div id="scoreResult" class="score-result"></div>
+            </div>
+        </div>
+
+        <!-- TAB 4: ملخص الكراس -->
+        <div id="summary" class="tab-panel">
+            <div class="summary-card">
+                <h2>📋 ملخص درس قانون الانعكاس</h2>
+                <p class="summary-intro">انسخ هذا الملخص في كراسك للمراجعة:</p>
+
+                <div class="summary-section">
+                    <h4>🔑 التعريفات الأساسية</h4>
+                    <ul>
+                        <li><strong>الانعكاس:</strong> تغير اتجاه انتشار الضوء عند اصطدامه بسطح فاصل بين وسطين.</li>
+                        <li><strong>الشعاع الساقط:</strong> الشعاع القادم من المصدر.</li>
+                        <li><strong>الشعاع المنعكس:</strong> الشعاع المرتد عن السطح.</li>
+                        <li><strong>العمود المقام:</strong> الخط العمودي على السطح عند نقطة السقوط.</li>
+                    </ul>
+                </div>
+
+                <div class="summary-section">
+                    <h4>📐 قانون الانعكاس</h4>
+                    <ul>
+                        <li>الشعاع الساقط والشعاع المنعكس والعمود المقام في نفس المستوى.</li>
+                        <li><strong>i = r</strong> (زاوية السقوط = زاوية الانعكاس).</li>
+                    </ul>
+                </div>
+
+                <div class="summary-section">
+                    <h4>🪞 خصائص الصورة في المرآة المستوية</h4>
+                    <ul>
+                        <li>صورة <strong>خيالية</strong> (لا تتلقى على شاشة).</li>
+                        <li><strong>معتدلة</strong> (مستقيمة).</li>
+                        <li><strong>متساوية الحجم</strong> مع الجسم.</li>
+                        <li>بعد الصورة <strong>يساوي</strong> بعد الجسم.</li>
+                        <li><strong>منقلبة جانبياً</strong> (يمين/يسار).</li>
+                    </ul>
+                </div>
+
+                <div class="summary-section">
+                    <h4>🔄 أنواع الانعكاس</h4>
+                    <ul>
+                        <li><strong>نظامي:</strong> على سطح أملس (مرآة) - أشعة متوازية.</li>
+                        <li><strong>غير نظامي:</strong> على سطح خشن (ورقة) - أشعة منتشرة.</li>
+                    </ul>
+                </div>
+
+                <button class="print-btn" onclick="window.print()">🖨️ طباعة الملخص</button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="main-footer">
+        <p>الفيزياء - السنة الرابعة متوسط - منهاج الجيل الثاني - الجزائر</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Tab Switching ---
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = btn.dataset.tab;
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabPanels.forEach(p => p.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.getElementById(target).classList.add('active');
+                    if (target === 'sim') {
+                        drawSim1();
+                        drawSim2();
+                    }
+                });
+            });
+
+            // --- Simulation 1: Law of Reflection ---
+            const canvas1 = document.getElementById('sim1Canvas');
+            const ctx1 = canvas1.getContext('2d');
+            const angleSlider = document.getElementById('angleSlider');
+            const angleValue = document.getElementById('angleValue');
+
+            function drawSim1() {
+                const w = canvas1.width;
+                const h = canvas1.height;
+                const cx = w / 2;
+                const mirrorY = h - 80;
+                const rayLen = 220;
+                const i = parseInt(angleSlider.value);
+
+                ctx1.clearRect(0, 0, w, h);
+
+                // Subtle grid
+                ctx1.strokeStyle = 'rgba(255,255,255,0.03)';
+                ctx1.lineWidth = 1;
+                for (let x = 0; x < w; x += 40) {
+                    ctx1.beginPath(); ctx1.moveTo(x, 0); ctx1.lineTo(x, h); ctx1.stroke();
+                }
+                for (let y = 0; y < h; y += 40) {
+                    ctx1.beginPath(); ctx1.moveTo(0, y); ctx1.lineTo(w, y); ctx1.stroke();
+                }
+
+                // Mirror surface
+                ctx1.fillStyle = 'rgba(148, 163, 184, 0.2)';
+                ctx1.fillRect(0, mirrorY, w, h - mirrorY);
+                ctx1.strokeStyle = '#94a3b8';
+                ctx1.lineWidth = 3;
+                ctx1.beginPath();
+                ctx1.moveTo(0, mirrorY);
+                ctx1.lineTo(w, mirrorY);
+                ctx1.stroke();
+
+                // Mirror hatching
+                ctx1.strokeStyle = 'rgba(148,163,184,0.4)';
+                ctx1.lineWidth = 1;
+                for (let x = -20; x < w; x += 15) {
+                    ctx1.beginPath();
+                    ctx1.moveTo(x, mirrorY);
+                    ctx1.lineTo(x - 10, mirrorY + 25);
+                    ctx1.stroke();
+                }
+
+                // Normal line (dashed)
+                ctx1.strokeStyle = '#06b6d4';
+                ctx1.lineWidth = 2;
+                ctx1.setLineDash([8, 6]);
+                ctx1.beginPath();
+                ctx1.moveTo(cx, mirrorY - 240);
+                ctx1.lineTo(cx, mirrorY + 30);
+                ctx1.stroke();
+                ctx1.setLineDash([]);
+
+                // Calculate ray positions
+                const iRad = i * Math.PI / 180;
+                const srcX = cx - rayLen * Math.sin(iRad);
+                const srcY = mirrorY - rayLen * Math.cos(iRad);
+                const endX = cx + rayLen * Math.sin(iRad);
+                const endY = mirrorY - rayLen * Math.cos(iRad);
+
+                // Incident ray
+                ctx1.strokeStyle = '#fbbf24';
+                ctx1.lineWidth = 4;
+                ctx1.beginPath();
+                ctx1.moveTo(srcX, srcY);
+                ctx1.lineTo(cx, mirrorY);
+                ctx1.stroke();
+                drawArrowhead(ctx1, cx, mirrorY, srcX, srcY, '#fbbf24');
+
+                // Reflected ray
+                ctx1.strokeStyle = '#3b82f6';
+                ctx1.lineWidth = 4;
+                ctx1.beginPath();
+                ctx1.moveTo(cx, mirrorY);
+                ctx1.lineTo(endX, endY);
+                ctx1.stroke();
+                drawArrowhead(ctx1, endX, endY, cx, mirrorY, '#3b82f6');
+
+                // Source point
+                ctx1.fillStyle = '#fbbf24';
+                ctx1.beginPath();
+                ctx1.arc(srcX, srcY, 8, 0, Math.PI * 2);
+                ctx1.fill();
+                ctx1.fillStyle = '#fff';
+                ctx1.font = 'bold 12px Cairo';
+                ctx1.textAlign = 'center';
+                ctx1.fillText('مصدر', srcX, srcY - 15);
+
+                // Incidence point glow
+                ctx1.fillStyle = '#fff';
+                ctx1.beginPath();
+                ctx1.arc(cx, mirrorY, 5, 0, Math.PI * 2);
+                ctx1.fill();
+
+                // Angle arcs
+                const arcR = 50;
+                ctx1.strokeStyle = '#fbbf24';
+                ctx1.lineWidth = 2;
+                ctx1.beginPath();
+                ctx1.arc(cx, mirrorY, arcR, -Math.PI/2 - iRad, -Math.PI/2);
+                ctx1.stroke();
+
+                ctx1.strokeStyle = '#3b82f6';
+                ctx1.beginPath();
+                ctx1.arc(cx, mirrorY, arcR, -Math.PI/2, -Math.PI/2 + iRad);
+                ctx1.stroke();
+
+                // Labels
+                ctx1.fillStyle = '#fbbf24';
+                ctx1.font = 'bold 16px Cairo';
+                ctx1.textAlign = 'left';
+                const labelIX = cx - arcR * Math.sin(iRad/2) - 40;
+                const labelIY = mirrorY - arcR * Math.cos(iRad/2) - 10;
+                ctx1.fillText('i = ' + i + '°', labelIX, labelIY);
+
+                ctx1.fillStyle = '#3b82f6';
+                ctx1.textAlign = 'right';
+                const labelRX = cx + arcR * Math.sin(iRad/2) + 40;
+                const labelRY = mirrorY - arcR * Math.cos(iRad/2) - 10;
+                ctx1.fillText('r = ' + i + '°', labelRX, labelRY);
+
+                // Normal label
+                ctx1.fillStyle = '#06b6d4';
+                ctx1.textAlign = 'left';
+                ctx1.fillText('العمود', cx + 8, mirrorY - 200);
+
+                // Mirror label
+                ctx1.fillStyle = '#94a3b8';
+                ctx1.textAlign = 'center';
+                ctx1.fillText('سطح عاكس (مرآة)', cx, mirrorY + 45);
+            }
+
+            function drawArrowhead(ctx, toX, toY, fromX, fromY, color) {
+                const headlen = 12;
+                const dx = toX - fromX;
+                const dy = toY - fromY;
+                const angle = Math.atan2(dy, dx);
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.moveTo(toX, toY);
+                ctx.lineTo(toX - headlen * Math.cos(angle - Math.PI/6), toY - headlen * Math.sin(angle - Math.PI/6));
+                ctx.lineTo(toX - headlen * Math.cos(angle + Math.PI/6), toY - headlen * Math.sin(angle + Math.PI/6));
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            angleSlider.addEventListener('input', function() {
+                angleValue.textContent = this.value + '°';
+                drawSim1();
+            });
+
+            // --- Simulation 2: Plane Mirror ---
+            const canvas2 = document.getElementById('sim2Canvas');
+            const ctx2 = canvas2.getContext('2d');
+            const distSlider = document.getElementById('distSlider');
+            const distValue = document.getElementById('distValue');
+
+            function drawSim2() {
+                const w = canvas2.width;
+                const h = canvas2.height;
+                const mirrorX = w / 2;
+                const mirrorTop = 60;
+                const mirrorBottom = h - 60;
+                const dist = parseInt(distSlider.value);
+                const objX = mirrorX - dist;
+                const imgX = mirrorX + dist;
+                const objY = h / 2 + 40;
+                const objTopY = objY - 80;
+
+                ctx2.clearRect(0, 0, w, h);
+
+                // Background
+                ctx2.fillStyle = 'rgba(255,255,255,0.02)';
+                ctx2.fillRect(0, 0, w, h);
+
+                // Mirror line
+                ctx2.strokeStyle = '#94a3b8';
+                ctx2.lineWidth = 4;
+                ctx2.beginPath();
+                ctx2.moveTo(mirrorX, mirrorTop);
+                ctx2.lineTo(mirrorX, mirrorBottom);
+                ctx2.stroke();
+
+                // Mirror hatching
+                ctx2.strokeStyle = 'rgba(148,163,184,0.5)';
+                ctx2.lineWidth = 1;
+                for (let y = mirrorTop; y < mirrorBottom; y += 12) {
+                    ctx2.beginPath();
+                    ctx2.moveTo(mirrorX, y);
+                    ctx2.lineTo(mirrorX + 10, y + 6);
+                    ctx2.stroke();
+                }
+
+                // Mirror label
+                ctx2.fillStyle = '#94a3b8';
+                ctx2.font = 'bold 14px Cairo';
+                ctx2.textAlign = 'center';
+                ctx2.fillText('مرآة مستوية', mirrorX, mirrorTop - 15);
+
+                // Object (solid arrow)
+                drawArrow(ctx2, objX, objY, objTopY, '#f97316', false);
+                ctx2.fillStyle = '#f97316';
+                ctx2.font = 'bold 14px Cairo';
+                ctx2.textAlign = 'center';
+                ctx2.fillText('جسم', objX, objY + 30);
+
+                // Image (dashed arrow)
+                drawArrow(ctx2, imgX, objY, objTopY, '#06b6d4', true);
+                ctx2.fillStyle = '#06b6d4';
+                ctx2.fillText('صورة', imgX, objY + 30);
+
+                // Distance labels
+                ctx2.strokeStyle = '#f59e0b';
+                ctx2.lineWidth = 1;
+                ctx2.setLineDash([4, 4]);
+                ctx2.beginPath();
+                ctx2.moveTo(objX, objY + 45);
+                ctx2.lineTo(mirrorX, objY + 45);
+                ctx2.stroke();
+                ctx2.beginPath();
+                ctx2.moveTo(mirrorX, objY + 45);
+                ctx2.lineTo(imgX, objY + 45);
+                ctx2.stroke();
+                ctx2.setLineDash([]);
+
+                ctx2.fillStyle = '#f59e0b';
+                ctx2.font = '12px Cairo';
+                ctx2.fillText('d = ' + dist, objX + dist/2, objY + 60);
+                ctx2.fillText("d' = " + dist, mirrorX + dist/2, objY + 60);
+
+                // Eye position
+                const eyeX = 60;
+                const eyeY = objTopY - 20;
+                drawEye(ctx2, eyeX, eyeY);
+                ctx2.fillStyle = '#fff';
+                ctx2.font = '12px Cairo';
+                ctx2.textAlign = 'center';
+                ctx2.fillText('عين', eyeX, eyeY + 25);
+
+                // Ray tracing: line from image top to eye intersects mirror at P
+                const ix = imgX;
+                const iy = objTopY;
+                const ex = eyeX;
+                const ey = eyeY;
+                const t = (mirrorX - ix) / (ex - ix);
+                const py = iy + t * (ey - iy);
+                const clampedPy = Math.max(mirrorTop, Math.min(mirrorBottom, py));
+
+                // Virtual ray (image to P, dashed)
+                ctx2.strokeStyle = 'rgba(6, 182, 212, 0.5)';
+                ctx2.lineWidth = 2;
+                ctx2.setLineDash([6, 4]);
+                ctx2.beginPath();
+                ctx2.moveTo(ix, objTopY);
+                ctx2.lineTo(mirrorX, clampedPy);
+                ctx2.stroke();
+                ctx2.setLineDash([]);
+
+                // Real ray (object top to P)
+                ctx2.strokeStyle = '#fbbf24';
+                ctx2.lineWidth = 3;
+                ctx2.beginPath();
+                ctx2.moveTo(objX, objTopY);
+                ctx2.lineTo(mirrorX, clampedPy);
+                ctx2.stroke();
+
+                // Reflected ray (P to eye)
+                ctx2.strokeStyle = '#fbbf24';
+                ctx2.lineWidth = 3;
+                ctx2.beginPath();
+                ctx2.moveTo(mirrorX, clampedPy);
+                ctx2.lineTo(eyeX, eyeY);
+                ctx2.stroke();
+
+                // Arrowheads on rays
+                drawArrowOnLine(ctx2, objX, objTopY, mirrorX, clampedPy, '#fbbf24');
+                drawArrowOnLine(ctx2, eyeX, eyeY, mirrorX, clampedPy, '#fbbf24');
+
+                // Normal at P
+                ctx2.strokeStyle = '#fff';
+                ctx2.lineWidth = 1;
+                ctx2.setLineDash([4, 3]);
+                ctx2.beginPath();
+                ctx2.moveTo(mirrorX - 40, clampedPy);
+                ctx2.lineTo(mirrorX + 40, clampedPy);
+                ctx2.stroke();
+                ctx2.setLineDash([]);
+                ctx2.fillStyle = '#fff';
+                ctx2.font = '11px Cairo';
+                ctx2.textAlign = 'left';
+                ctx2.fillText('عمود', mirrorX + 5, clampedPy - 5);
+
+                // Properties box
+                ctx2.fillStyle = 'rgba(17, 24, 39, 0.9)';
+                ctx2.strokeStyle = 'rgba(6, 182, 212, 0.3)';
+                ctx2.lineWidth = 1;
+                const boxW = 180;
+                const boxH = 90;
+                const boxX = w - boxW - 20;
+                const boxY = 20;
+                ctx2.fillRect(boxX, boxY, boxW, boxH);
+                ctx2.strokeRect(boxX, boxY, boxW, boxH);
+
+                ctx2.fillStyle = '#06b6d4';
+                ctx2.font = 'bold 13px Cairo';
+                ctx2.textAlign = 'right';
+                ctx2.fillText('خصائص الصورة:', boxX + boxW - 10, boxY + 25);
+                ctx2.fillStyle = '#e2e8f0';
+                ctx2.font = '12px Cairo';
+                ctx2.fillText('• خيالية - معتدلة', boxX + boxW - 10, boxY + 45);
+                ctx2.fillText('• متساوية الحجم', boxX + boxW - 10, boxY + 62);
+                ctx2.fillText("• d' = d", boxX + boxW - 10, boxY + 79);
+            }
+
+            function drawArrow(ctx, x, baseY, topY, color, dashed) {
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 3;
+                if (dashed) ctx.setLineDash([6, 4]);
+                ctx.beginPath();
+                ctx.moveTo(x, baseY);
+                ctx.lineTo(x, topY);
+                ctx.stroke();
+                if (dashed) ctx.setLineDash([]);
+
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.moveTo(x, topY);
+                ctx.lineTo(x - 8, topY + 12);
+                ctx.lineTo(x + 8, topY + 12);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(x - 15, baseY);
+                ctx.lineTo(x + 15, baseY);
+                ctx.stroke();
+            }
+
+            function drawEye(ctx, x, y) {
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                ctx.ellipse(x, y, 12, 8, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#0a0f1e';
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            function drawArrowOnLine(ctx, fromX, fromY, toX, toY, color) {
+                const headlen = 8;
+                const dx = toX - fromX;
+                const dy = toY - fromY;
+                const angle = Math.atan2(dy, dx);
+                const midX = (fromX + toX) / 2;
+                const midY = (fromY + toY) / 2;
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.moveTo(midX, midY);
+                ctx.lineTo(midX - headlen * Math.cos(angle - Math.PI/6), midY - headlen * Math.sin(angle - Math.PI/6));
+                ctx.lineTo(midX - headlen * Math.cos(angle + Math.PI/6), midY - headlen * Math.sin(angle + Math.PI/6));
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            distSlider.addEventListener('input', function() {
+                distValue.textContent = this.value + ' بكسل';
+                drawSim2();
+            });
+
+            // --- Quiz Logic ---
+            const questionCards = document.querySelectorAll('.question-card');
+            let score = 0;
+            let answeredCount = 0;
+            const totalQuestions = questionCards.length;
+
+            questionCards.forEach(card => {
+                const options = card.querySelectorAll('.option');
+                const feedback = card.querySelector('.q-feedback');
+
+                options.forEach(opt => {
+                    opt.addEventListener('click', function() {
+                        if (card.classList.contains('answered')) return;
+                        card.classList.add('answered');
+                        answeredCount++;
+
+                        const isCorrect = this.dataset.correct === 'true';
+                        if (isCorrect) {
+                            this.classList.add('correct');
+                            score++;
+                        } else {
+                            this.classList.add('wrong');
+                            options.forEach(o => {
+                                if (o.dataset.correct === 'true') o.classList.add('correct');
+                            });
+                        }
+
+                        options.forEach(o => o.classList.add('disabled'));
+                        feedback.classList.add('show');
+                    });
+                });
+            });
+
+            document.getElementById('showScoreBtn').addEventListener('click', function() {
+                const resultDiv = document.getElementById('scoreResult');
+                let msg = '';
+                let cls = '';
+
+                if (score === 5) {
+                    msg = '🌟 ممتاز! أحسنت، لقد أتقنت درس قانون الانعكاس. (5/5)';
+                    cls = 'score-excellent';
+                } else if (score === 4) {
+                    msg = '👏 جيد جدا! فهمك للدرس قوي، حاول تصحيح الخطأ الصغير. (4/5)';
+                    cls = 'score-good';
+                } else if (score === 3) {
+                    msg = '👍 جيد. لكن يحتاج الأمر بعض المراجعة. راجع ملخص الدرس. (3/5)';
+                    cls = 'score-average';
+                } else {
+                    msg = `📚 تحتاج لمراجعة الدرس من جديد. لا تيأس، حاول مرة أخرى! (${score}/5)`;
+                    cls = 'score-low';
+                }
+
+                resultDiv.textContent = msg;
+                resultDiv.className = 'score-result show ' + cls;
+            });
+
+            // Initial draws
+            drawSim1();
+            drawSim2();
+        });
+    </script>
+</body>
+</html>
