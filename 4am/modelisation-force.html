@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نمذجة الفعل الميكانيكي بقوة | السنة الرابعة متوسط</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#0a0f1e; --dark2:#111827; --dark3:#1a2540;
+  --blue:#2563eb; --blue2:#3b82f6; --cyan:#06b6d4;
+  --gold:#f59e0b; --gold2:#fbbf24;
+  --red:#ef4444; --green:#22c55e; --orange:#f97316;
+  --teal:#14b8a6; --purple:#a855f7; --indigo:#6366f1;
+  --text:#e2e8f0; --muted:#94a3b8;
+  --border:rgba(255,255,255,.08); --card:rgba(255,255,255,.04);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;overflow-x:hidden;}
+.bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 20% 30%,rgba(99,102,241,.12) 0%,transparent 50%),
+             radial-gradient(ellipse at 80% 70%,rgba(245,158,11,.08) 0%,transparent 50%);}
+
+header{position:relative;z-index:10;background:rgba(10,15,30,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);padding:0 32px;}
+.header-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:18px 0;}
+.back-btn{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:.8rem;font-weight:600;text-decoration:none;padding:6px 12px;border-radius:8px;border:1px solid var(--border);transition:.2s;}
+.back-btn:hover{color:var(--text);}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--muted);}
+.breadcrumb span{color:var(--indigo);font-weight:700;}
+.breadcrumb .sep{opacity:.4;}
+.lesson-badge{margin-right:auto;background:linear-gradient(135deg,var(--indigo),var(--purple));color:#fff;font-size:.72rem;font-weight:700;padding:4px 14px;border-radius:20px;}
+
+.lesson-hero{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:52px 32px 40px;}
+.lesson-num{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;color:var(--indigo);margin-bottom:16px;}
+.lesson-num::before{content:'';width:24px;height:2px;background:var(--indigo);}
+.lesson-hero h1{font-family:'Amiri',serif;font-size:clamp(1.7rem,4vw,2.7rem);color:#fff;line-height:1.3;margin-bottom:16px;}
+.lesson-hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--indigo),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.lesson-meta{display:flex;gap:18px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-bottom:32px;}
+.objectives-box{background:var(--card);border:1px solid var(--border);border-right:3px solid var(--indigo);border-radius:12px;padding:20px 24px;}
+.objectives-box h3{font-size:.78rem;font-weight:700;letter-spacing:.08em;color:var(--indigo);margin-bottom:12px;text-transform:uppercase;}
+.objectives-box ul{list-style:none;}
+.objectives-box li{font-size:.88rem;color:var(--text);padding:5px 0;display:flex;align-items:flex-start;gap:10px;line-height:1.5;}
+.objectives-box li::before{content:'✦';color:var(--purple);font-size:.65rem;margin-top:4px;flex-shrink:0;}
+
+.tabs-nav{position:sticky;top:0;z-index:50;background:rgba(10,15,30,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
+.tabs-inner{max-width:1000px;margin:0 auto;display:flex;padding:0 32px;overflow-x:auto;}
+.tab-btn{padding:16px 22px;border:none;background:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.85rem;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;transition:.2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--indigo);border-bottom-color:var(--indigo);}
+
+.content-wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:40px 32px 80px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.sec-title{display:flex;align-items:center;gap:12px;margin-bottom:24px;margin-top:36px;}
+.sec-title:first-child{margin-top:0;}
+.sec-title .icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--indigo),var(--purple));display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.sec-title h2{font-size:1.15rem;font-weight:800;color:#fff;}
+.sec-title .line{flex:1;height:1px;background:var(--border);}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;}
+.card h3{font-size:.95rem;font-weight:700;color:var(--cyan);margin-bottom:12px;}
+.card p{font-size:.9rem;color:var(--text);line-height:1.8;margin-bottom:10px;}
+.card p:last-child{margin-bottom:0;}
+
+.def-box{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:16px 20px;margin:12px 0;}
+.def-box .def-title{font-size:.72rem;font-weight:700;letter-spacing:.08em;color:var(--gold2);margin-bottom:8px;text-transform:uppercase;}
+.def-box p{font-size:.88rem;color:var(--text);line-height:1.7;}
+
+.highlight{background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(168,85,247,.07));border:1px solid rgba(99,102,241,.2);border-radius:12px;padding:18px 20px;margin:16px 0;}
+.highlight p{font-size:.9rem;line-height:1.8;}
+
+.formula-box{background:var(--dark3);border:1px solid rgba(99,102,241,.3);border-radius:12px;padding:18px 22px;margin:14px 0;text-align:center;}
+.formula-box .formula{font-size:1.15rem;font-weight:700;color:var(--indigo);letter-spacing:.04em;margin-bottom:8px;}
+.formula-box .formula-desc{font-size:.78rem;color:var(--muted);}
+
+.info-table{width:100%;border-collapse:collapse;font-size:.85rem;margin:14px 0;}
+.info-table th{background:rgba(99,102,241,.12);color:var(--indigo);font-weight:700;padding:10px 14px;text-align:right;border:1px solid var(--border);}
+.info-table td{padding:10px 14px;border:1px solid var(--border);color:var(--text);line-height:1.5;}
+.info-table tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+
+/* ── FORCE VECTOR CANVAS ── */
+.vec-wrap{background:var(--dark3);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px;}
+.vec-head{background:rgba(255,255,255,.04);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:10px;}
+.vec-head h3{font-size:.88rem;font-weight:700;}
+.sim-badge{font-size:.65rem;background:rgba(99,102,241,.2);color:var(--indigo);border:1px solid rgba(99,102,241,.3);padding:2px 8px;border-radius:6px;font-weight:700;}
+.vec-body{padding:24px;}
+
+.vec-canvas-wrap{
+  width:100%; height:320px;
+  background:rgba(10,15,30,.7);
+  border-radius:12px; border:1px solid var(--border);
+  position:relative; overflow:hidden; margin-bottom:16px;
+}
+.vec-canvas-wrap canvas{display:block;width:100%;height:100%;}
+
+/* Controls */
+.vec-ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:14px;}
+.v-ctrl{background:rgba(10,15,30,.6);border:1px solid var(--border);border-radius:10px;padding:12px;}
+.v-lbl{font-size:.7rem;color:var(--muted);font-weight:600;margin-bottom:6px;}
+.v-val{font-size:.95rem;font-weight:700;color:var(--indigo);margin-bottom:6px;}
+input[type=range]{width:100%;accent-color:var(--indigo);cursor:pointer;}
+
+/* Action-Reaction canvas */
+.ar-canvas-wrap{
+  width:100%; height:240px;
+  background:rgba(10,15,30,.7);
+  border-radius:12px; border:1px solid var(--border);
+  position:relative; overflow:hidden; margin-bottom:12px;
+}
+
+/* Dynamometer */
+.dyna-wrap{background:var(--dark3);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px;}
+.dyna-body{padding:24px;}
+.dyna-meter{
+  width:200px; height:320px;
+  background:linear-gradient(180deg,#1e293b,#0f172a);
+  border:2px solid rgba(255,255,255,.15); border-radius:12px;
+  position:relative; overflow:hidden; margin:0 auto 16px;
+  box-shadow:0 0 20px rgba(99,102,241,.2);
+}
+.dyna-scale{
+  position:absolute; right:16px; top:20px; bottom:60px;
+  width:60px;
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+.scale-mark{
+  display:flex; align-items:center; gap:6px;
+  font-size:.65rem; color:rgba(255,255,255,.5); font-family:monospace;
+}
+.scale-mark::before{content:'';flex:1;height:1px;background:rgba(255,255,255,.15);}
+.dyna-needle{
+  position:absolute; right:14px;
+  width:64px; height:2px; background:var(--red);
+  transition:top .4s ease;
+  box-shadow:0 0 6px var(--red);
+}
+.dyna-hook-top{position:absolute;top:4px;left:50%;transform:translateX(-50%);font-size:1rem;}
+.dyna-hook-bot{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:1rem;transition:transform .4s;}
+.dyna-spring{
+  position:absolute; left:50%; transform:translateX(-50%);
+  width:20px; top:40px; bottom:60px;
+  background:repeating-linear-gradient(
+    180deg,
+    transparent 0px, transparent 4px,
+    rgba(99,102,241,.5) 4px, rgba(99,102,241,.5) 6px
+  );
+  border-radius:2px; transition:background-size .4s;
+}
+.dyna-display{
+  position:absolute; bottom:14px; left:50%; transform:translateX(-50%);
+  background:rgba(0,0,0,.6); border:1px solid rgba(99,102,241,.4);
+  border-radius:6px; padding:4px 12px;
+  font-size:.85rem; font-weight:700; color:var(--indigo); white-space:nowrap;
+}
+.weight-btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;}
+.w-btn{padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:'Cairo',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:.2s;}
+.w-btn:hover{border-color:var(--indigo);}
+.w-btn.active{background:rgba(99,102,241,.2);border-color:var(--indigo);color:var(--indigo);}
+
+/* QUIZ */
+.q-card{background:var(--dark3);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;}
+.q-num{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--indigo);margin-bottom:10px;text-transform:uppercase;}
+.q-text{font-size:.95rem;color:var(--text);line-height:1.7;margin-bottom:18px;font-weight:600;}
+.q-options{display:flex;flex-direction:column;gap:8px;}
+.q-opt{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:'Cairo',sans-serif;font-size:.88rem;cursor:pointer;text-align:right;transition:.2s;display:flex;align-items:center;gap:10px;}
+.q-opt:hover:not(.answered){border-color:var(--indigo);}
+.q-opt.correct{border-color:var(--green);background:rgba(34,197,94,.1);color:var(--green);}
+.q-opt.wrong{border-color:var(--red);background:rgba(239,68,68,.1);color:var(--red);}
+.q-feedback{margin-top:12px;padding:12px 16px;border-radius:8px;font-size:.82rem;line-height:1.6;display:none;}
+.q-feedback.correct{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--green);}
+.q-feedback.wrong{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#f87171;}
+.q-feedback.show{display:block;}
+.quiz-submit{width:100%;padding:14px;border-radius:10px;background:linear-gradient(135deg,var(--indigo),var(--purple));border:none;color:#fff;font-family:'Cairo',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:8px;}
+.quiz-score{background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(168,85,247,.1));border:1px solid rgba(99,102,241,.3);border-radius:14px;padding:24px;text-align:center;display:none;}
+.quiz-score.show{display:block;}
+.score-num{font-size:3rem;font-weight:900;color:var(--gold2);}
+.score-msg{font-size:.9rem;color:var(--text);margin-top:8px;}
+
+/* SUMMARY */
+.summary-card{background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(168,85,247,.07));border:1px solid rgba(99,102,241,.2);border-radius:16px;padding:28px;}
+.summary-card h3{font-family:'Amiri',serif;font-size:1.3rem;color:#fff;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.summary-list{list-style:none;}
+.summary-list li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.88rem;color:var(--text);line-height:1.6;}
+.summary-list li:last-child{border-bottom:none;}
+.s-icon{width:28px;height:28px;border-radius:7px;background:rgba(99,102,241,.2);border:1px solid rgba(99,102,241,.3);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;margin-top:1px;}
+.print-btn{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:10px 20px;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Cairo',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:.2s;}
+.print-btn:hover{border-color:var(--indigo);color:var(--indigo);}
+
+@media(max-width:600px){
+  .lesson-hero,.content-wrap{padding-left:16px;padding-right:16px;}
+  .tabs-inner{padding:0 16px;}
+  header{padding:0 16px;}
+  .vec-ctrl{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+<div class="bg-canvas"></div>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="back-btn">← الفهرس</a>
+    <div class="breadcrumb">
+      <span>س4م</span><span class="sep">›</span>
+      المقطع 3 — الظواهر الميكانيكية<span class="sep">›</span>الدرس 02
+    </div>
+    <div class="lesson-badge">4ème AM</div>
+  </div>
+</header>
+
+<div class="lesson-hero">
+  <div class="lesson-num">الدرس الثاني — المقطع 3</div>
+  <h1>نمذجة الفعل الميكانيكي <em>بقوة</em></h1>
+  <div class="lesson-meta">
+    <span>⚖️ الظواهر الميكانيكية</span>
+    <span>📅 المقطع 3 — فبراير</span>
+    <span>⏱ 60 دقيقة</span>
+    <span>📚 منهاج الجيل الثاني 2025/2026</span>
+  </div>
+  <div class="objectives-box">
+    <h3>🎯 الأهداف التعلمية</h3>
+    <ul>
+      <li>تعريف القوة وخصائص شعاعها (نقطة التطبيق، المنحى، الجهة، الشدة)</li>
+      <li>تمثيل القوة بشعاع على رسم مع اختيار مقياس مناسب</li>
+      <li>التمثيل الشعاعي للفعلين المتبادلين بين جسمين ميكانيكيين</li>
+      <li>قياس شدة القوة باستخدام الديناموميتر</li>
+      <li>معرفة وحدة قياس القوة (النيوتن N)</li>
+    </ul>
+  </div>
+</div>
+
+<nav class="tabs-nav">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="showTab('cours')">📖 الدرس</button>
+    <button class="tab-btn" onclick="showTab('simulation')">🎯 تمثيل القوى</button>
+    <button class="tab-btn" onclick="showTab('exercices')">✏️ تمارين</button>
+    <button class="tab-btn" onclick="showTab('resume')">📋 ملخص الكراس</button>
+  </div>
+</nav>
+
+<div class="content-wrap">
+
+  <!-- ══ COURS ══ -->
+  <div class="tab-panel active" id="tab-cours">
+
+    <div class="sec-title"><div class="icon">🎯</div><h2>I. نمذجة الفعل الميكانيكي بقوة</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>🔬 من الفعل إلى القوة</h3>
+      <p>في الميكانيك، الأفعال المتبادلة بين الأجسام تُنمذَج بـ<strong>قوى</strong>. القوة هي نموذج رياضي يصف تأثير جسم على آخر.</p>
+      <div class="def-box">
+        <div class="def-title">📌 تعريف</div>
+        <p>القوة هي <strong>كمية فيزيائية متجهة</strong> تصف الفعل الميكانيكي الذي يؤثر فيه جسم على آخر. تُرمز لها بـ <strong>F⃗</strong> (مع سهم فوقها).</p>
+      </div>
+    </div>
+
+    <div class="sec-title"><div class="icon">📐</div><h2>II. خصائص شعاع القوة</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>📐 العناصر الأربعة لشعاع القوة</h3>
+      <p>لتحديد قوة تماماً نحتاج أربعة عناصر:</p>
+      <table class="info-table">
+        <tr><th>العنصر</th><th>التعريف</th><th>مثال</th></tr>
+        <tr>
+          <td><strong style="color:var(--red);">🔴 نقطة التطبيق</strong></td>
+          <td>النقطة التي تُؤثر فيها القوة على الجسم</td>
+          <td>مركز الجسم، نقطة التلامس</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--indigo);">🔷 المنحى (الاتجاه)</strong></td>
+          <td>الخط المستقيم الذي تتجه فيه القوة</td>
+          <td>أفقي، رأسي، مائل بزاوية 30°</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--orange);">🟠 الجهة</strong></td>
+          <td>جهة السير على المنحى (↑ أو ↓ أو → أو ←)</td>
+          <td>نحو الأعلى، نحو اليسار</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--green);">🟢 الشدة (القيمة)</strong></td>
+          <td>مقدار القوة — تُقاس بالنيوتن (N)</td>
+          <td>F = 5 N، F = 20 N</td>
+        </tr>
+      </table>
+      <div class="formula-box">
+        <div class="formula">الشعاع = (نقطة التطبيق، المنحى، الجهة، الشدة)</div>
+        <div class="formula-desc">القوة كمية متجهة — تُمثَّل بسهم له طول يتناسب مع الشدة</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📏 المقياس في التمثيل الشعاعي</h3>
+      <p>عند رسم القوة، نختار مقياساً لتحويل الشدة إلى طول على الورق:</p>
+      <div class="highlight">
+        <p>📏 <strong>مثال:</strong> المقياس: 1 cm ← 5 N<br>
+        • قوة F = 10 N → طول الشعاع = 10/5 = <strong>2 cm</strong><br>
+        • قوة F = 25 N → طول الشعاع = 25/5 = <strong>5 cm</strong><br>
+        • قوة F = 5 N  → طول الشعاع = 5/5  = <strong>1 cm</strong></p>
+      </div>
+    </div>
+
+    <div class="sec-title"><div class="icon">🔁</div><h2>III. التمثيل الشعاعي للفعلين المتبادلَين</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>🔁 مبدأ الفعلين المتبادلَين</h3>
+      <div class="def-box">
+        <div class="def-title">📌 المبدأ</div>
+        <p>عندما يؤثر جسم A على جسم B بقوة <strong>F⃗(A/B)</strong>، فإن B يؤثر على A بقوة <strong>F⃗(B/A)</strong> تكون:<br>
+        • <strong>نفس المنحى</strong> (نفس الخط المستقيم)<br>
+        • <strong>جهة معاكسة</strong><br>
+        • <strong>نفس الشدة:</strong> ‖F⃗(A/B)‖ = ‖F⃗(B/A)‖</p>
+      </div>
+      <div class="formula-box">
+        <div class="formula">F⃗(A/B) = − F⃗(B/A)</div>
+        <div class="formula-desc">القوتان متساويتان في الشدة، متضادتان في الجهة — هذا قانون نيوتن الثالث</div>
+      </div>
+      <div class="highlight">
+        <p>🔴 <strong>مثال 1:</strong> كتاب يضغط على طاولة (ثقل الكتاب ↓) — الطاولة تدفع الكتاب للأعلى (قوة الدعامة ↑)<br>
+        🔵 <strong>مثال 2:</strong> مغناطيس يجذب مسمار ← المسمار يجذب المغناطيس →<br>
+        🟢 <strong>مثال 3:</strong> سيارة تُدفع للأمام ← الطريق يُدفع للخلف</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🎯 كيفية رسم الفعلين المتبادلَين</h3>
+      <p>نرسم قوتين على نفس الخط المستقيم، بنفس الطول ولكن جهتان معاكستان، كل منها ينطلق من نقطة تطبيق مختلفة:</p>
+      <div style="background:rgba(10,15,30,.6);border:1px solid var(--border);border-radius:12px;padding:20px;margin:12px 0;text-align:center;">
+        <svg viewBox="0 0 440 120" style="width:100%;max-width:440px;height:auto;">
+          <!-- Body A -->
+          <rect x="30" y="40" width="80" height="40" rx="8" fill="rgba(99,102,241,.3)" stroke="rgba(99,102,241,.6)" stroke-width="1.5"/>
+          <text x="70" y="64" fill="#a5b4fc" font-size="13" text-anchor="middle" font-family="Cairo">A</text>
+          <!-- Body B -->
+          <rect x="330" y="40" width="80" height="40" rx="8" fill="rgba(239,68,68,.3)" stroke="rgba(239,68,68,.6)" stroke-width="1.5"/>
+          <text x="370" y="64" fill="#fca5a5" font-size="13" text-anchor="middle" font-family="Cairo">B</text>
+          <!-- Arrow A→B -->
+          <defs>
+            <marker id="arr-r" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8Z" fill="#a5b4fc"/></marker>
+            <marker id="arr-l" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto"><path d="M8,0 L0,4 L8,8Z" fill="#fca5a5"/></marker>
+          </defs>
+          <line x1="110" y1="60" x2="230" y2="60" stroke="#a5b4fc" stroke-width="2.5" marker-end="url(#arr-r)"/>
+          <text x="170" y="50" fill="#a5b4fc" font-size="11" text-anchor="middle" font-family="Cairo">F⃗(A/B)</text>
+          <!-- Arrow B→A -->
+          <line x1="330" y1="60" x2="210" y2="60" stroke="#fca5a5" stroke-width="2.5" marker-end="url(#arr-l)"/>
+          <text x="270" y="80" fill="#fca5a5" font-size="11" text-anchor="middle" font-family="Cairo">F⃗(B/A)</text>
+        </svg>
+        <p style="font-size:.75rem;color:var(--muted);margin-top:8px;">نفس الطول — نفس المنحى — جهتان معاكستان</p>
+      </div>
+    </div>
+
+    <div class="sec-title"><div class="icon">📏</div><h2>IV. قياس شدة القوة — الديناموميتر</h2><div class="line"></div></div>
+
+    <div class="card">
+      <h3>🔧 الديناموميتر (جهاز قياس القوة)</h3>
+      <p>الديناموميتر جهاز يقيس شدة القوة. يعمل على مبدأ <strong>تمدّد نابض</strong>: كلما زادت القوة، زاد تمدد النابض، وانتقل المؤشر نحو الأسفل.</p>
+      <table class="info-table">
+        <tr><th>الخاصية</th><th>القيمة/الوصف</th></tr>
+        <tr><td>وحدة القياس</td><td><strong style="color:var(--indigo)">النيوتن (N)</strong></td></tr>
+        <tr><td>مبدأ العمل</td><td>قانون هوك: F = k × Δl (القوة تتناسب مع تمدد النابض)</td></tr>
+        <tr><td>طريقة الاستخدام</td><td>يُعلَّق الجسم بالخطاف السفلي — تُقرأ القيمة من السلم المدرّج</td></tr>
+        <tr><td>مجال القياس</td><td>مثلاً: 0 – 5 N أو 0 – 10 N أو 0 – 50 N</td></tr>
+      </table>
+      <div class="highlight">
+        <p>⚠️ <strong>تنبيه:</strong> لا تتجاوز الحد الأقصى للديناموميتر — وإلا يتشوّه النابض بشكل دائم!</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🔗 العلاقة بين الكتلة والثقل</h3>
+      <div class="formula-box">
+        <div class="formula">P = m × g</div>
+        <div class="formula-desc">P: الثقل بالنيوتن (N) — m: الكتلة بالكيلوغرام (kg) — g ≈ 10 N/kg (الجاذبية الأرضية)</div>
+      </div>
+      <p><strong>مثال:</strong> جسم كتلته m = 500 g = 0.5 kg → ثقله P = 0.5 × 10 = <strong>5 N</strong></p>
+      <p>الديناموميتر يقيس الثقل مباشرة بالنيوتن عند تعليق الجسم به.</p>
+    </div>
+
+  </div><!-- /cours -->
+
+
+  <!-- ══ SIMULATION ══ -->
+  <div class="tab-panel" id="tab-simulation">
+
+    <div class="sec-title"><div class="icon">🎯</div><h2>تمثيل شعاع القوة — تفاعلي</h2><div class="line"></div></div>
+
+    <!-- Vector drawer -->
+    <div class="vec-wrap">
+      <div class="vec-head"><h3>رسم شعاع القوة</h3><span class="sim-badge">تفاعلي</span></div>
+      <div class="vec-body">
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px;">غيّر خصائص القوة وشاهد الشعاع على الرسم</p>
+        <div class="vec-canvas-wrap">
+          <canvas id="vec-canvas"></canvas>
+        </div>
+        <div class="vec-ctrl">
+          <div class="v-ctrl">
+            <div class="v-lbl">الشدة F (N)</div>
+            <div class="v-val" id="lbl-F">20 N</div>
+            <input type="range" min="5" max="50" value="20" id="sl-F" oninput="drawVec()">
+          </div>
+          <div class="v-ctrl">
+            <div class="v-lbl">الزاوية (°)</div>
+            <div class="v-val" id="lbl-angle">0 °</div>
+            <input type="range" min="-90" max="90" value="0" id="sl-angle" oninput="drawVec()">
+          </div>
+          <div class="v-ctrl">
+            <div class="v-lbl">المقياس (N/cm)</div>
+            <div class="v-val" id="lbl-scale">5 N/cm</div>
+            <input type="range" min="2" max="10" step="1" value="5" id="sl-scale" oninput="drawVec()">
+          </div>
+          <div class="v-ctrl">
+            <div class="v-lbl">طول الشعاع</div>
+            <div class="v-val" id="lbl-len">4.0 cm</div>
+            <input type="range" disabled style="opacity:.3" value="0">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action-Reaction -->
+    <div class="vec-wrap">
+      <div class="vec-head"><h3>الفعلان المتبادلان</h3><span class="sim-badge">تفاعلي</span></div>
+      <div class="vec-body">
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px;">اضغط على زر لتحديد نوع التفاعل وشاهد الفعلَين المتبادلَين</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;" id="ar-btns">
+          <button class="w-btn active" onclick="setAR('gravity')">📦 كتاب على طاولة</button>
+          <button class="w-btn" onclick="setAR('magnet')">🧲 مغناطيسان</button>
+          <button class="w-btn" onclick="setAR('rope')">🪢 حبل شدّ</button>
+          <button class="w-btn" onclick="setAR('spring')">🔩 نابض مضغوط</button>
+        </div>
+        <div class="ar-canvas-wrap">
+          <canvas id="ar-canvas"></canvas>
+        </div>
+        <div id="ar-desc" style="font-size:.82rem;color:var(--text);padding:12px;background:rgba(10,15,30,.6);border:1px solid var(--border);border-radius:10px;margin-top:8px;line-height:1.7;"></div>
+      </div>
+    </div>
+
+    <!-- Dynamometer -->
+    <div class="dyna-wrap">
+      <div class="vec-head"><h3>الديناموميتر — قياس الثقل</h3><span class="sim-badge">تفاعلي</span></div>
+      <div class="dyna-body">
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px;text-align:center;">اختر جسماً لقياس ثقله بالديناموميتر</p>
+
+        <div class="weight-btns">
+          <button class="w-btn" onclick="setWeight(0)">لا شيء</button>
+          <button class="w-btn" onclick="setWeight(1)">🍎 تفاحة (100g)</button>
+          <button class="w-btn" onclick="setWeight(2)">📖 كتاب (200g)</button>
+          <button class="w-btn" onclick="setWeight(5)">🧱 حجر (500g)</button>
+          <button class="w-btn" onclick="setWeight(10)">🔩 معدن (1kg)</button>
+        </div>
+
+        <div class="dyna-meter">
+          <div class="dyna-hook-top">🔗</div>
+          <div class="dyna-spring" id="dyna-spring"></div>
+          <div class="dyna-scale">
+            <div class="scale-mark">10 N</div>
+            <div class="scale-mark">8 N</div>
+            <div class="scale-mark">6 N</div>
+            <div class="scale-mark">4 N</div>
+            <div class="scale-mark">2 N</div>
+            <div class="scale-mark">0 N</div>
+          </div>
+          <div class="dyna-needle" id="dyna-needle" style="top:20px;"></div>
+          <div class="dyna-hook-bot" id="dyna-hook-bot">🔗</div>
+          <div class="dyna-display" id="dyna-display">F = 0 N</div>
+        </div>
+
+        <div id="dyna-result" style="text-align:center;font-size:.85rem;color:var(--text);padding:12px;background:rgba(10,15,30,.5);border:1px solid var(--border);border-radius:10px;line-height:1.7;"></div>
+      </div>
+    </div>
+
+  </div><!-- /simulation -->
+
+
+  <!-- ══ EXERCICES ══ -->
+  <div class="tab-panel" id="tab-exercices">
+
+    <div class="sec-title"><div class="icon">✏️</div><h2>تمارين تقييمية</h2><div class="line"></div></div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 01</div>
+      <div class="q-text">كم عنصراً يُحدّد شعاع القوة تماماً؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> عنصران (الشدة والمنحى)</button>
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> ثلاثة عناصر (المنحى، الجهة، الشدة)</button>
+        <button class="q-opt" onclick="answer(this,true,'q1')"><span>○</span> أربعة عناصر (نقطة التطبيق، المنحى، الجهة، الشدة)</button>
+        <button class="q-opt" onclick="answer(this,false,'q1')"><span>○</span> عنصر واحد (الشدة فقط)</button>
+      </div>
+      <div class="q-feedback" id="fb-q1"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 02</div>
+      <div class="q-text">المقياس المختار: 1 cm ← 10 N. ما طول شعاع قوة شدتها F = 35 N؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> 10 cm</button>
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> 2 cm</button>
+        <button class="q-opt" onclick="answer(this,true,'q2')"><span>○</span> 3.5 cm</button>
+        <button class="q-opt" onclick="answer(this,false,'q2')"><span>○</span> 35 cm</button>
+      </div>
+      <div class="q-feedback" id="fb-q2"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 03</div>
+      <div class="q-text">ما خصائص الفعلَين المتبادلَين بين جسمَين؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> نفس المنحى ونفس الجهة ونفس الشدة</button>
+        <button class="q-opt" onclick="answer(this,true,'q3')"><span>○</span> نفس المنحى وجهتان معاكستان ونفس الشدة</button>
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> منحيان مختلفان وجهتان معاكستان</button>
+        <button class="q-opt" onclick="answer(this,false,'q3')"><span>○</span> نفس المنحى ونفس الجهة وشدتان مختلفتان</button>
+      </div>
+      <div class="q-feedback" id="fb-q3"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 04</div>
+      <div class="q-text">جسم كتلته m = 300 g. ما ثقله؟ (g = 10 N/kg)</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> P = 300 N</button>
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> P = 30 N</button>
+        <button class="q-opt" onclick="answer(this,true,'q4')"><span>○</span> P = 3 N</button>
+        <button class="q-opt" onclick="answer(this,false,'q4')"><span>○</span> P = 0.3 N</button>
+      </div>
+      <div class="q-feedback" id="fb-q4"></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">السؤال 05</div>
+      <div class="q-text">ما الجهاز المستخدم لقياس شدة القوة؟ وما وحدة القياس؟</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="answer(this,false,'q5')"><span>○</span> الميزان — الكيلوغرام (kg)</button>
+        <button class="q-opt" onclick="answer(this,false,'q5')"><span>○</span> المقياس — الجول (J)</button>
+        <button class="q-opt" onclick="answer(this,true,'q5')"><span>○</span> الديناموميتر — النيوتن (N)</button>
+        <button class="q-opt" onclick="answer(this,false,'q5')"><span>○</span> الأمبيرمتر — الأمبير (A)</button>
+      </div>
+      <div class="q-feedback" id="fb-q5"></div>
+    </div>
+
+    <button class="quiz-submit" onclick="submitQuiz()">📊 عرض النتيجة</button>
+    <div class="quiz-score" id="quiz-score">
+      <div class="score-num" id="score-num">0/5</div>
+      <div class="score-msg" id="score-msg"></div>
+    </div>
+
+  </div><!-- /exercices -->
+
+
+  <!-- ══ RESUME ══ -->
+  <div class="tab-panel" id="tab-resume">
+
+    <div class="sec-title"><div class="icon">📋</div><h2>ملخص الكراس</h2><div class="line"></div></div>
+
+    <div class="summary-card">
+      <h3>📓 نمذجة الفعل الميكانيكي بقوة — السنة الرابعة متوسط</h3>
+      <ul class="summary-list">
+        <li>
+          <div class="s-icon">🎯</div>
+          <div><strong>القوة:</strong> كمية فيزيائية متجهة تُنمذج الفعل الميكانيكي. الرمز: F⃗. الوحدة: <strong>النيوتن (N)</strong>.</div>
+        </li>
+        <li>
+          <div class="s-icon">📐</div>
+          <div><strong>خصائص شعاع القوة (4 عناصر):</strong><br>
+          🔴 نقطة التطبيق | 🔷 المنحى (الاتجاه) | 🟠 الجهة | 🟢 الشدة (بالنيوتن)</div>
+        </li>
+        <li>
+          <div class="s-icon">📏</div>
+          <div><strong>المقياس:</strong> لتمثيل شعاع القوة نختار مقياساً:<br>
+          طول الشعاع (cm) = الشدة (N) ÷ المقياس (N/cm)</div>
+        </li>
+        <li>
+          <div class="s-icon">🔁</div>
+          <div><strong>الفعلان المتبادلان:</strong> F⃗(A/B) = −F⃗(B/A)<br>
+          • نفس المنحى ✓ | جهتان معاكستان ✓ | نفس الشدة ✓</div>
+        </li>
+        <li>
+          <div class="s-icon">🔧</div>
+          <div><strong>الديناموميتر:</strong> يقيس شدة القوة بالنيوتن — يعمل بتمدد النابض.</div>
+        </li>
+        <li>
+          <div class="s-icon">⚖️</div>
+          <div><strong>قانون الثقل:</strong> P = m × g<br>
+          P: بالنيوتن (N) | m: بالكيلوغرام (kg) | g = 10 N/kg</div>
+        </li>
+      </ul>
+      <button class="print-btn" onclick="window.print()">🖨️ طباعة الملخص</button>
+    </div>
+
+  </div><!-- /resume -->
+
+</div>
+
+<script>
+/* TABS */
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+  if(id==='simulation'){setTimeout(()=>{drawVec();drawAR();},100);}
+}
+
+/* ── VECTOR CANVAS ── */
+function drawVec(){
+  const canvas = document.getElementById('vec-canvas');
+  const wrap   = canvas.parentElement;
+  canvas.width  = wrap.clientWidth||600;
+  canvas.height = wrap.clientHeight||320;
+  const ctx = canvas.getContext('2d');
+  const W=canvas.width, H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  const F     = +document.getElementById('sl-F').value;
+  const angle = +document.getElementById('sl-angle').value;
+  const scale = +document.getElementById('sl-scale').value; // N per cm
+  const PX_PER_CM = 38;
+  const len_cm = F/scale;
+  const len_px = len_cm * PX_PER_CM;
+
+  document.getElementById('lbl-F').textContent     = F + ' N';
+  document.getElementById('lbl-angle').textContent  = angle + ' °';
+  document.getElementById('lbl-scale').textContent  = scale + ' N/cm';
+  document.getElementById('lbl-len').textContent    = len_cm.toFixed(1) + ' cm';
+
+  const rad = angle * Math.PI/180;
+  const ox = W/2, oy = H*0.7;
+  const ex = ox + len_px * Math.cos(rad);
+  const ey = oy - len_px * Math.sin(rad);
+
+  // grid
+  ctx.strokeStyle='rgba(255,255,255,.04)';
+  ctx.lineWidth=1;
+  for(let x=0;x<W;x+=PX_PER_CM){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<H;y+=PX_PER_CM){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+
+  // application point
+  ctx.beginPath();
+  ctx.arc(ox,oy,7,0,Math.PI*2);
+  ctx.fillStyle='rgba(99,102,241,.6)';
+  ctx.fill();
+  ctx.strokeStyle='var(--indigo)';
+  ctx.lineWidth=2;
+  ctx.stroke();
+
+  // vector
+  ctx.beginPath();
+  ctx.moveTo(ox,oy);
+  ctx.lineTo(ex,ey);
+  ctx.strokeStyle='#818cf8';
+  ctx.lineWidth=3;
+  ctx.stroke();
+
+  // arrowhead
+  const headLen=16, headAngle=0.4;
+  const a = Math.atan2(ey-oy,ex-ox);
+  ctx.beginPath();
+  ctx.moveTo(ex,ey);
+  ctx.lineTo(ex-headLen*Math.cos(a-headAngle), ey-headLen*Math.sin(a-headAngle));
+  ctx.lineTo(ex-headLen*Math.cos(a+headAngle), ey-headLen*Math.sin(a+headAngle));
+  ctx.closePath();
+  ctx.fillStyle='#818cf8';
+  ctx.fill();
+
+  // labels
+  ctx.fillStyle='#a5b4fc';
+  ctx.font='bold 13px Cairo';
+  ctx.textAlign='center';
+  ctx.fillText('F⃗ = '+F+' N', (ox+ex)/2, (oy+ey)/2-14);
+
+  const mx=(ox+ex)/2, my=(oy+ey)/2;
+  ctx.fillStyle='rgba(245,158,11,.8)';
+  ctx.font='12px Cairo';
+  ctx.fillText(len_cm.toFixed(1)+' cm', mx, my+18);
+
+  // origin label
+  ctx.fillStyle=var_c('--muted');
+  ctx.font='12px Cairo';
+  ctx.fillText('نقطة التطبيق', ox, oy+20);
+}
+
+function var_c(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ── ACTION-REACTION ── */
+const arData={
+  gravity:{
+    title:'كتاب يضغط على طاولة',
+    desc:'الكتاب يؤثر على الطاولة بثقله ↓ — الطاولة تؤثر على الكتاب بقوة دعامة ↑\nكلتا القوتين على نفس المنحى (رأسي)، متعاكستان، متساويتان في الشدة.',
+    color1:'#818cf8',color2:'#f87171',
+    label1:'F⃗(كتاب/طاولة) ↓',label2:'F⃗(طاولة/كتاب) ↑',
+    dir:1
+  },
+  magnet:{
+    title:'مغناطيسان يتجاذبان',
+    desc:'المغناطيس A يجذب B ← — المغناطيس B يجذب A →\nكلتا القوتين متساويتان في الشدة ومتعاكستان في الجهة.',
+    color1:'#f472b6',color2:'#a78bfa',
+    label1:'F⃗(A/B) →',label2:'F⃗(B/A) ←',
+    dir:0
+  },
+  rope:{
+    title:'حبل مشدود بين جسمَين',
+    desc:'الجسم A يشدّ الحبل → بقوة — الحبل يشدّ الجسم A ← بقوة مساوية.',
+    color1:'#34d399',color2:'#fbbf24',
+    label1:'F⃗(A/حبل) →',label2:'F⃗(حبل/A) ←',
+    dir:0
+  },
+  spring:{
+    title:'نابض مضغوط بين جسمَين',
+    desc:'النابض يدفع الجسم A ← — النابض يدفع الجسم B →\nقوتا الدفع متساويتان ومتعاكستان.',
+    color1:'#38bdf8',color2:'#fb923c',
+    label1:'← F⃗(نابض/A)',label2:'F⃗(نابض/B) →',
+    dir:0
+  }
+};
+let currentAR='gravity';
+
+function setAR(key){
+  currentAR=key;
+  document.querySelectorAll('#ar-btns .w-btn').forEach((b,i)=>{
+    b.classList.toggle('active',['gravity','magnet','rope','spring'][i]===key);
+  });
+  drawAR();
+}
+
+function drawAR(){
+  const canvas=document.getElementById('ar-canvas');
+  const wrap=canvas.parentElement;
+  canvas.width=wrap.clientWidth||600;
+  canvas.height=wrap.clientHeight||240;
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width, H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  const d=arData[currentAR];
+  const cx=W/2, cy=H/2;
+  const boxW=70, boxH=44;
+
+  // bodies
+  ctx.fillStyle='rgba(99,102,241,.2)';
+  ctx.strokeStyle=d.color1;
+  ctx.lineWidth=2;
+  ctx.beginPath();
+  ctx.roundRect(cx-200-boxW/2, cy-boxH/2, boxW, boxH, 8);
+  ctx.fill(); ctx.stroke();
+  ctx.fillStyle=d.color1;
+  ctx.font='bold 14px Cairo';
+  ctx.textAlign='center';
+  ctx.fillText('A', cx-200, cy+5);
+
+  ctx.fillStyle='rgba(239,68,68,.2)';
+  ctx.strokeStyle=d.color2;
+  ctx.lineWidth=2;
+  ctx.beginPath();
+  ctx.roundRect(cx+200-boxW/2, cy-boxH/2, boxW, boxH, 8);
+  ctx.fill(); ctx.stroke();
+  ctx.fillStyle=d.color2;
+  ctx.fillText('B', cx+200, cy+5);
+
+  // arrows
+  const arrLen=90;
+  function drawArrow(x1,y1,x2,y2,col,lbl,lblY){
+    ctx.beginPath();
+    ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+    ctx.strokeStyle=col; ctx.lineWidth=3; ctx.stroke();
+    const a=Math.atan2(y2-y1,x2-x1), hl=14, ha=0.4;
+    ctx.beginPath();
+    ctx.moveTo(x2,y2);
+    ctx.lineTo(x2-hl*Math.cos(a-ha),y2-hl*Math.sin(a-ha));
+    ctx.lineTo(x2-hl*Math.cos(a+ha),y2-hl*Math.sin(a+ha));
+    ctx.closePath(); ctx.fillStyle=col; ctx.fill();
+    ctx.fillStyle=col; ctx.font='11px Cairo'; ctx.textAlign='center';
+    ctx.fillText(lbl,(x1+x2)/2,lblY);
+  }
+
+  if(d.dir===0){ // horizontal
+    drawArrow(cx-200+boxW/2, cy, cx-200+boxW/2+arrLen, cy, d.color1, d.label1, cy-12);
+    drawArrow(cx+200-boxW/2, cy, cx+200-boxW/2-arrLen, cy, d.color2, d.label2, cy+22);
+  } else { // vertical
+    drawArrow(cx, cy+boxH/2, cx, cy+boxH/2+arrLen, d.color1, d.label1, cy+boxH/2+arrLen/2+8);
+    drawArrow(cx, cy-boxH/2, cx, cy-boxH/2-arrLen, d.color2, d.label2, cy-boxH/2-arrLen/2-6);
+    // draw horizontal bodies for gravity
+    ctx.fillStyle='rgba(99,102,241,.2)';
+    ctx.strokeStyle=d.color1;
+    ctx.lineWidth=2;
+    ctx.beginPath();
+    ctx.roundRect(cx-boxW/2-20, cy-boxH/2-10, boxW+40, boxH, 8);
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle=d.color1;
+    ctx.font='bold 12px Cairo';
+    ctx.textAlign='center';
+    ctx.fillText('كتاب', cx, cy+5);
+    // table
+    ctx.fillStyle='rgba(180,120,30,.2)';
+    ctx.strokeStyle='#b45309';
+    ctx.lineWidth=2;
+    ctx.beginPath();
+    ctx.roundRect(cx-80, cy+boxH/2+arrLen-10, 160, 18, 4);
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle='#fbbf24';
+    ctx.font='11px Cairo';
+    ctx.fillText('طاولة', cx, cy+boxH/2+arrLen+4);
+  }
+
+  // description
+  document.getElementById('ar-desc').innerHTML = '<strong style="color:var(--indigo)">'+d.title+':</strong><br>'+d.desc.replace(/\n/g,'<br>');
+}
+
+/* ── DYNAMOMETER ── */
+function setWeight(kg){
+  document.querySelectorAll('.weight-btns .w-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  const F = kg * 10; // P = mg
+  const maxF = 10;
+  const pct = Math.min(F/maxF, 1);
+
+  // needle top: at 0N → top=20px; at maxF → top=220px
+  const needleTop = 20 + pct*200;
+  document.getElementById('dyna-needle').style.top = needleTop+'px';
+  document.getElementById('dyna-display').textContent = 'F = '+F+' N';
+
+  // hook stretch
+  const hookShift = pct*30;
+  document.getElementById('dyna-hook-bot').style.transform = `translateX(-50%) translateY(${hookShift}px)`;
+
+  // result
+  const res = document.getElementById('dyna-result');
+  if(kg===0){
+    res.textContent='لا يوجد جسم — المؤشر عند الصفر';
+  } else {
+    res.innerHTML = `الكتلة: m = ${kg>=1?kg+'kg':kg*1000+'g'}&nbsp;&nbsp;|&nbsp;&nbsp;الثقل: P = m×g = ${kg}×10 = <strong style="color:var(--indigo)">${F} N</strong>`;
+  }
+}
+
+/* QUIZ */
+const feedbacks={
+  q1:{correct:'✅ صحيح! شعاع القوة يُحدّد بأربعة عناصر: نقطة التطبيق، المنحى، الجهة، والشدة.',
+      wrong:'❌ خطأ. شعاع القوة يُحدَّد بأربعة عناصر: نقطة التطبيق + المنحى + الجهة + الشدة.'},
+  q2:{correct:'✅ صحيح! طول الشعاع = F ÷ مقياس = 35 ÷ 10 = 3.5 cm',
+      wrong:'❌ خطأ. طول الشعاع = 35 N ÷ 10 N/cm = 3.5 cm'},
+  q3:{correct:'✅ صحيح! الفعلان المتبادلان: نفس المنحى + جهتان معاكستان + نفس الشدة. هذا هو قانون نيوتن الثالث.',
+      wrong:'❌ خطأ. الفعلان المتبادلان لهما: نفس المنحى، جهتان معاكستان، نفس الشدة.'},
+  q4:{correct:'✅ صحيح! P = m×g = 0.3 kg × 10 = 3 N. (300g = 0.3 kg)',
+      wrong:'❌ خطأ. P = m×g = 0.3 kg × 10 N/kg = 3 N. تذكر تحويل الغرامات للكيلوغرامات أولاً.'},
+  q5:{correct:'✅ صحيح! الديناموميتر يقيس شدة القوة بالنيوتن (N) وهو الجهاز المعتمد في الميكانيك.',
+      wrong:'❌ خطأ. الجهاز المستخدم لقياس شدة القوة هو الديناموميتر والوحدة هي النيوتن (N).'},
+};
+let answers={};
+function answer(btn,isCorrect,qId){
+  const opts=btn.closest('.q-card').querySelectorAll('.q-opt');
+  if([...opts].some(o=>o.classList.contains('answered'))) return;
+  opts.forEach(o=>o.classList.add('answered'));
+  btn.classList.add(isCorrect?'correct':'wrong');
+  btn.querySelector('span').textContent=isCorrect?'✓':'✗';
+  const fb=document.getElementById('fb-'+qId);
+  fb.textContent=isCorrect?feedbacks[qId].correct:feedbacks[qId].wrong;
+  fb.className='q-feedback '+(isCorrect?'correct':'wrong')+' show';
+  answers[qId]=isCorrect;
+}
+function submitQuiz(){
+  const score=Object.values(answers).filter(Boolean).length;
+  document.getElementById('score-num').textContent=score+'/5';
+  const msgs=['💪 راجع الدرس جيداً.','📖 حسن، راجع النقاط الخاطئة.','📖 جيد! أعد المراجعة.','👍 جيد جداً!','🌟 ممتاز! أتقنت الدرس!'];
+  document.getElementById('score-msg').textContent=msgs[score]||msgs[0];
+  const el=document.getElementById('quiz-score');
+  el.classList.add('show');
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+/* INIT */
+setTimeout(()=>{ drawVec(); drawAR(); },300);
+window.addEventListener('resize',()=>{
+  if(document.getElementById('tab-simulation').classList.contains('active')){drawVec();drawAR();}
+});
+</script>
+</body>
+</html>
